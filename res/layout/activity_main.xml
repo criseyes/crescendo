@@ -8,9 +8,58 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="92dp"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/main_view_status"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/main_plans_list"
+        android:layout_below="@+id/main_plans_list"
+        android:layout_marginTop="20dp"
+        android:text="@string/view_current_status" />
+
+    <Button
+        android:id="@+id/main_manage_settings"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/main_manage_widget"
+        android:layout_below="@+id/main_manage_widget"
+        android:layout_marginTop="20dp"
+        android:text="@string/manage_settings" />
+
+    <Button
+        android:id="@+id/main_plans_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:text="@string/manage_plan" />
+
+    <Button
+        android:id="@+id/main_friends_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/main_view_status"
+        android:layout_centerVertical="true"
+        android:text="@string/manage_friends_list" />
+
+    <Button
+        android:id="@+id/main_manage_widget"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/main_friends_list"
+        android:layout_below="@+id/main_friends_list"
+        android:layout_marginTop="20dp"
+        android:text="@string/manage_widget" />
 
 </RelativeLayout>
