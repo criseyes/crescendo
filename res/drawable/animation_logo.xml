@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list android:oneshot="false" xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:drawable="@drawable/crescendo1" android:duration="100"/>
+    <item android:drawable="@drawable/crescendo2" android:duration="100"/>
+    <item android:drawable="@drawable/crescendo3" android:duration="100"/>
+    <item android:drawable="@drawable/crescendo4" android:duration="100"/>
+    <item android:drawable="@drawable/crescendo5" android:duration="100"/>
+    <item android:drawable="@drawable/crescendo6" android:duration="100"/>
+    <item android:drawable="@drawable/crescendo7" android:duration="100"/>
+</animation-list>

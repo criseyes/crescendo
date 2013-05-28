@@ -30,6 +30,10 @@
             android:name="com.kaist.crescendo.activity.EntranceActivity"
             android:label="@string/str_title_welcome" >
         </activity>
+        <activity
+            android:name="com.kaist.crescendo.activity.IntroActivity"
+            android:label="@string/str_title_welcome" >
+        </activity>
     </application>
 
 </manifest>
