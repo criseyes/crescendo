@@ -27,10 +27,14 @@ public class MainActivity extends UpdateActivity {
 		boolean saved = prefs.getBoolean(KEY_SESSION, false);
 		if(saved == false)
 		{
-			//Intent intent = new Intent(this, IntroActivity.class );
+			
 			Intent intent = new Intent(this, EntranceActivity.class );
 			startActivityForResult(intent, REQUESTCODE_FOR_REGISTER);
 		}
+		
+		/* Call Intro Activity */
+		/* Moved */
+		//startActivity(new Intent(this, IntroActivity.class ));
 		
 	}
 	

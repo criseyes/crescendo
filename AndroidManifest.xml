@@ -16,11 +16,6 @@
         <activity
             android:name="com.kaist.crescendo.activity.MainActivity"
             android:label="@string/str_app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.kaist.crescendo.activity.PlansListActivity"
@@ -33,6 +28,11 @@
         <activity
             android:name="com.kaist.crescendo.activity.IntroActivity"
             android:label="@string/str_title_welcome" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
