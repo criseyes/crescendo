@@ -19,11 +19,11 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/editID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="enter your ID" >
+            android:hint="enter your ID (@email)" >
 
             <requestFocus />
         </EditText>
@@ -36,20 +36,20 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/editPW"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/str_login" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/button_ToRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

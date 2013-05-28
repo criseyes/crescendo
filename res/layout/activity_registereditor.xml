@@ -19,7 +19,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/editID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -36,7 +36,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/editPW"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -74,11 +74,11 @@
             android:inputType="date" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/button_ToRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="@string/str_save" />
+            android:text="@string/str_register" />
 
     </LinearLayout>
 
