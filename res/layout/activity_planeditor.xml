@@ -15,7 +15,7 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/planEditor_title"
+            android:text="@string/str_planEditor_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
@@ -32,7 +32,7 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/planEditor_startdate"
+            android:text="@string/str_planEditor_startdate"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
@@ -47,7 +47,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/planEditor_endDate"
+            android:text="@string/str_planEditor_endDate"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
@@ -62,7 +62,7 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/planEditor_repeatPeriod"
+            android:text="@string/str_planEditor_repeatPeriod"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout

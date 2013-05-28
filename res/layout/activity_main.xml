@@ -25,7 +25,7 @@
         android:layout_alignLeft="@+id/main_plans_list"
         android:layout_below="@+id/main_plans_list"
         android:layout_marginTop="20dp"
-        android:text="@string/view_current_status" />
+        android:text="@string/str_view_current_status" />
 
     <Button
         android:id="@+id/main_manage_settings"
@@ -34,7 +34,7 @@
         android:layout_alignLeft="@+id/main_manage_widget"
         android:layout_below="@+id/main_manage_widget"
         android:layout_marginTop="20dp"
-        android:text="@string/manage_settings" />
+        android:text="@string/str_manage_settings" />
 
     <Button
         android:id="@+id/main_plans_list"
@@ -43,7 +43,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="52dp"
-        android:text="@string/manage_plan" />
+        android:text="@string/str_manage_plan" />
 
     <Button
         android:id="@+id/main_friends_list"
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/main_view_status"
         android:layout_centerVertical="true"
-        android:text="@string/manage_friends_list" />
+        android:text="@string/str_manage_friends_list" />
 
     <Button
         android:id="@+id/main_manage_widget"
@@ -60,6 +60,6 @@
         android:layout_alignLeft="@+id/main_friends_list"
         android:layout_below="@+id/main_friends_list"
         android:layout_marginTop="20dp"
-        android:text="@string/manage_widget" />
+        android:text="@string/str_manage_widget" />
 
 </RelativeLayout>

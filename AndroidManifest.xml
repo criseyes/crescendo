@@ -11,11 +11,11 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:label="@string/str_app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.kaist.crescendo.MainActivity"
-            android:label="@string/app_name" >
+            android:name="com.kaist.crescendo.activity.MainActivity"
+            android:label="@string/str_app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,8 +23,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.kaist.crescendo.PlansListActivity"
-            android:label="@string/title_activity_plans_list" >
+            android:name="com.kaist.crescendo.activity.PlansListActivity"
+            android:label="@string/str_title_activity_plans_list" >
         </activity>
     </application>
 

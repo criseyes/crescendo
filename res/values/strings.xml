@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">crescendo</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="manage_plan">목표 관리</string>
-    <string name="view_current_status">현 상태 보기</string>
-    <string name="manage_friends_list">친구 관리</string>
-    <string name="manage_widget">위젯 관리</string>
-    <string name="manage_settings">환경 설정</string>
-    <string name="title_activity_plans_list">PlansListActivity</string>
-    <string name="planEditor_title">제목</string>
-    <string name="planEditor_startdate">시작일</string>
-    <string name="planEditor_endDate">완료일</string>
-    <string name="planEditor_repeatPeriod">반복주기</string>
+    <string name="str_app_name">crescendo</string>
+    <string name="str_action_settings">Settings</string>
+    <string name="str_manage_plan">목표 관리</string>
+    <string name="str_view_current_status">현 상태 보기</string>
+    <string name="str_manage_friends_list">친구 관리</string>
+    <string name="str_manage_widget">위젯 관리</string>
+    <string name="str_manage_settings">환경 설정</string>
+    <string name="str_title_activity_plans_list">PlansListActivity</string>
+    <string name="str_planEditor_title">제목</string>
+    <string name="str_planEditor_startdate">시작일</string>
+    <string name="str_planEditor_endDate">완료일</string>
+    <string name="str_planEditor_repeatPeriod">반복주기</string>
     <string name="str_monday">월</string>
     <string name="str_tuesday">화</string>
     <string name="str_wednesday">수</string>
