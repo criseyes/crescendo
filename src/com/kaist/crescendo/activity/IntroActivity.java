@@ -41,11 +41,10 @@ public class IntroActivity extends Activity {
 			else {
 				Intent intent = new Intent();
 				startActivity(intent.setClass(getApplicationContext(), MainActivity.class));
-				overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-				finish();
-				overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-				//overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_in_left);
 			}
+			finish();
+			//overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+			overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_in_left);
 		}
 	};
 	
