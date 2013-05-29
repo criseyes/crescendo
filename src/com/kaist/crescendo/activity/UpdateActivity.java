@@ -25,6 +25,8 @@ public class UpdateActivity extends Activity {
 		/*
 		 *  TODO call manager's method to login.
 		 */
+		// test
+		sessionId = "good";
 		return sessionId;
 	}
 	

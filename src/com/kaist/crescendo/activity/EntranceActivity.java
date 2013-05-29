@@ -75,6 +75,9 @@ public class EntranceActivity extends UpdateActivity {
 			if(result.length() > 1) /* TODO :: should re-check result status */
 			{ // login success.
 				saveSessionStatus(true);
+				Intent intent = new Intent();
+				startActivity(intent.setClass(getApplicationContext(), MainActivity.class));
+				finish();
 			}
 		}
 	}
