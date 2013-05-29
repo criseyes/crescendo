@@ -30,5 +30,6 @@
     <string name="str_login">로그인</string>
     <string name="str_title_welcome">환영합니다!</string>
     <string name="str_register">등록</string>
+    <string name="str_input_register_information">회원 가입에 필요한 정보를 입력해 주세요.</string>
 
 </resources>

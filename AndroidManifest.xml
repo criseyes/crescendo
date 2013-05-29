@@ -5,14 +5,14 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="17" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/str_app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@android:style/Theme.Holo" >
         <activity
             android:name="com.kaist.crescendo.activity.MainActivity"
             android:label="@string/str_app_name" >
@@ -24,6 +24,10 @@
          <activity
             android:name="com.kaist.crescendo.activity.EntranceActivity"
             android:label="@string/str_title_welcome" >
+        </activity>
+         <activity
+            android:name="com.kaist.crescendo.activity.RegisterEditorActivity"
+            android:label="@string/str_input_register_information" >
         </activity>
         <activity
             android:name="com.kaist.crescendo.activity.IntroActivity"

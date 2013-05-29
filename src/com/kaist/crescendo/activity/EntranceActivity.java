@@ -42,7 +42,6 @@ public class EntranceActivity extends UpdateActivity {
 	           			break;
 	           		case R.id.button_ToRegister:
 	           			/* Call Register Editor Activity */
-	           			//@TODO
 	           			Intent intent = new Intent();
 	           			startActivityForResult(intent.setClass(getApplicationContext(),
 	           					RegisterEditorActivity.class), MyStaticValue.REQUESTCODE_REGISTER);
