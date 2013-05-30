@@ -9,7 +9,7 @@ import com.kaist.crescendo.manager.UpdateManager;
 import com.kaist.crescendo.manager.UpdateManagerInterface;
 
 public class UpdateActivity extends Activity {
-	private final static UpdateManagerInterface mManager = new UpdateManager(); // singletone
+	private final static UpdateManagerInterface mManager = new UpdateManager(); // singleton
 	private Context mContext;
 	
 	public static UpdateManagerInterface getInstance() 
@@ -26,6 +26,7 @@ public class UpdateActivity extends Activity {
 		 *  TODO call manager's method to login.
 		 */
 		// test
+		mManager.login(mContext, id, pw);
 		sessionId = "good";
 		return sessionId;
 	}
@@ -36,6 +37,8 @@ public class UpdateActivity extends Activity {
 		/*
 		 *  TODO call manager's method to register
 		 */
+		
+		mManager.register(mContext, id+pw+phone+birth);
 		return result;
 	}
 
