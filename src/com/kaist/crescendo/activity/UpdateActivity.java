@@ -46,14 +46,14 @@ public class UpdateActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		mContext = getApplicationContext(); /* save context for each activity */
+		mContext = this; /* save context for each activity */
 	}
 	
 	@Override
 	public void finish() {
 		// override to show the animation effect
 		super.finish();
-		makeEffect();
+		//makeEffect();
 	}
 	
 	@Override
