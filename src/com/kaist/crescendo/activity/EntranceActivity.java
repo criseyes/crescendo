@@ -25,7 +25,7 @@ public class EntranceActivity extends UpdateActivity {
 	
 	/*  save latest session information */
 	private void saveSessionStatus(boolean status) {
-		SharedPreferences prefs = getSharedPreferences("PrefName", MODE_PRIVATE);
+		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putBoolean(MyPref.KEY_SESSION, status);
 		editor.commit();

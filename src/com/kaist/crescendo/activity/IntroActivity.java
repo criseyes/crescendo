@@ -31,7 +31,7 @@ public class IntroActivity extends Activity {
 		@Override
 		public void run() {
 			/* Call Register Activity when session is not established */
-			SharedPreferences prefs = getSharedPreferences("MyPref", MODE_PRIVATE);
+			SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
 			boolean saved = prefs.getBoolean(MyPref.KEY_SESSION, false);
 			if(saved == false)
 			{
