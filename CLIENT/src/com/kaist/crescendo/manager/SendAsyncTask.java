@@ -1,5 +1,7 @@
 package com.kaist.crescendo.manager;
 
+import org.json.JSONObject;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -15,7 +17,7 @@ public class SendAsyncTask extends AsyncTask<String, Integer, Boolean>{
 	@Override
 	protected void onPreExecute() {
 		dialog = new ProgressDialog(mContext);
-		dialog.setTitle("Interminate");
+		dialog.setTitle("Networking");
 		dialog.setMessage("Please wait while sending");
 		dialog.setIndeterminate(true);
 		dialog.setCancelable(true);
@@ -34,7 +36,7 @@ public class SendAsyncTask extends AsyncTask<String, Integer, Boolean>{
 		super.onPostExecute(result);
 	}
 
-	public void execute(int i) {
+	public void execute(JSONObject msg) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -42,10 +44,6 @@ public class SendAsyncTask extends AsyncTask<String, Integer, Boolean>{
 	@Override
 	protected Boolean doInBackground(String... arg0) {
 		// TODO Auto-generated method stub
-		long sum = 0;
-		for( int i = 0 ; i < 1000000; i++) {
-				sum = sum + i;
-		}
 		dialog.dismiss();
 		return null;
 	}

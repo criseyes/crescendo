@@ -18,9 +18,7 @@ public class UpdateActivity extends Activity {
 	}
 	
 	protected String login(String id, String pw)
-	{
-		
-		
+	{		
 		String sessionId = new String();
 		/*
 		 *  TODO call manager's method to login.
@@ -38,7 +36,7 @@ public class UpdateActivity extends Activity {
 		 *  TODO call manager's method to register
 		 */
 		
-		mManager.register(mContext, id+pw+phone+birth);
+		mManager.register(mContext, id, pw, phone, birth);
 		return result;
 	}
 

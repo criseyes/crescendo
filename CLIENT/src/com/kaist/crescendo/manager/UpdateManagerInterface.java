@@ -11,6 +11,6 @@ import android.content.Context;
  */
 public interface UpdateManagerInterface {
 	
-	public boolean register(Context context, String string);	
-	public boolean login(Context context, String Uid, String Pw);
+	public int register(Context context, String id, String pw, String phone, String birth);	
+	public int login(Context context, String id, String pw);
 }
