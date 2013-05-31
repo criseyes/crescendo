@@ -35,7 +35,7 @@ public class PlanEditorActivity extends UpdateActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
+				/* no need */
 			}
 		};
 		

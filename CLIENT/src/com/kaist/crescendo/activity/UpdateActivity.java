@@ -59,7 +59,7 @@ public class UpdateActivity extends Activity {
 		 *  TODO call manager's method to register
 		 */
 		
-		//mManager.addNewPlan(mContext, id, pw, phone, birth);
+		//mManager.getPlanList(mContext, id, pw, phone, birth);
 		return result;
 	}
 

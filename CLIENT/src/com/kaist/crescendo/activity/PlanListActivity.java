@@ -1,13 +1,17 @@
 package com.kaist.crescendo.activity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View.OnClickListener;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.ListView;
 
 import com.kaist.crescendo.R;
+import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.data.PlanListAdapter;
 import com.kaist.crescendo.utils.MyStaticValue;
 
@@ -46,8 +50,21 @@ public class PlanListActivity extends UpdateActivity {
 		 *  After get list, 
 		 */
 		getPlanList();
-		
 		adapter = new PlanListAdapter(this);
+		
+		/* 
+		 *  temp code 
+		 */
+		SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String date = Formatter.format(new Date());
+		
+		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test1", date, date);
+		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test2", date, date);
+		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test3", date, date);
+		adapter.addItem(plan);
+		adapter.addItem(plan1);
+		adapter.addItem(plan2);
+		
 		/* TODO ÀÌ°Å Áö±Ý ÇÏ¸é Á×À» ÅÙµ¥.. */
 		//adapter.setListItems(lit);
 		listView.setAdapter(adapter);
