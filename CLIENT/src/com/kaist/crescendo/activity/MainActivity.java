@@ -7,6 +7,7 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.kaist.crescendo.R;
+import com.kaist.crescendo.activity.UpdateActivity;
 
 public class MainActivity extends UpdateActivity {
 
@@ -16,7 +17,7 @@ public class MainActivity extends UpdateActivity {
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
-	}
+	} 
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
