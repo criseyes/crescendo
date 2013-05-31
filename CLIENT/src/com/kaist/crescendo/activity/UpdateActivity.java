@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.manager.UpdateManager;
 import com.kaist.crescendo.manager.UpdateManagerInterface;
 
@@ -37,6 +38,28 @@ public class UpdateActivity extends Activity {
 		 */
 		
 		mManager.register(mContext, id, pw, phone, birth);
+		return result;
+	}
+	
+	protected String addNewPlan(PlanData plan)
+	{
+		String result = new String();
+		/*
+		 *  TODO call manager's method to register
+		 */
+		
+		//mManager.addNewPlan(mContext, id, pw, phone, birth);
+		return result;
+	}
+	
+	protected String getPlanList()
+	{
+		String result = new String();
+		/*
+		 *  TODO call manager's method to register
+		 */
+		
+		//mManager.addNewPlan(mContext, id, pw, phone, birth);
 		return result;
 	}
 

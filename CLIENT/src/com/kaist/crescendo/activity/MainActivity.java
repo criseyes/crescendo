@@ -1,5 +1,6 @@
 package com.kaist.crescendo.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -31,9 +32,12 @@ public class MainActivity extends UpdateActivity {
 	{
 	      public void onClick(View v)
 	      {
+	    	  Intent intent = new Intent();
 	           switch (v.getId())
 	           {
 	           		case R.id.main_plans_list:
+	           			intent.setClass(getApplicationContext(), PlanListActivity.class);
+	           			startActivity(intent);
 	           			break;
 	           		case R.id.main_friends_list:
 	           			break;
@@ -46,8 +50,10 @@ public class MainActivity extends UpdateActivity {
 	           		default:
 	           			break;
 	           }
+	           
 	      }
 	};
+	
 	
 
 }

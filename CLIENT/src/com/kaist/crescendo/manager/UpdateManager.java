@@ -3,6 +3,8 @@ package com.kaist.crescendo.manager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.kaist.crescendo.data.PlanData;
+
 import android.content.Context;
 
 public class UpdateManager implements UpdateManagerInterface {
@@ -52,6 +54,12 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		new SendAsyncTask(context).execute(msg);
 		return result;
+	}
+
+	@Override
+	public int addNewPlan(PlanData plan) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }
