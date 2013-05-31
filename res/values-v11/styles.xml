@@ -9,6 +9,6 @@
     </style>
 		<style name="MyAppTheme" parent="@android:style/Theme.Holo" >
 		
-		<item name="android:windowBackground">@drawable/backgroud_black</item>
+		<item name="android:windowBackground">@drawable/blackwallpaper_bamboo</item>
 	</style>
 </resources>
