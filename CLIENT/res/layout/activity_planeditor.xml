@@ -19,8 +19,12 @@
             android:text="@string/str_planEditor_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
+ 
+
+      
+
         <EditText
-            android:id="@+id/editID"
+            android:id="@+id/editTile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -30,7 +34,7 @@
         </EditText>
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/editStartDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_vertical_margin"
@@ -38,7 +42,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:id="@+id/editPW"
+            android:id="@+id/editEndDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -74,68 +78,79 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal" >
 
-            <Button
+
+                   
+            <ToggleButton
                 android:id="@+id/button_mon"
-                style="?android:attr/buttonStyleSmall"
+                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:minWidth="30dip"
-                android:text="@string/str_monday" />
+                
+                android:minWidth="35dip"
+                android:textOn="@string/str_monday"
+                android:textOff="@string/str_monday" />
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_thus"
-                style="?android:attr/buttonStyleSmall"
+                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="30dip"
-                android:enabled="false"
-                android:text="@string/str_tuesday" />
+                android:minWidth="35dip"
+                
+                android:textOn="@string/str_tuesday" 
+                android:textOff="@string/str_tuesday"/>
 
-            <Button
+
+
+            <ToggleButton
                 android:id="@+id/button_wed"
-                style="?android:attr/buttonStyleSmall"
+                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="30dip"
-                android:enabled="false"
-                android:text="@string/str_wednesday" />
+                android:minWidth="35dip"
+                
+                android:textOn="@string/str_wednesday"
+                android:textOff="@string/str_wednesday" />
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_thur"
-                style="?android:attr/buttonStyleSmall"
+                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="30dip"
-                android:enabled="false"
-                android:text="@string/str_thursday" />
+                android:minWidth="35dip"
+                
+                android:textOn="@string/str_thursday"
+                android:textOff="@string/str_thursday" />
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_fri"
-                style="?android:attr/buttonStyleSmall"
+                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="30dip"
-                android:enabled="false"
-                android:text="@string/str_friday" />
+                android:minWidth="35dip"
+                
+                android:textOn="@string/str_friday"
+                android:textOff="@string/str_friday" />
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_sat"
-                style="?android:attr/buttonStyleSmall"
+                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="30dip"
-                android:enabled="false"
-                android:text="@string/str_saturday" />
+                
+                android:minWidth="35dip"
+                android:textOn="@string/str_saturday"
+                android:textOff="@string/str_saturday" />
 
-            <Button
+            <ToggleButton
                 android:id="@+id/button_sun"
-                style="?android:attr/buttonStyleSmall"
+                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="30dip"
-                android:enabled="false"
-                android:text="@string/str_sunday" />
+                
+                android:minWidth="35dip"
+                android:textOn="@string/str_sunday"
+                android:textOff="@string/str_sunday" />
 
         </LinearLayout>
 
@@ -144,6 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:layout_margin="@dimen/activity_vertical_margin"
             android:text="@string/str_save" />
 
     </LinearLayout>

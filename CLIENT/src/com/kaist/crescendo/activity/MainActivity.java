@@ -18,6 +18,8 @@ public class MainActivity extends UpdateActivity {
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		
+		findViewById(R.id.main_plans_list).setOnClickListener(mClickListener);
 	} 
 	
 	@Override
@@ -37,7 +39,6 @@ public class MainActivity extends UpdateActivity {
 	           {
 	           		case R.id.main_plans_list:
 	           			intent.setClass(getApplicationContext(), PlanListActivity.class);
-	           			startActivity(intent);
 	           			break;
 	           		case R.id.main_friends_list:
 	           			break;
@@ -50,7 +51,7 @@ public class MainActivity extends UpdateActivity {
 	           		default:
 	           			break;
 	           }
-	           
+	           startActivity(intent);
 	      }
 	};
 	

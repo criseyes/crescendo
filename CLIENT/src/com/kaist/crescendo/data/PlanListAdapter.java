@@ -21,7 +21,7 @@ public class PlanListAdapter extends BaseAdapter {
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return null;
+		return mItems.get(position);
 	}
 	
 	public void setListItems(List<PlanData> lit) {

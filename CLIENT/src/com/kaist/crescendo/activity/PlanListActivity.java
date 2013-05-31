@@ -30,8 +30,10 @@ public class PlanListActivity extends UpdateActivity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				// ADD NEW PLAN
 				Intent intent = new Intent();
+				intent.putExtra(MyStaticValue.MODE, MyStaticValue.MODE_NEW);
+				
 				startActivityForResult(intent.setClass(getApplicationContext(), PlanEditorActivity.class), MyStaticValue.REQUESTCODE_ADDNEWPLAN);
 			}
 		};
@@ -46,7 +48,7 @@ public class PlanListActivity extends UpdateActivity {
 		getPlanList();
 		
 		adapter = new PlanListAdapter(this);
-		/* 이거 지금 하면 죽을 텐데.. */
+		/* TODO 이거 지금 하면 죽을 텐데.. */
 		//adapter.setListItems(lit);
 		listView.setAdapter(adapter);
 	}
