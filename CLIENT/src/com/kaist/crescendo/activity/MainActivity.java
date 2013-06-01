@@ -1,5 +1,6 @@
 package com.kaist.crescendo.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -17,6 +18,8 @@ public class MainActivity extends UpdateActivity {
 		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
+		
+		findViewById(R.id.main_plans_list).setOnClickListener(mClickListener);
 	} 
 	
 	@Override
@@ -31,9 +34,11 @@ public class MainActivity extends UpdateActivity {
 	{
 	      public void onClick(View v)
 	      {
+	    	  Intent intent = new Intent();
 	           switch (v.getId())
 	           {
 	           		case R.id.main_plans_list:
+	           			intent.setClass(getApplicationContext(), PlanListActivity.class);
 	           			break;
 	           		case R.id.main_friends_list:
 	           			break;
@@ -46,8 +51,10 @@ public class MainActivity extends UpdateActivity {
 	           		default:
 	           			break;
 	           }
+	           startActivity(intent);
 	      }
 	};
+	
 	
 
 }

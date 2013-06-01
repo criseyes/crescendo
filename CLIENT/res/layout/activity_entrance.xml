@@ -19,14 +19,12 @@
             android:text="@string/str_ID"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <EditText
+       <EditText
             android:id="@+id/editID"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="enter your ID (@email)" >
-
-            <requestFocus />
         </EditText>
 
         <TextView

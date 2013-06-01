@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ProgressDialog;
+import com.kaist.crescendo.data.PlanData;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -107,6 +108,12 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;
+	}
+	
+	@Override
+	public int addNewPlan(PlanData plan) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 	public class SendAsyncTask extends AsyncTask<JSONObject, Integer, Integer>{

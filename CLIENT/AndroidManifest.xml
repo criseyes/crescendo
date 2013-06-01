@@ -33,6 +33,14 @@
             android:label="@string/str_input_register_information" >
         </activity>
         <activity
+            android:name="com.kaist.crescendo.activity.PlanListActivity"
+            android:label="@string/str_input_register_information" >
+        </activity>
+        <activity
+            android:name="com.kaist.crescendo.activity.PlanEditorActivity"
+            android:label="@string/str_input_register_information" >
+        </activity>
+        <activity
             android:name="com.kaist.crescendo.activity.IntroActivity"
             android:label="@string/str_app_name" >
             <intent-filter>
