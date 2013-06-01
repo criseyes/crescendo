@@ -72,7 +72,8 @@ public class EntranceActivity extends UpdateActivity {
 		if(isOK == true)
 		{
 			String result = login(id.getText().toString(), pw.getText().toString());
-			if(result.length() > 1) /* TODO :: should re-check result status */
+			//if(result.length() > 1) /* TODO :: should re-check result status */
+			if(result == "good")
 			{ // login success.
 				saveSessionStatus(true);
 				Intent intent = new Intent();

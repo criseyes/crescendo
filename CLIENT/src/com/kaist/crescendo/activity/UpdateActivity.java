@@ -20,23 +20,32 @@ public class UpdateActivity extends Activity {
 	protected String login(String id, String pw)
 	{		
 		String sessionId = new String();
+		int ret = -1;
+		sessionId = "bad";
 		/*
 		 *  TODO call manager's method to login.
 		 */
 		// test
-		mManager.login(mContext, id, pw);
-		sessionId = "good";
+		ret = mManager.login(mContext, id, pw);
+		if(ret == 0) {
+			sessionId = "good";
+		}
 		return sessionId;
 	}
 	
 	protected String register(String id, String pw, String phone, String birth)
 	{
 		String result = new String();
+		int ret = -1;
+		result = "bad";
 		/*
 		 *  TODO call manager's method to register
 		 */
 		
-		mManager.register(mContext, id, pw, phone, birth);
+		ret = mManager.register(mContext, id, pw, phone, birth);
+		if(ret == 0) {
+			result = "good";
+		}
 		return result;
 	}
 

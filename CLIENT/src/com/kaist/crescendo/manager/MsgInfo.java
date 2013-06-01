@@ -8,10 +8,14 @@ public class MsgInfo {
 	final static int MSG_RECEIVE_VALUE = 2;
 	
 	final static int STATUS_OK = 0;
+	final static int STATUS_DUPLICATED_USERID = 0x0001;
+	final static int STATUS_UNREGISTERED_USERID = 0x0003;
+	final static int STATUS_INVALID_PASSWORD = 0x0005;
 	
 	final static String MSGID_LABEL = "msgId";
 	final static String MSGDIR_LABEL = "msgDir"; // send or receive
 	final static String MSGLEN_LABLE = "msgLen";
+	final static String STATUS_LABEL = "status";
 	
 	final static String USERID_LABEL = "userId";
 	final static String PASSWORD_LABEL = "passWord";
