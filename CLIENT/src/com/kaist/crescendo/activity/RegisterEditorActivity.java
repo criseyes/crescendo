@@ -67,10 +67,11 @@ public class RegisterEditorActivity extends UpdateActivity {
 		if(isOK == true)
 		{
 			String result = register(id.getText().toString(), pw.getText().toString(), ph.getText().toString(), bi.getText().toString());
-//			if(result.length() > 1) /* TODO :: should re-check result status */
-//			{ // login success.
-//				saveSessionStatus(true);
-//			}
+			if(result.equals("good")) /* TODO :: should re-check result status */
+			{ 
+				//saveSessionStatus(true);
+				finish();
+			}
 		}
 	}
 }

@@ -16,6 +16,9 @@ public class UpdateManager implements UpdateManagerInterface {
 	
 	private void showToastPopup(int result) {
 		switch(result) {
+		case MsgInfo.STATUS_OK:
+			Toast.makeText(mContext, "Success!!!", Toast.LENGTH_LONG).show();
+			break;
 		case MsgInfo.STATUS_DUPLICATED_USERID:
 			Toast.makeText(mContext, "your id is duplicated, please register using another id", Toast.LENGTH_LONG).show();
 			break;
