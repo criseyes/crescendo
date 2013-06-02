@@ -23,8 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="input ID" >
-
+            android:hint="enter ID" >
             <requestFocus />
         </EditText>
 
@@ -55,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="010-1234-5678"
+            android:hint="01012345678"
             android:inputType="phone" />
 
         <TextView
@@ -70,8 +69,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="1995/04/21"
-            android:inputType="date" />
+            android:clickable="true"
+            android:editable="false" />
 
         <Button
             android:id="@+id/button_ToRegister"

@@ -1,21 +1,81 @@
 package com.kaist.crescendo.activity;
 
-import android.R.drawable;
+import java.text.DateFormat;
+import java.util.Calendar;
+
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kaist.crescendo.R;
-import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.utils.MyStaticValue;
 
 public class PlanEditorActivity extends UpdateActivity {
 	
 	private int mode;
+	Calendar startCalendar = Calendar.getInstance();
+	Calendar endCalendar = Calendar.getInstance();
+	
+	EditText startDay;
+	EditText endDay;
+	
+	DatePickerDialog.OnDateSetListener startDateSetListener = new DatePickerDialog.OnDateSetListener() {
+		
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			startCalendar.set(year, monthOfYear, dayOfMonth);
+			startDay.setText(DateFormat.getDateInstance().format(startCalendar.getTime()));
+		}
+	};
+	
+	DatePickerDialog.OnDateSetListener endDateSetListener = new DatePickerDialog.OnDateSetListener() {
+		
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			endCalendar.set(year, monthOfYear, dayOfMonth);
+			endDay.setText(DateFormat.getDateInstance().format(endCalendar.getTime()));
+		}
+	};
+
+	OnClickListener mSelectDayOfWeek = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			
+			/* no need */
+		}
+	};
+	
+	OnClickListener mClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			verifyAndSave();
+			
+		}
+	};
+	
+	OnClickListener mStartDayListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			new DatePickerDialog(PlanEditorActivity.this, startDateSetListener, startCalendar.get(Calendar.YEAR), startCalendar.get(Calendar.MONTH), startCalendar.get(Calendar.DAY_OF_MONTH)).show();
+		}
+	};
+	
+	OnClickListener mEndDayListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			new DatePickerDialog(PlanEditorActivity.this, endDateSetListener, endCalendar.get(Calendar.YEAR), endCalendar.get(Calendar.MONTH), endCalendar.get(Calendar.DAY_OF_MONTH)).show();
+		}
+	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,44 +84,44 @@ public class PlanEditorActivity extends UpdateActivity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_planeditor);
 		
+		startDay = (EditText) findViewById(R.id.editStartDate);
+		endDay = (EditText) findViewById(R.id.editEndDate);
+		
 		mode = getIntent().getExtras().getInt(MyStaticValue.MODE);
+		
 		if(mode != MyStaticValue.MODE_NEW) /* user want to update existing plan */
 		{
-			// Fill data for each field.
+			// TODO Fill data for each field.
+			
+//			startCalendar.set(year, monthOfYear, dayOfMonth);
+//			startDay.setText(DateFormat.getDateInstance().format(startCalendar.getTime()));
+//			
+//			endCalendar.set(year, monthOfYear, dayOfMonth);
+//			endDay.setText(DateFormat.getDateInstance().format(endCalendar.getTime()));
 		}
+		else {  /* Add new plan */
+			/* calendar goes to be now */
+			startCalendar.set(startCalendar.get(Calendar.YEAR),startCalendar.get(Calendar.MONTH), startCalendar.get(Calendar.DAY_OF_MONTH));
+			startDay.setText(DateFormat.getDateInstance().format(startCalendar.getTime()));
 		
-		OnClickListener mSelectDayOfWeek = new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				/* no need */
-			}
-		};
-		
-		OnClickListener mClickListener = new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				/*
-				 *  TODO Call add New Plan
-				 */
-				//PlanData plan = new PlanData(type, title, start, end);
-				verifyAndSave();
+			/* to next year */
+			endCalendar.set(endCalendar.get(Calendar.YEAR)+1,endCalendar.get(Calendar.MONTH), endCalendar.get(Calendar.DAY_OF_MONTH));
+			endDay.setText(DateFormat.getDateInstance().format(endCalendar.getTime()));
+		}
 				
-			}
-		};
+		findViewById(R.id.editStartDate).setOnClickListener(mStartDayListener);
+		findViewById(R.id.editEndDate).setOnClickListener(mEndDayListener);
 		
 		findViewById(R.id.planeditor_save).setOnClickListener(mClickListener);
 		
-		findViewById(R.id.button_thus).setOnClickListener(mSelectDayOfWeek);
+		findViewById(R.id.button_mon).setOnClickListener(mSelectDayOfWeek);
+		findViewById(R.id.button_tues).setOnClickListener(mSelectDayOfWeek);
 		findViewById(R.id.button_wed).setOnClickListener(mSelectDayOfWeek);
 		findViewById(R.id.button_thur).setOnClickListener(mSelectDayOfWeek);
 		findViewById(R.id.button_fri).setOnClickListener(mSelectDayOfWeek);
 		findViewById(R.id.button_sat).setOnClickListener(mSelectDayOfWeek);
 		findViewById(R.id.button_sun).setOnClickListener(mSelectDayOfWeek);
-		findViewById(R.id.button_mon).setOnClickListener(mSelectDayOfWeek);
+
 	}
 	
 	private void complete()
@@ -74,6 +134,28 @@ public class PlanEditorActivity extends UpdateActivity {
 		this.setResult(RESULT_OK, intent); 
 		this.finish();
 		
+	}
+	
+	private int getAlarmDayOfWeek()	{
+		
+		int dayOfWeek = 0;
+		
+		if(findViewById(R.id.button_mon).isSelected())
+			dayOfWeek += MyStaticValue.MONDAY;
+		if(findViewById(R.id.button_tues).isSelected())
+			dayOfWeek += MyStaticValue.TUESDAY;
+		if(findViewById(R.id.button_wed).isSelected())
+			dayOfWeek += MyStaticValue.WEDNESDAY;
+		if(findViewById(R.id.button_thur).isSelected())
+			dayOfWeek += MyStaticValue.THURSDAY;
+		if(findViewById(R.id.button_fri).isSelected())
+			dayOfWeek += MyStaticValue.FRIDAY;
+		if(findViewById(R.id.button_sat).isSelected())
+			dayOfWeek += MyStaticValue.SATURDAY;
+		if(findViewById(R.id.button_sun).isSelected())
+			dayOfWeek += MyStaticValue.SUNDAY;
+		
+		return dayOfWeek;
 	}
 	
 	protected void verifyAndSave() {
@@ -98,6 +180,8 @@ public class PlanEditorActivity extends UpdateActivity {
 			isOK = false;
 			Toast.makeText(this, "Please Input valid start date", Toast.LENGTH_LONG).show();
 		}
+		
+		int dayOfWeek = getAlarmDayOfWeek();
 			
 		if(isOK == true)
 		{
@@ -114,4 +198,5 @@ public class PlanEditorActivity extends UpdateActivity {
 			}
 		}
 	}
+	
 }

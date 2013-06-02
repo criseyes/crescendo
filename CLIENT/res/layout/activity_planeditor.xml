@@ -19,10 +19,6 @@
             android:text="@string/str_planEditor_title"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
- 
-
-      
-
         <EditText
             android:id="@+id/editTile"
             android:layout_width="match_parent"
@@ -34,7 +30,7 @@
         </EditText>
 
         <TextView
-            android:id="@+id/editStartDate"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/activity_vertical_margin"
@@ -42,12 +38,12 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:id="@+id/editEndDate"
+            android:id="@+id/editStartDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="2010/01/01"
-            android:inputType="date" />
+   			android:clickable="true"
+   			android:editable="false"
+            android:ems="10"  />
 
         <TextView
             android:id="@+id/textView3"
@@ -58,12 +54,12 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:id="@+id/editPhoneNumber"
+            android:id="@+id/editEndDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="2010/12/31"
-            android:inputType="date" />
+            android:editable="false"
+            android:clickable="true" />
 
         <TextView
             android:id="@+id/textView4"
@@ -91,7 +87,7 @@
                 android:textOff="@string/str_monday" />
 
             <ToggleButton
-                android:id="@+id/button_thus"
+                android:id="@+id/button_tues"
                 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
