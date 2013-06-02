@@ -30,6 +30,7 @@ public class EntranceActivity extends UpdateActivity {
 		editor.putBoolean(MyPref.KEY_SESSION, status);
 		editor.commit();
 	}
+	
 	/* handling buttons */
 	Button.OnClickListener mClickListener = new View.OnClickListener()
 	{
@@ -81,5 +82,29 @@ public class EntranceActivity extends UpdateActivity {
 				finish();
 			}
 		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		switch(requestCode){
+		case MyStaticValue.REQUESTCODE_REGISTER: 
+			if(resultCode == RESULT_OK){ 
+				boolean result = data.getExtras().getBoolean(MyStaticValue.RESULT_REGISTER);
+				
+				if(result == true) 
+				{
+					((EditText) findViewById(R.id.editID)).setText(data.getStringExtra(MyStaticValue.RESULT_ID));
+					((EditText) findViewById(R.id.editPW)).setText(data.getStringExtra(MyStaticValue.RESULT_PW));
+					
+				}
+				else {
+					((EditText) findViewById(R.id.editID)).setText("");
+					((EditText) findViewById(R.id.editPW)).setText("");
+				}
+			}
+	}
+		
 	}
 }

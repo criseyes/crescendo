@@ -102,9 +102,23 @@ public class RegisterEditorActivity extends UpdateActivity {
 			String result = register(id.getText().toString(), pw.getText().toString(), ph.getText().toString(), bi.getText().toString());
 			if(result.equals("good")) /* TODO :: should re-check result status */
 			{ 
-				//saveSessionStatus(true);
-				finish();
+				complete(id.getText().toString(), pw.getText().toString());
 			}
 		}
+	}
+	
+	private void complete(String id, String pw)
+	{
+		Intent intent = new Intent();
+		/*
+		 *  TODO if failed, you should insert "false" not "true"
+		 */
+		intent.putExtra(MyStaticValue.RESULT_REGISTER, true);
+		intent.putExtra(MyStaticValue.RESULT_ID, id);
+		intent.putExtra(MyStaticValue.RESULT_PW, pw);
+		
+		this.setResult(RESULT_OK, intent); 
+		this.finish();
+		
 	}
 }

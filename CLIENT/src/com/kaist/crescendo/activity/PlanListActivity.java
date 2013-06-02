@@ -72,7 +72,7 @@ public class PlanListActivity extends UpdateActivity {
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		switch(requestCode){

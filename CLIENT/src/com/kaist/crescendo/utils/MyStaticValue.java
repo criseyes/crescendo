@@ -4,6 +4,7 @@ public class MyStaticValue {
 	
 	/* MODE number */
 	public static final String MODE = "MODE";
+	
 	public static final int MODE_UPDATE = 0;
 	public static final int MODE_NEW = 1;
 	
@@ -19,6 +20,12 @@ public class MyStaticValue {
 	/* REQ codes, between activities */
 	public static final int REQUESTCODE_REGISTER = 1000;
 	public static final int REQUESTCODE_ADDNEWPLAN = 1001;
+	
+	/* String value, between activities */
+	
+	public static final String RESULT_REGISTER = "ResultToRegister";
+	public static final String RESULT_ID = "NewID";
+	public static final String RESULT_PW = "NewPW";
 	
 	/* 
 	 *  PLAN types, it's started by 10001.
