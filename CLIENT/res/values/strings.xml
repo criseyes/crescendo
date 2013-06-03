@@ -30,6 +30,17 @@
     <string name="str_login">로그인</string>
     <string name="str_title_welcome">환영합니다!</string>
     <string name="str_register">등록</string>
+    <string name="str_add_new_friend">새로운 친구 추가</string>
     <string name="str_input_register_information">회원 가입에 필요한 정보를 입력해 주세요.</string>
+    <string name="str_managing_plans">등록한 목표를 관리합니다.</string>
+    <string name="str_addnewplan">새로운 목표를 등록합니다.</string>
+    <string name="str_modify_plan">목표를 수정합니다.</string>
+    <string name="str_add_newfriend">관심 목록에 추가할 친구를 선택합니다.</string>
+    <string name="str_managing_friend">관심 친구 목록을 관리합니다.</string>
+    <string name="str_settings_widget">위젯 표시</string>
+    <string name="str_settings_alarm">알림 효과</string>
+    <string name="str_settings_change_pw">비밀번호 변경</string>
+    <string name="str_settings_help">도움말</string>
+    <string name="str_settings_title">환경을 설정합니다.</string>
 
 </resources>

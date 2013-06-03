@@ -26,6 +26,7 @@ public class MyStaticValue {
 	public static final String RESULT_REGISTER = "ResultToRegister";
 	public static final String RESULT_ID = "NewID";
 	public static final String RESULT_PW = "NewPW";
+	public static final String RESULT_PHONE = "PhoneNo";
 	
 	/* 
 	 *  PLAN types, it's started by 10001.

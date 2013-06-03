@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_margin="20dp"
+    android:divider="#ffffff"
+    android:dividerHeight="2dp"
+    android:orientation="vertical"
+    android:showDividers="beginning|middle|end" >
+
+	   <Switch
+	       android:id="@+id/settings_setwidget"
+	       android:layout_width="match_parent"
+	       android:layout_height="wrap_content"
+	       android:layout_margin="@dimen/activity_vertical_margin"
+	       android:text="@string/str_settings_widget"
+	       android:textAppearance="?android:attr/textAppearanceLarge"
+	       tools:targetApi="14" />
+	
+	    <Switch
+	        android:id="@+id/settings_setalarm"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_margin="@dimen/activity_vertical_margin"
+	        android:text="@string/str_settings_alarm"
+	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        tools:targetApi="14" />
+	
+	
+	
+	
+	<Button
+	    android:id="@+id/setttings_changepw"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="@dimen/activity_vertical_margin"
+	    android:background="@android:color/transparent"
+	    android:text="@string/str_settings_change_pw"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	<Button
+	    android:id="@+id/settings_help"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="@dimen/activity_vertical_margin"
+	    android:background="@android:color/transparent"
+	    android:text="@string/str_settings_help"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+
+</LinearLayout>

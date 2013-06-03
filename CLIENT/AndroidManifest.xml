@@ -5,16 +5,17 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="14"
         android:targetSdkVersion="17" />
     
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
  
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/str_app_name"
+        android:label="@string/str_app_name" 
         android:theme="@style/MyAppTheme" >
         <activity
             android:name="com.kaist.crescendo.activity.MainActivity"
@@ -38,6 +39,18 @@
         </activity>
         <activity
             android:name="com.kaist.crescendo.activity.PlanEditorActivity"
+            android:label="@string/str_input_register_information" >
+        </activity>
+        <activity
+            android:name="com.kaist.crescendo.activity.FriendsListActivity"
+            android:label="@string/str_input_register_information" >
+        </activity>
+        <activity
+            android:name="com.kaist.crescendo.activity.CandidateListActivity"
+            android:label="@string/str_input_register_information" >
+        </activity>
+        <activity
+            android:name="com.kaist.crescendo.activity.SettingsActivity"
             android:label="@string/str_input_register_information" >
         </activity>
         <activity

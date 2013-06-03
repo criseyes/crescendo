@@ -3,19 +3,20 @@ package com.kaist.crescendo.activity;
 import java.text.DateFormat;
 import java.util.Calendar;
 
-import com.kaist.crescendo.R;
-import com.kaist.crescendo.utils.MyStaticValue;
-
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.kaist.crescendo.R;
+import com.kaist.crescendo.utils.MyStaticValue;
 
 public class RegisterEditorActivity extends UpdateActivity {
 	
@@ -54,6 +55,18 @@ public class RegisterEditorActivity extends UpdateActivity {
 		birthDay = (EditText) findViewById(R.id.editBirthday);
 		birthDay.setOnClickListener(mBirthDayListener);
 		birthDay.setText(DateFormat.getDateInstance().format(calendar.getTime()));
+		
+		/* Get phone number, it's unique id */
+		TelephonyManager systemService = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        String PhoneNumber = systemService.getLine1Number(); 
+        PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
+        PhoneNumber="0"+PhoneNumber;
+        Toast.makeText(getApplicationContext(),PhoneNumber, Toast.LENGTH_SHORT).show();
+        
+        /* Phone Number is not editable */
+        ((EditText) findViewById(R.id.editPhoneNumber)).setText(PhoneNumber.toString());
+        ((EditText) findViewById(R.id.editPhoneNumber)).setEnabled(false);
+        
 	}
 	
 	/* handling buttons */
@@ -102,12 +115,12 @@ public class RegisterEditorActivity extends UpdateActivity {
 			String result = register(id.getText().toString(), pw.getText().toString(), ph.getText().toString(), bi.getText().toString());
 			if(result.equals("good")) /* TODO :: should re-check result status */
 			{ 
-				complete(id.getText().toString(), pw.getText().toString());
+				complete(id.getText().toString(), pw.getText().toString(), ph.getText().toString());
 			}
 		}
 	}
 	
-	private void complete(String id, String pw)
+	private void complete(String id, String pw, String ph)
 	{
 		Intent intent = new Intent();
 		/*
@@ -116,6 +129,8 @@ public class RegisterEditorActivity extends UpdateActivity {
 		intent.putExtra(MyStaticValue.RESULT_REGISTER, true);
 		intent.putExtra(MyStaticValue.RESULT_ID, id);
 		intent.putExtra(MyStaticValue.RESULT_PW, pw);
+		intent.putExtra(MyStaticValue.RESULT_PHONE, ph);
+		
 		
 		this.setResult(RESULT_OK, intent); 
 		this.finish();

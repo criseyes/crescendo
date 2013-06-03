@@ -1,13 +1,16 @@
 package com.kaist.crescendo.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telephony.TelephonyManager;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.utils.MyPref;
@@ -33,6 +36,17 @@ public class IntroActivity extends Activity {
 			/* Call Register Activity when session is not established */
 			SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
 			boolean saved = prefs.getBoolean(MyPref.KEY_SESSION, false);
+			String saved_phone = prefs.getString(MyPref.KEY_PHONE, "0");
+			
+			/* Get phone number, it's unique id */
+			TelephonyManager systemService = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+	        String PhoneNumber = systemService.getLine1Number(); 
+	        PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
+	        PhoneNumber="0"+PhoneNumber;
+	        
+	        if(saved_phone.equals(PhoneNumber) == false) /* if SIM is changed, it'll be required new session */
+	        	saved = false;
+			
 			if(saved == false)
 			{
 				Intent intent = new Intent();

@@ -7,17 +7,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.ListView;
 
 import com.kaist.crescendo.R;
+import com.kaist.crescendo.data.FriendData;
+import com.kaist.crescendo.data.FriendListAdapter;
 import com.kaist.crescendo.data.PlanData;
-import com.kaist.crescendo.data.PlanListAdapter;
 import com.kaist.crescendo.utils.MyStaticValue;
 
-public class PlanListActivity extends UpdateActivity {
+public class FriendsListActivity extends UpdateActivity {
 	
-	private PlanListAdapter adapter;
+	private FriendListAdapter adapter;
 	private ListView listView;
 	
 	@Override
@@ -25,8 +25,8 @@ public class PlanListActivity extends UpdateActivity {
 		super.onCreate(savedInstanceState);
 		
 		//requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_planslist);
-		setTitle(R.string.str_managing_plans);
+		setContentView(R.layout.activity_friendlist);
+		setTitle(R.string.str_managing_friend);
 		
 		
 		listView = (ListView) findViewById(R.id.plans_list);
@@ -40,7 +40,7 @@ public class PlanListActivity extends UpdateActivity {
 				Intent intent = new Intent();
 				intent.putExtra(MyStaticValue.MODE, MyStaticValue.MODE_NEW);
 				
-				startActivityForResult(intent.setClass(getApplicationContext(), PlanEditorActivity.class), MyStaticValue.REQUESTCODE_ADDNEWPLAN);
+				startActivityForResult(intent.setClass(getApplicationContext(), CandidateListActivity.class), MyStaticValue.REQUESTCODE_ADDNEWPLAN);
 			}
 		};
 		
@@ -52,20 +52,24 @@ public class PlanListActivity extends UpdateActivity {
 		 *  After get list, 
 		 */
 		getPlanList();
-		adapter = new PlanListAdapter(this);
+		adapter = new FriendListAdapter(this);
 		
 		/* 
 		 *  temp code 
+		 *  TODO remove below codes.
 		 */
 		SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String date = Formatter.format(new Date());
 		
-		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test1", date, date);
-		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test2", date, date);
-		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test3", date, date);
-		adapter.addItem(plan);
-		adapter.addItem(plan1);
-		adapter.addItem(plan2);
+		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", date, date);
+		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", date, date);
+		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", date, date);
+		FriendData f1 = new FriendData("huiseo@gmail.com", "01022846035", plan, false);
+		FriendData f2 = new FriendData("kimtaehee@gmail.com", "01000050125", plan1, false);
+		FriendData f3 = new FriendData("songhyegyo@gmail.com", "01012348521", plan2 , false);
+		adapter.addItem(f1);
+		adapter.addItem(f2);
+		adapter.addItem(f3);
 		
 		/* TODO ÀÌ°Å Áö±Ý ÇÏ¸é Á×À» ÅÙµ¥.. */
 		//adapter.setListItems(lit);

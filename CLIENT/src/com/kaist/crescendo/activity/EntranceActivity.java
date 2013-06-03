@@ -74,6 +74,7 @@ public class EntranceActivity extends UpdateActivity {
 		{
 			String result = login(id.getText().toString(), pw.getText().toString());
 			//if(result.length() > 1) /* TODO :: should re-check result status */
+			
 			if(result == "good")
 			{ // login success.
 				saveSessionStatus(true);
@@ -97,6 +98,12 @@ public class EntranceActivity extends UpdateActivity {
 				{
 					((EditText) findViewById(R.id.editID)).setText(data.getStringExtra(MyStaticValue.RESULT_ID));
 					((EditText) findViewById(R.id.editPW)).setText(data.getStringExtra(MyStaticValue.RESULT_PW));
+					
+					/* save phone information to preference */
+					SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+					SharedPreferences.Editor editor = prefs.edit();
+					editor.putString(MyPref.KEY_PHONE, data.getStringExtra(MyStaticValue.RESULT_PHONE));
+					editor.commit();
 					
 				}
 				else {

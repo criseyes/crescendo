@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -81,8 +80,9 @@ public class PlanEditorActivity extends UpdateActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		//requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_planeditor);
+		
 		
 		startDay = (EditText) findViewById(R.id.editStartDate);
 		endDay = (EditText) findViewById(R.id.editEndDate);
@@ -91,6 +91,7 @@ public class PlanEditorActivity extends UpdateActivity {
 		
 		if(mode != MyStaticValue.MODE_NEW) /* user want to update existing plan */
 		{
+			setTitle(R.string.str_modify_plan);
 			// TODO Fill data for each field.
 			
 //			startCalendar.set(year, monthOfYear, dayOfMonth);
@@ -100,6 +101,7 @@ public class PlanEditorActivity extends UpdateActivity {
 //			endDay.setText(DateFormat.getDateInstance().format(endCalendar.getTime()));
 		}
 		else {  /* Add new plan */
+			setTitle(R.string.str_addnewplan);
 			/* calendar goes to be now */
 			startCalendar.set(startCalendar.get(Calendar.YEAR),startCalendar.get(Calendar.MONTH), startCalendar.get(Calendar.DAY_OF_MONTH));
 			startDay.setText(DateFormat.getDateInstance().format(startCalendar.getTime()));

@@ -20,6 +20,8 @@ public class MainActivity extends UpdateActivity {
 		setContentView(R.layout.activity_main);
 		
 		findViewById(R.id.main_plans_list).setOnClickListener(mClickListener);
+		findViewById(R.id.main_friends_list).setOnClickListener(mClickListener);
+		findViewById(R.id.main_manage_settings).setOnClickListener(mClickListener);
 	} 
 	
 	@Override
@@ -41,8 +43,10 @@ public class MainActivity extends UpdateActivity {
 	           			intent.setClass(getApplicationContext(), PlanListActivity.class);
 	           			break;
 	           		case R.id.main_friends_list:
+	           			intent.setClass(getApplicationContext(), FriendsListActivity.class);
 	           			break;
 	           		case R.id.main_manage_settings:
+	           			intent.setClass(getApplicationContext(), SettingsActivity.class);
 	           			break;
 	           		case R.id.main_manage_widget:
 	           			break;
