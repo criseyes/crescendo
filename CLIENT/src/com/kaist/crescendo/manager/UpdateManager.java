@@ -1,14 +1,19 @@
 package com.kaist.crescendo.manager;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.app.ProgressDialog;
-import com.kaist.crescendo.data.PlanData;
-import com.kaist.crescendo.data.UserData;
 
+import com.kaist.crescendo.R;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
+
+import com.kaist.crescendo.data.HistoryData;
+import com.kaist.crescendo.data.PlanData;
+import com.kaist.crescendo.data.UserData;
+import com.kaist.crescendo.utils.MyStaticValue;
 
 public class UpdateManager implements UpdateManagerInterface {
 	private int asyncTaskResult;
@@ -18,16 +23,16 @@ public class UpdateManager implements UpdateManagerInterface {
 	private void showToastPopup(int result) {
 		switch(result) {
 		case MsgInfo.STATUS_OK:
-			Toast.makeText(mContext, "Success!!!", Toast.LENGTH_LONG).show();
+			Toast.makeText(mContext, mContext.getString(R.string.str_success), Toast.LENGTH_LONG).show();
 			break;
 		case MsgInfo.STATUS_DUPLICATED_USERID:
-			Toast.makeText(mContext, "your id is duplicated, please register using another id", Toast.LENGTH_LONG).show();
+			Toast.makeText(mContext, mContext.getString(R.string.str_duplicated_user), Toast.LENGTH_LONG).show();
 			break;
 		case MsgInfo.STATUS_INVALID_PASSWORD:
-			Toast.makeText(mContext, "Please Input valid passowrd!", Toast.LENGTH_LONG).show();
+			Toast.makeText(mContext, mContext.getString(R.string.str_invalid_password), Toast.LENGTH_LONG).show();
 			break;
 		case MsgInfo.STATUS_UNREGISTERED_USERID:
-			Toast.makeText(mContext, "Unregisted id, Please register your id!", Toast.LENGTH_LONG).show();
+			Toast.makeText(mContext, mContext.getString(R.string.str_unresigered_user), Toast.LENGTH_LONG).show();
 			break;
 		default:
 				break;
@@ -37,7 +42,7 @@ public class UpdateManager implements UpdateManagerInterface {
 	private void makeMsgHeader(JSONObject msg, int msgId) {
 		try {
 			msg.put(MsgInfo.MSGID_LABEL, msgId);
-			msg.put(MsgInfo.MSGUID, null);
+			msg.put(MsgInfo.MSGUID, MyStaticValue.myId);
 			msg.put(MsgInfo.MSGDIR_LABEL, MsgInfo.MSG_SEND_VALUE);
 			msg.put(MsgInfo.MSGLEN_LABLE, 0);
 			msg.put(MsgInfo.MSGRET_LABEL, MsgInfo.STATUS_OK);
@@ -51,6 +56,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		int msgId = 0;
 		UserData uData = null;
 		PlanData pData = null;
+		JSONArray HisArray = null;
 		
 		JSONObject temp_body = new JSONObject();
 		
@@ -94,6 +100,22 @@ public class UpdateManager implements UpdateManagerInterface {
 				temp_body.put(MsgInfo.PLAN_DAYOFWEEK_LABEL, pData.dayOfWeek);
 				temp_body.put(MsgInfo.PLAN_SDATE_LABEL, pData.start);
 				temp_body.put(MsgInfo.PLAN_EDATE_LABEL, pData.end);
+				
+				if(pData.hItem.size() != 0) {
+					HisArray = new JSONArray();
+				}
+				
+				for(int i = 0 ; i < pData.hItem.size() ; i++) {
+					//add plan history data using JSONArray
+					JSONObject hData = new JSONObject();
+					hData.put(MsgInfo.PLAN_HISDATE_LABEL, ((HistoryData)pData.hItem.get(i)).Date);
+					hData.put(MsgInfo.PLAN_HISVAL_LABEL, ((HistoryData)pData.hItem.get(i)).value);
+					HisArray.put(i, hData);
+				}
+				
+				if(HisArray != null) {
+					temp_body.put(MsgInfo.PLAN_HISTORY_LABEL, HisArray);
+				}
 				
 				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
 			} catch (Exception e) {
