@@ -8,5 +8,5 @@ public class MsgData {
 	public int msgLen;
 	public int msgRet;
 	
-	public JSONObject msgBody;
+	public Object msgBody;
 }

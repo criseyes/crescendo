@@ -16,7 +16,7 @@ import com.kaist.crescendo.data.UserData;
 import com.kaist.crescendo.utils.MyStaticValue;
 
 public class UpdateManager implements UpdateManagerInterface {
-	private int asyncTaskResult;
+	private String asyncTaskResult;
 	private int asyncTaskState;
 	private Context mContext;
 	
@@ -132,6 +132,7 @@ public class UpdateManager implements UpdateManagerInterface {
 	public int register(Context context, UserData uData) {
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
+		JSONObject revMsg = null;
 		
 		mContext = context;
 		
@@ -149,7 +150,13 @@ public class UpdateManager implements UpdateManagerInterface {
 				e.printStackTrace();
 			}
 		}
-		result = asyncTaskResult;
+		
+		try {
+			revMsg = new JSONObject(asyncTaskResult);
+			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 		showToastPopup(result);
 		
@@ -159,6 +166,7 @@ public class UpdateManager implements UpdateManagerInterface {
 	public int login(Context context, UserData uData) {
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
+		JSONObject revMsg = null;
 		
 		mContext = context;
 		
@@ -177,7 +185,13 @@ public class UpdateManager implements UpdateManagerInterface {
 				break;
 			}
 		}
-		result = asyncTaskResult;
+		
+		try {
+			revMsg = new JSONObject(asyncTaskResult);
+			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 		showToastPopup(result);
 		
@@ -188,6 +202,7 @@ public class UpdateManager implements UpdateManagerInterface {
 	public int addNewPlan(Context context, PlanData plan) {
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
+		JSONObject revMsg = null;
 		
 		mContext = context;
 		
@@ -206,7 +221,13 @@ public class UpdateManager implements UpdateManagerInterface {
 				break;
 			}
 		}
-		result = asyncTaskResult;
+		
+		try {
+			revMsg = new JSONObject(asyncTaskResult);
+			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 		showToastPopup(result);
 		
@@ -215,8 +236,6 @@ public class UpdateManager implements UpdateManagerInterface {
 	
 	public class SendAsyncTask extends AsyncTask<JSONObject, Integer, Integer>{
 		private ProgressDialog dialog;
-		private int msgId;
-		private JSONObject jsonObject;
 		
 		@Override
 		protected void onPreExecute() {
@@ -243,88 +262,15 @@ public class UpdateManager implements UpdateManagerInterface {
 
 		@Override
 		protected Integer doInBackground(JSONObject... params) {
+			ComManager manager  = new ComManager();
 			int result = MsgInfo.STATUS_OK;
-			String userId = null;
-			String passWord = null;
 			
-			try {
-				msgId = params[0].getInt(MsgInfo.MSGID_LABEL);
-				jsonObject = params[0];
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			// test code started here
-			if(msgId == MsgInfo.REGISTER_ID) {
-				FileEmulator fileEmul = new FileEmulator();
-				boolean existFlag = false;
-				JSONObject uData = null;
-				
-				try {
-					uData = (JSONObject) jsonObject.get(MsgInfo.MSGBODY_LABEL);
-					userId = uData.getString(MsgInfo.USERID_LABEL);
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
-				
-				existFlag = fileEmul.checkFileExist(userId);
-				if(existFlag) {
-					result = MsgInfo.STATUS_DUPLICATED_USERID;
-				} else {
-					fileEmul.parseJONtoString(userId, jsonObject);
-				}
-				
-			} else if(msgId == MsgInfo.LOGIN_ID) {
-				FileEmulator fileEmul = new FileEmulator();
-				boolean existFlag = false;
-				JSONObject uData = null;
-				JSONObject RevData;
-				JSONObject revJsonObj = null;
-				
-				try {
-					uData = (JSONObject) jsonObject.get(MsgInfo.MSGBODY_LABEL);
-					userId = uData.getString(MsgInfo.USERID_LABEL);
-					passWord = uData.getString(MsgInfo.PASSWORD_LABEL);
-				} catch (Exception e) {
-					// TODO: handle exception
-				}
-				
-				existFlag = fileEmul.checkFileExist(userId);
-				if(existFlag) {
-					String jsonString = "";
-					
-					jsonString = fileEmul.readJSON(userId);
-					
-					try {
-						revJsonObj = new JSONObject(jsonString);
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					try {
-						RevData = (JSONObject) revJsonObj.get(MsgInfo.MSGBODY_LABEL);
-						if(passWord.equals(RevData.get(MsgInfo.PASSWORD_LABEL)) == false) {
-							result = MsgInfo.STATUS_INVALID_PASSWORD;
-						}
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-				} else {
-					result = MsgInfo.STATUS_UNREGISTERED_USERID;
-				}
-			}
-			// test code ended here
+			asyncTaskResult = manager.ProcessMsg(params[0]);
 			
 			dialog.dismiss();
 			
 			asyncTaskState = 0;
-			asyncTaskResult = result;
 			
-			//return result from here to postExecute()
 			return result;
 		}
 	}
