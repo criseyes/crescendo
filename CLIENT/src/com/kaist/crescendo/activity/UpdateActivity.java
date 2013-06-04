@@ -3,12 +3,14 @@ package com.kaist.crescendo.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.data.UserData;
 import com.kaist.crescendo.manager.UpdateManager;
 import com.kaist.crescendo.manager.UpdateManagerInterface;
+import com.kaist.crescendo.utils.MyPref;
 
 public class UpdateActivity extends Activity {
 	private final static UpdateManagerInterface mManager = new UpdateManager(); // singleton
@@ -123,5 +125,12 @@ public class UpdateActivity extends Activity {
 	{
 		//overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 		overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_in_left);
+	}
+	
+	protected String getMyID()
+	{
+		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+		String myId = prefs.getString(MyPref.KEY_MYID, "");
+		return myId;
 	}
 }

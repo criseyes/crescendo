@@ -69,13 +69,6 @@ public class PlanListActivity extends UpdateActivity {
 			intent.putExtra(MyStaticValue.NUMBER, index);
 			
 			startActivityForResult(intent.setClass(getApplicationContext(), PlanEditorActivity.class), MyStaticValue.REQUESTCODE_UPDATEPLAN);
-			
-			if(result == true)
-			{
-				/* 
-				 * TODO should update list.
-				 */
-			}
 			return true;
 		}
 		return super.onContextItemSelected(item);

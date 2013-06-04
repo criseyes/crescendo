@@ -105,6 +105,8 @@ public class EntranceActivity extends UpdateActivity {
 					editor.putString(MyPref.KEY_PHONE, data.getStringExtra(MyStaticValue.RESULT_PHONE));
 					editor.commit();
 					
+					editor.putString(MyPref.KEY_MYID, data.getStringExtra(MyStaticValue.RESULT_ID));
+					editor.commit();
 				}
 				else {
 					((EditText) findViewById(R.id.editID)).setText("");
