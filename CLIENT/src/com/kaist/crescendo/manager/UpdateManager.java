@@ -2,9 +2,12 @@ package com.kaist.crescendo.manager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.UserDataHandler;
 
 import android.app.ProgressDialog;
 import com.kaist.crescendo.data.PlanData;
+import com.kaist.crescendo.data.UserData;
+
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -37,14 +40,23 @@ public class UpdateManager implements UpdateManagerInterface {
 		try {
 			msg.put(MsgInfo.MSGID_LABEL, msgId);
 			msg.put(MsgInfo.MSGDIR_LABEL, MsgInfo.MSG_SEND_VALUE);
-			msg.put(MsgInfo.STATUS_LABEL, MsgInfo.STATUS_OK);
+			msg.put(MsgInfo.MSGLEN_LABLE, 0);
+			msg.put(MsgInfo.MSGRET_LABEL, MsgInfo.STATUS_OK);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 	}
 	
-	public int register(Context context, String id, String pw, String phone, String birth) {
+	private void makeMsgBody(JSONObject msg, Object body) {
+		try {
+			msg.put(MsgInfo.MSGBODY_LABEL, body);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	public int register(Context context, UserData uData) {
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		
@@ -52,15 +64,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		makeMsgHeader(msg, MsgInfo.REGISTER_ID);
 		
-		try {
-			msg.put(MsgInfo.USERID_LABEL, id);
-			msg.put(MsgInfo.PASSWORD_LABEL, pw);
-			msg.put(MsgInfo.PHONENUM_LABLE, phone);
-			msg.put(MsgInfo.BIRTHDAY_LABEL, birth);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		makeMsgBody(msg, uData);
 		
 		new SendAsyncTask().execute(msg);
 		
@@ -79,21 +83,15 @@ public class UpdateManager implements UpdateManagerInterface {
 		return result;
 	}
 	
-	public int login(Context context, String id, String pw) {
+	public int login(Context context, UserData uData) {
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		
 		mContext = context;
 		
 		makeMsgHeader(msg, MsgInfo.LOGIN_ID);
-				
-		try {
-			msg.put(MsgInfo.USERID_LABEL, id);
-			msg.put(MsgInfo.PASSWORD_LABEL, pw);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		makeMsgBody(msg, uData);
 		
 		new SendAsyncTask().execute(msg);
 		
@@ -122,8 +120,6 @@ public class UpdateManager implements UpdateManagerInterface {
 	public class SendAsyncTask extends AsyncTask<JSONObject, Integer, Integer>{
 		private ProgressDialog dialog;
 		private int msgId;
-		private String userId;
-		private String passWord;
 		private JSONObject jsonObject;
 		
 		@Override
@@ -155,34 +151,48 @@ public class UpdateManager implements UpdateManagerInterface {
 			
 			try {
 				msgId = params[0].getInt(MsgInfo.MSGID_LABEL);
-				userId = params[0].getString(MsgInfo.USERID_LABEL);
-				passWord = params[0].getString(MsgInfo.PASSWORD_LABEL);
 				jsonObject = params[0];
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			// test code started here
 			if(msgId == MsgInfo.REGISTER_ID) {
 				FileEmulator fileEmul = new FileEmulator();
 				boolean existFlag = false;
+				UserData uData = null;
 				
-				existFlag = fileEmul.checkFileExist(userId);
+				try {
+					uData = (UserData) jsonObject.get(MsgInfo.MSGBODY_LABEL);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
+				existFlag = fileEmul.checkFileExist(uData.id);
 				if(existFlag) {
 					result = MsgInfo.STATUS_DUPLICATED_USERID;
 				} else {
-					fileEmul.parseJONtoString(jsonObject);
+					fileEmul.parseJONtoString(uData.id, jsonObject);
 				}
 				
 			} else if(msgId == MsgInfo.LOGIN_ID) {
 				FileEmulator fileEmul = new FileEmulator();
 				boolean existFlag = false;
+				UserData uData = null;
+				UserData RevData;
 				
-				existFlag = fileEmul.checkFileExist(userId);
+				try {
+					uData = (UserData) jsonObject.get(MsgInfo.MSGBODY_LABEL);
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
+				existFlag = fileEmul.checkFileExist(uData.id);
 				if(existFlag) {
 					String jsonString = "";
 					
-					jsonString = fileEmul.readJSON(userId);
+					jsonString = fileEmul.readJSON(uData.id);
 					
 					try {
 						jsonObject = new JSONObject(jsonString);
@@ -192,7 +202,8 @@ public class UpdateManager implements UpdateManagerInterface {
 					}
 					
 					try {
-						if(passWord.equals(jsonObject.getString(MsgInfo.PASSWORD_LABEL)) == false) {
+						RevData = (UserData) jsonObject.get(MsgInfo.MSGBODY_LABEL);
+						if(uData.password.equals(RevData.password) == false) {
 							result = MsgInfo.STATUS_INVALID_PASSWORD;
 						}
 					} catch (JSONException e) {

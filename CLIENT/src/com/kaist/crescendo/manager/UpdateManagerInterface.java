@@ -6,6 +6,7 @@ package com.kaist.crescendo.manager;
 import android.content.Context;
 
 import com.kaist.crescendo.data.PlanData;
+import com.kaist.crescendo.data.UserData;
 
 /**
  * @author S525
@@ -13,7 +14,7 @@ import com.kaist.crescendo.data.PlanData;
  */
 public interface UpdateManagerInterface {
 	
-	public int register(Context context, String id, String pw, String phone, String birth);	
-	public int login(Context context, String id, String pw);
+	public int register(Context context, UserData uData);
+	public int login(Context context, UserData uData);
 	public int addNewPlan(PlanData plan);
 }
