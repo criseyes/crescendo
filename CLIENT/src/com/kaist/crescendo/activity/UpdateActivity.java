@@ -61,6 +61,24 @@ public class UpdateActivity extends Activity {
 		return result;
 	}
 	
+	protected boolean deletePlan(int uid)
+	{
+		String result = new String();
+		/*
+		 * TODO call manager's method to delete a plan
+		 */
+		return true;
+	}
+	
+	protected boolean updatePlan(int uid)
+	{
+		String result = new String();
+		/*
+		 * TODO call manager's method to update a plan
+		 */
+		return true;
+	}
+	
 	protected String getPlanList()
 	{
 		String result = new String();

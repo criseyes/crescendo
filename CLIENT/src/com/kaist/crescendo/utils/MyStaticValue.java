@@ -4,6 +4,7 @@ public class MyStaticValue {
 	
 	/* MODE number */
 	public static final String MODE = "MODE";
+	public static final String NUMBER = "NUMBER";
 	
 	public static final int MODE_UPDATE = 0;
 	public static final int MODE_NEW = 1;
@@ -20,6 +21,7 @@ public class MyStaticValue {
 	/* REQ codes, between activities */
 	public static final int REQUESTCODE_REGISTER = 1000;
 	public static final int REQUESTCODE_ADDNEWPLAN = 1001;
+	public static final int REQUESTCODE_UPDATEPLAN = 1002;
 	
 	/* String value, between activities */
 	

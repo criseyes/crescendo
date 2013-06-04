@@ -13,11 +13,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kaist.crescendo.R;
+import com.kaist.crescendo.data.PlanData;
+import com.kaist.crescendo.data.PlanListAdapter;
 import com.kaist.crescendo.utils.MyStaticValue;
 
 public class PlanEditorActivity extends UpdateActivity {
 	
 	private int mode;
+	private int index;
 	Calendar startCalendar = Calendar.getInstance();
 	Calendar endCalendar = Calendar.getInstance();
 	
@@ -94,11 +97,14 @@ public class PlanEditorActivity extends UpdateActivity {
 			setTitle(R.string.str_modify_plan);
 			// TODO Fill data for each field.
 			
-//			startCalendar.set(year, monthOfYear, dayOfMonth);
-//			startDay.setText(DateFormat.getDateInstance().format(startCalendar.getTime()));
-//			
-//			endCalendar.set(year, monthOfYear, dayOfMonth);
-//			endDay.setText(DateFormat.getDateInstance().format(endCalendar.getTime()));
+			index = getIntent().getExtras().getInt(MyStaticValue.NUMBER);
+			PlanListAdapter adapter = PlanListActivity.getAdapterInstance();
+			PlanData plan = (PlanData) adapter.getItem(index);
+			startDay.setText(plan.start);
+			endDay.setText(plan.end);
+			((EditText) findViewById(R.id.editTile)).setText(plan.title);
+			setAlarmDayOfWeek(plan.dayOfWeek);
+			
 		}
 		else {  /* Add new plan */
 			setTitle(R.string.str_addnewplan);
@@ -158,6 +164,24 @@ public class PlanEditorActivity extends UpdateActivity {
 			dayOfWeek += MyStaticValue.SUNDAY;
 		
 		return dayOfWeek;
+	}
+	
+	private void setAlarmDayOfWeek(int dayOfWeek)	{
+
+		if((dayOfWeek & MyStaticValue.MONDAY) > 0)
+			findViewById(R.id.button_mon).setSelected(true);
+		if((dayOfWeek & MyStaticValue.TUESDAY) > 0)
+			findViewById(R.id.button_tues).setSelected(true);
+		if((dayOfWeek & MyStaticValue.WEDNESDAY) > 0)
+			findViewById(R.id.button_wed).setSelected(true);
+		if((dayOfWeek & MyStaticValue.THURSDAY) > 0)
+			findViewById(R.id.button_thur).setSelected(true);
+		if((dayOfWeek & MyStaticValue.FRIDAY) > 0)
+			findViewById(R.id.button_fri).setSelected(true);
+		if((dayOfWeek & MyStaticValue.SATURDAY) > 0)
+			findViewById(R.id.button_sat).setSelected(true);
+		if((dayOfWeek & MyStaticValue.SUNDAY) > 0)
+			findViewById(R.id.button_sun).setSelected(true);
 	}
 	
 	protected void verifyAndSave() {
