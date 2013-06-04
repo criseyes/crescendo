@@ -16,5 +16,5 @@ public interface UpdateManagerInterface {
 	
 	public int register(Context context, UserData uData);
 	public int login(Context context, UserData uData);
-	public int addNewPlan(PlanData plan);
+	public int addNewPlan(Context context, PlanData plan);
 }

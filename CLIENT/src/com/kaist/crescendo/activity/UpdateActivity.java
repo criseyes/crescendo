@@ -56,11 +56,15 @@ public class UpdateActivity extends Activity {
 	protected String addNewPlan(PlanData plan)
 	{
 		String result = new String();
+		int ret = -1;
 		/*
 		 *  TODO call manager's method to register
 		 */
 		
-		//mManager.addNewPlan(mContext, id, pw, phone, birth);
+		ret = mManager.addNewPlan(mContext, plan);
+		if(ret == 0) {
+			result = "good";
+		}
 		return result;
 	}
 	
