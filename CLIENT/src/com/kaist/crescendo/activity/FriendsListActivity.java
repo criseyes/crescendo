@@ -61,9 +61,9 @@ public class FriendsListActivity extends UpdateActivity {
 		SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String date = Formatter.format(new Date());
 		
-		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", date, date);
-		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", date, date);
-		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", date, date);
+		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", date, date, 0);
+		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", date, date, 0);
+		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", date, date, MyStaticValue.FRIDAY);
 		FriendData f1 = new FriendData("huiseo@gmail.com", "01022846035", plan, false);
 		FriendData f2 = new FriendData("kimtaehee@gmail.com", "01000050125", plan1, false);
 		FriendData f3 = new FriendData("songhyegyo@gmail.com", "01012348521", plan2 , false);

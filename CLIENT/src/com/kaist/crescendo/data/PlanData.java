@@ -8,6 +8,7 @@ public class PlanData {
 
 	public int uId; /* unique ID, from server */
 	public int type; 
+	public int dayOfWeek;
 	public String title;
 	public String start; /* should be YYYY-MM-DD */
 	public String end; /* should be YYYY-MM-DD */
@@ -15,23 +16,25 @@ public class PlanData {
 	
 	private static final int not_registerd_uId = -1;
 	
-	public PlanData(int type, String title, String start, String end, int uId) {
+	public PlanData(int type, String title, String start, String end, int dayOfWeek, int uId) {
 		super();
 		this.type = type;
 		this.title = title;
 		this.start = start;
 		this.end = end;
 		this.uId = uId;
+		this.dayOfWeek = dayOfWeek;
 		this.hItem = new ArrayList<HistoryData>();
 	}	
 	
-	public PlanData(int type, String title, String start, String end) {
+	public PlanData(int type, String title, String start, String end, int dayOfWeek) {
 		super();
 		this.type = type;
 		this.title = title;
 		this.start = start;
 		this.end = end;
 		this.uId = not_registerd_uId;
+		this.dayOfWeek = dayOfWeek;
 		
 		this.hItem = new ArrayList<HistoryData>();
 	}
