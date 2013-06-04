@@ -78,6 +78,13 @@ public class EntranceActivity extends UpdateActivity {
 			if(result == "good")
 			{ // login success.
 				saveSessionStatus(true);
+				
+				/* saved last login id */
+				SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+				SharedPreferences.Editor editor = prefs.edit();
+				editor.putString(MyPref.KEY_MYID, id.getText().toString());
+				editor.commit();
+				
 				Intent intent = new Intent();
 				startActivity(intent.setClass(getApplicationContext(), MainActivity.class));
 				finish();
@@ -104,7 +111,6 @@ public class EntranceActivity extends UpdateActivity {
 					SharedPreferences.Editor editor = prefs.edit();
 					editor.putString(MyPref.KEY_PHONE, data.getStringExtra(MyStaticValue.RESULT_PHONE));
 					editor.commit();
-					
 				}
 				else {
 					((EditText) findViewById(R.id.editID)).setText("");

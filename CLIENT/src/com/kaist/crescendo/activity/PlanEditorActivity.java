@@ -23,6 +23,7 @@ public class PlanEditorActivity extends UpdateActivity {
 	private int index;
 	Calendar startCalendar = Calendar.getInstance();
 	Calendar endCalendar = Calendar.getInstance();
+	PlanData plan;
 	
 	EditText startDay;
 	EditText endDay;
@@ -99,7 +100,7 @@ public class PlanEditorActivity extends UpdateActivity {
 			
 			index = getIntent().getExtras().getInt(MyStaticValue.NUMBER);
 			PlanListAdapter adapter = PlanListActivity.getAdapterInstance();
-			PlanData plan = (PlanData) adapter.getItem(index);
+			plan = (PlanData) adapter.getItem(index);
 			startDay.setText(plan.start);
 			endDay.setText(plan.end);
 			((EditText) findViewById(R.id.editTile)).setText(plan.title);
@@ -213,14 +214,23 @@ public class PlanEditorActivity extends UpdateActivity {
 		{
 			if(mode == MyStaticValue.MODE_NEW)
 			{
-				/* 
-				 * TODO addNewPlan
+				PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, title.getText().toString(), start.getText().toString(), end.getText().toString(), dayOfWeek);
+				addNewPlan(plan);
+				/*
+				 *  TODO should check returned value 
 				 */
+				complete();
 			}
 			else {
-				/* 
-				 *  TODO updatePlan
+				plan.title = title.getText().toString();
+				plan.start = start.getText().toString();
+				plan.end = end.getText().toString();
+				plan.dayOfWeek = dayOfWeek;
+				updatePlan(plan);
+				/*
+				 *  TODO should check returned value 
 				 */
+				complete();
 			}
 		}
 	}

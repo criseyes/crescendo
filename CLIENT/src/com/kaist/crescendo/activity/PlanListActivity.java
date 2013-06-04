@@ -45,7 +45,7 @@ public class PlanListActivity extends UpdateActivity {
 		AdapterView.AdapterContextMenuInfo menuInfo;
 		menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 		int index = 0;
-		boolean result;
+		boolean result = false;
 		
 		switch(item.getItemId())
 		{
@@ -62,20 +62,13 @@ public class PlanListActivity extends UpdateActivity {
 			return true;
 		case UPDATE_ID:
 			index = menuInfo.position;
-			result = updatePlan(((PlanData) adapter.getItem(index)).uId);
+			//result = updatePlan(((PlanData) adapter.getItem(index)).uId);
 			// ADD NEW PLAN
 			Intent intent = new Intent();
 			intent.putExtra(MyStaticValue.MODE, MyStaticValue.MODE_UPDATE);
 			intent.putExtra(MyStaticValue.NUMBER, index);
 			
 			startActivityForResult(intent.setClass(getApplicationContext(), PlanEditorActivity.class), MyStaticValue.REQUESTCODE_UPDATEPLAN);
-			
-			if(result == true)
-			{
-				/* 
-				 * TODO should update list.
-				 */
-			}
 			return true;
 		}
 		return super.onContextItemSelected(item);
