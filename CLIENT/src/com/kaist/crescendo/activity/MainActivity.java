@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.activity.UpdateActivity;
+import com.kaist.crescendo.utils.MyStaticValue;
 
 public class MainActivity extends UpdateActivity {
 
@@ -22,6 +23,8 @@ public class MainActivity extends UpdateActivity {
 		findViewById(R.id.main_plans_list).setOnClickListener(mClickListener);
 		findViewById(R.id.main_friends_list).setOnClickListener(mClickListener);
 		findViewById(R.id.main_manage_settings).setOnClickListener(mClickListener);
+		
+		MyStaticValue.myId = getMyID();
 	} 
 	
 	@Override

@@ -29,6 +29,7 @@ public class MyStaticValue {
 	public static final String RESULT_ID = "NewID";
 	public static final String RESULT_PW = "NewPW";
 	public static final String RESULT_PHONE = "PhoneNo";
+	public static String myId;
 	
 	/* 
 	 *  PLAN types, it's started by 10001.
