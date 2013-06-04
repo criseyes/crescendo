@@ -27,4 +27,9 @@ public class MsgInfo {
 	final static String MSGRET_LABEL = "msgRet"; // result from sever about previous request
 	
 	final static String MSGBODY_LABEL = "msgBody";
+	
+	final static String USERID_LABEL = "userId";
+	final static String PASSWORD_LABEL = "passWord";
+	final static String PHONENUM_LABEL = "phoneNum";
+	final static String BIRTHDAY_LABEL = "birthDay";
 }

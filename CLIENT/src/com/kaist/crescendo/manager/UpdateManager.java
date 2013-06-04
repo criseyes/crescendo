@@ -2,8 +2,6 @@ package com.kaist.crescendo.manager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.UserDataHandler;
-
 import android.app.ProgressDialog;
 import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.data.UserData;
@@ -49,11 +47,47 @@ public class UpdateManager implements UpdateManagerInterface {
 	}
 	
 	private void makeMsgBody(JSONObject msg, Object body) {
+		int msgId = 0;
+		UserData uData = null;
+		
+		JSONObject temp_body = new JSONObject();
+		
 		try {
-			msg.put(MsgInfo.MSGBODY_LABEL, body);
+			msgId = msg.getInt(MsgInfo.MSGID_LABEL);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+		
+		switch(msgId) {
+		case MsgInfo.REGISTER_ID:
+			uData = (UserData)body;
+			try {
+				temp_body.put(MsgInfo.USERID_LABEL, uData.id);
+				temp_body.put(MsgInfo.PASSWORD_LABEL, uData.password);
+				temp_body.put(MsgInfo.PHONENUM_LABEL, uData.phoneNum);
+				temp_body.put(MsgInfo.BIRTHDAY_LABEL, uData.birthDay);
+				
+				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			break;
+		case MsgInfo.LOGIN_ID:
+			uData = (UserData)body;
+			try {
+				temp_body.put(MsgInfo.USERID_LABEL, uData.id);
+				temp_body.put(MsgInfo.PASSWORD_LABEL, uData.password);
+				
+				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			break;
+		default:
+			break;
+		}
+		
+		
 	}
 	
 	public int register(Context context, UserData uData) {
@@ -148,6 +182,8 @@ public class UpdateManager implements UpdateManagerInterface {
 		@Override
 		protected Integer doInBackground(JSONObject... params) {
 			int result = MsgInfo.STATUS_OK;
+			String userId = null;
+			String passWord = null;
 			
 			try {
 				msgId = params[0].getInt(MsgInfo.MSGID_LABEL);
@@ -161,49 +197,53 @@ public class UpdateManager implements UpdateManagerInterface {
 			if(msgId == MsgInfo.REGISTER_ID) {
 				FileEmulator fileEmul = new FileEmulator();
 				boolean existFlag = false;
-				UserData uData = null;
+				JSONObject uData = null;
 				
 				try {
-					uData = (UserData) jsonObject.get(MsgInfo.MSGBODY_LABEL);
+					uData = (JSONObject) jsonObject.get(MsgInfo.MSGBODY_LABEL);
+					userId = uData.getString(MsgInfo.USERID_LABEL);
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
 				
-				existFlag = fileEmul.checkFileExist(uData.id);
+				existFlag = fileEmul.checkFileExist(userId);
 				if(existFlag) {
 					result = MsgInfo.STATUS_DUPLICATED_USERID;
 				} else {
-					fileEmul.parseJONtoString(uData.id, jsonObject);
+					fileEmul.parseJONtoString(userId, jsonObject);
 				}
 				
 			} else if(msgId == MsgInfo.LOGIN_ID) {
 				FileEmulator fileEmul = new FileEmulator();
 				boolean existFlag = false;
-				UserData uData = null;
-				UserData RevData;
+				JSONObject uData = null;
+				JSONObject RevData;
+				JSONObject revJsonObj = null;
 				
 				try {
-					uData = (UserData) jsonObject.get(MsgInfo.MSGBODY_LABEL);
+					uData = (JSONObject) jsonObject.get(MsgInfo.MSGBODY_LABEL);
+					userId = uData.getString(MsgInfo.USERID_LABEL);
+					passWord = uData.getString(MsgInfo.PASSWORD_LABEL);
 				} catch (Exception e) {
 					// TODO: handle exception
 				}
 				
-				existFlag = fileEmul.checkFileExist(uData.id);
+				existFlag = fileEmul.checkFileExist(userId);
 				if(existFlag) {
 					String jsonString = "";
 					
-					jsonString = fileEmul.readJSON(uData.id);
+					jsonString = fileEmul.readJSON(userId);
 					
 					try {
-						jsonObject = new JSONObject(jsonString);
+						revJsonObj = new JSONObject(jsonString);
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
 					try {
-						RevData = (UserData) jsonObject.get(MsgInfo.MSGBODY_LABEL);
-						if(uData.password.equals(RevData.password) == false) {
+						RevData = (JSONObject) revJsonObj.get(MsgInfo.MSGBODY_LABEL);
+						if(passWord.equals(RevData.get(MsgInfo.PASSWORD_LABEL)) == false) {
 							result = MsgInfo.STATUS_INVALID_PASSWORD;
 						}
 					} catch (JSONException e) {
