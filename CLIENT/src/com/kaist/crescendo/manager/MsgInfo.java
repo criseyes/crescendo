@@ -1,7 +1,7 @@
 package com.kaist.crescendo.manager;
 
 public class MsgInfo {
-	final static int REGISTER_ID = 0x1000;
+	final static int REGISTER_ID = 0x1000;	
 	
 	final static int LOGIN_ID = 0x2000;
 	
@@ -22,6 +22,7 @@ public class MsgInfo {
 	final static int STATUS_INVALID_PASSWORD = 0x0005;
 	
 	final static String MSGID_LABEL = "msgId";
+	final static String MSGUID = "msgUId"; //this is same as userId, when registering new id this field must be null
 	final static String MSGDIR_LABEL = "msgDir"; // send or receive
 	final static String MSGLEN_LABLE = "msgLen";
 	final static String MSGRET_LABEL = "msgRet"; // result from sever about previous request
@@ -32,4 +33,11 @@ public class MsgInfo {
 	final static String PASSWORD_LABEL = "passWord";
 	final static String PHONENUM_LABEL = "phoneNum";
 	final static String BIRTHDAY_LABEL = "birthDay";
+	
+	final static String PLAN_UID_LABEL = "planUId";
+	final static String PLAN_TYPE_LABEL = "planType";
+	final static String PLAN_SDATE_LABEL = "planStartDate";
+	final static String PLAN_EDATE_LABEL = "planEndDate";
+	final static String PLAN_TITLE_LABEL = "planTitle";
+	final static String PLAN_DAYOFWEEK_LABEL = "planDayofWeek";
 }

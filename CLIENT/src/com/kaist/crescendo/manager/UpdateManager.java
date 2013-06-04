@@ -37,6 +37,7 @@ public class UpdateManager implements UpdateManagerInterface {
 	private void makeMsgHeader(JSONObject msg, int msgId) {
 		try {
 			msg.put(MsgInfo.MSGID_LABEL, msgId);
+			msg.put(MsgInfo.MSGUID, null);
 			msg.put(MsgInfo.MSGDIR_LABEL, MsgInfo.MSG_SEND_VALUE);
 			msg.put(MsgInfo.MSGLEN_LABLE, 0);
 			msg.put(MsgInfo.MSGRET_LABEL, MsgInfo.STATUS_OK);
@@ -49,6 +50,7 @@ public class UpdateManager implements UpdateManagerInterface {
 	private void makeMsgBody(JSONObject msg, Object body) {
 		int msgId = 0;
 		UserData uData = null;
+		PlanData pData = null;
 		
 		JSONObject temp_body = new JSONObject();
 		
@@ -82,6 +84,21 @@ public class UpdateManager implements UpdateManagerInterface {
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
+			break;
+		case MsgInfo.REG_PLAN_ID:
+			pData = (PlanData)body;
+			try {
+				temp_body.put(MsgInfo.PLAN_UID_LABEL, pData.uId);
+				temp_body.put(MsgInfo.PLAN_TYPE_LABEL, pData.type);
+				temp_body.put(MsgInfo.PLAN_TITLE_LABEL, pData.title);
+				temp_body.put(MsgInfo.PLAN_DAYOFWEEK_LABEL, pData.dayOfWeek);
+				temp_body.put(MsgInfo.PLAN_SDATE_LABEL, pData.start);
+				temp_body.put(MsgInfo.PLAN_EDATE_LABEL, pData.end);
+				
+				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}			
 			break;
 		default:
 			break;
@@ -146,9 +163,32 @@ public class UpdateManager implements UpdateManagerInterface {
 	}
 	
 	@Override
-	public int addNewPlan(PlanData plan) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int addNewPlan(Context context, PlanData plan) {
+		int result = MsgInfo.STATUS_OK;
+		JSONObject msg = new JSONObject();
+		
+		mContext = context;
+		
+		makeMsgHeader(msg, MsgInfo.LOGIN_ID);
+		
+		makeMsgBody(msg, plan);
+		
+		new SendAsyncTask().execute(msg);
+		
+		while(asyncTaskState == -1) {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
+		}
+		result = asyncTaskResult;
+		
+		showToastPopup(result);
+		
+		return result;
 	}
 	
 	public class SendAsyncTask extends AsyncTask<JSONObject, Integer, Integer>{
