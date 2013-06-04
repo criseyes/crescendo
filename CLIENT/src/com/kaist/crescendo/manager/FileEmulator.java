@@ -28,14 +28,14 @@ public class FileEmulator {
 		return result;
 	}
 	
-	public void parseJONtoString(JSONObject jObject) {
+	public void parseJONtoString(String uId, JSONObject jObject) {
 		String jsonString = "";
 		String fileName;
 		jsonString = jObject.toString();
 		
 		try {
 			String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-			fileName = jObject.getString(MsgInfo.USERID_LABEL);
+			fileName = uId;
 			File jsonFile = new File(path+"/"+fileName);
 			jsonFile.createNewFile();
 			FileOutputStream fOut = new FileOutputStream(jsonFile);

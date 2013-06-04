@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.kaist.crescendo.data.PlanData;
+import com.kaist.crescendo.data.UserData;
 import com.kaist.crescendo.manager.UpdateManager;
 import com.kaist.crescendo.manager.UpdateManagerInterface;
 
@@ -27,7 +28,7 @@ public class UpdateActivity extends Activity {
 		 *  TODO call manager's method to login.
 		 */
 		// test
-		ret = mManager.login(mContext, id, pw);
+		ret = mManager.login(mContext, new UserData(id, pw));
 		if(ret == 0) {
 			sessionId = "good";
 		}
@@ -43,7 +44,7 @@ public class UpdateActivity extends Activity {
 		 *  TODO call manager's method to register
 		 */
 		
-		ret = mManager.register(mContext, id, pw, phone, birth);
+		ret = mManager.register(mContext, new UserData(id, pw, phone, birth));
 		if(ret == 0) {
 			result = "good";
 		}
