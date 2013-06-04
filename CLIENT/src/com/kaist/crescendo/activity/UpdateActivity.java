@@ -71,7 +71,7 @@ public class UpdateActivity extends Activity {
 		return true;
 	}
 	
-	protected boolean updatePlan(int uid)
+	protected boolean updatePlan(PlanData plan)
 	{
 		String result = new String();
 		/*
