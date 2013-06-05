@@ -1,13 +1,10 @@
 package com.kaist.crescendo.data;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 public class FriendData { 
 	public String id;
 	public String phoneNumber; /* should be YYYY-MM-DD */
 	public PlanData plan;
+	boolean isSelected;
 	boolean isAvata;
 	
 

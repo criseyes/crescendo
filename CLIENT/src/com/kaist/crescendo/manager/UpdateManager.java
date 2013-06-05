@@ -67,7 +67,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		}
 		
 		switch(msgId) {
-		case MsgInfo.REGISTER_ID:
+		case MsgInfo.REGISTER_USER:
 			uData = (UserData)body;
 			try {
 				temp_body.put(MsgInfo.USERID_LABEL, uData.id);
@@ -80,7 +80,7 @@ public class UpdateManager implements UpdateManagerInterface {
 				// TODO: handle exception
 			}
 			break;
-		case MsgInfo.LOGIN_ID:
+		case MsgInfo.SYS_LOGIN:
 			uData = (UserData)body;
 			try {
 				temp_body.put(MsgInfo.USERID_LABEL, uData.id);
@@ -91,7 +91,7 @@ public class UpdateManager implements UpdateManagerInterface {
 				// TODO: handle exception
 			}
 			break;
-		case MsgInfo.REG_PLAN_ID:
+		case MsgInfo.ADD_NEW_PLAN:
 			pData = (PlanData)body;
 			try {
 				temp_body.put(MsgInfo.PLAN_UID_LABEL, pData.uId);
@@ -136,7 +136,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		mContext = context;
 		
-		makeMsgHeader(msg, MsgInfo.REGISTER_ID);
+		makeMsgHeader(msg, MsgInfo.REGISTER_USER);
 		
 		makeMsgBody(msg, uData);
 		
@@ -170,7 +170,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		mContext = context;
 		
-		makeMsgHeader(msg, MsgInfo.LOGIN_ID);
+		makeMsgHeader(msg, MsgInfo.SYS_LOGIN);
 		
 		makeMsgBody(msg, uData);
 		
@@ -206,7 +206,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		mContext = context;
 		
-		makeMsgHeader(msg, MsgInfo.LOGIN_ID);
+		makeMsgHeader(msg, MsgInfo.SYS_LOGIN);
 		
 		makeMsgBody(msg, plan);
 		
@@ -265,7 +265,7 @@ public class UpdateManager implements UpdateManagerInterface {
 			ComManager manager  = new ComManager();
 			int result = MsgInfo.STATUS_OK;
 			
-			asyncTaskResult = manager.ProcessMsg(params[0]);
+			asyncTaskResult = manager.processMsg(params[0]);
 			
 			dialog.dismiss();
 			

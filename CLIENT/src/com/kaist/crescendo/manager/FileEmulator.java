@@ -10,9 +10,6 @@ import java.io.OutputStreamWriter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.kaist.crescendo.data.UserData;
-
-import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
@@ -103,7 +100,7 @@ public class FileEmulator implements CommunicationInterface{
 			// TODO: handle exception
 		}
 		
-		if(msgId == MsgInfo.REGISTER_ID) {			
+		if(msgId == MsgInfo.REGISTER_USER) {			
 			existFlag = checkFileExist(userId);
 			if(existFlag) {
 				prevResult = MsgInfo.STATUS_DUPLICATED_USERID;
@@ -120,7 +117,7 @@ public class FileEmulator implements CommunicationInterface{
 		// TODO Auto-generated method stub
 		int result = MsgInfo.STATUS_OK;
 		
-		if(msgId == MsgInfo.REGISTER_ID) {
+		if(msgId == MsgInfo.REGISTER_USER) {
 			try {
 				oriMsg.put(MsgInfo.MSGRET_LABEL, prevResult);
 			} catch (JSONException e) {
@@ -129,7 +126,7 @@ public class FileEmulator implements CommunicationInterface{
 			}
 			
 			jsonString = oriMsg.toString();
-		} else if(msgId == MsgInfo.LOGIN_ID) {	
+		} else if(msgId == MsgInfo.SYS_LOGIN) {	
 			
 			boolean existFlag = false;
 			JSONObject RevData = null;

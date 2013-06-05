@@ -1,26 +1,35 @@
 package com.kaist.crescendo.manager;
 
 public class MsgInfo {
-	final static int REGISTER_ID = 0x1000;	
+	//msgId value, this is also command value to server
+	final static int REGISTER_USER = 0x1000;	
 	
-	final static int LOGIN_ID = 0x2000;
+	final static int SYS_LOGIN = 0x2000;
 	
-	final static int REG_PLAN_ID = 0x3000;
-	final static int UPDATE_PLAN_ID = 0x3001;
-	final static int DEL_PLAN_ID = 0x3002;
-	final static int REQ_PLAN_ID = 0x3003;
+	final static int ADD_NEW_PLAN = 0x3000; //add new plan to server
+	final static int UPDATE_PLAN = 0x3001; //edit registered plan
+	final static int DEL_PLAN = 0x3002; //delete registered plan
+	final static int GET_PLAN_CNT = 0x3003; //get the count of the plan data from server
+	final static int GET_PLAN = 0x3004; //get plan data from server
 	
-	final static int REG_FRIEND_ID = 0x4000;
-	final static int DEL_FRIEND_ID = 0x4001;
-		
+	final static int GET_FRIEND_CNT = 0x4000; //get the count of the friend list from server
+	final static int GET_FRIEND = 0x4001; //get friend data from server
+	final static int ADD_FRIEND = 0x4002;
+	final static int DEL_FRIEND = 0x4003; //delete friend which selected before
+	final static int SEL_AVATA_FRIEND = 0x4004;
+	
+	//msgDir value
 	final static int MSG_SEND_VALUE = 1;
 	final static int MSG_RECEIVE_VALUE = 2;
 	
+	//msgRet value
 	final static int STATUS_OK = 0;
 	final static int STATUS_DUPLICATED_USERID = 0x0001;
-	final static int STATUS_UNREGISTERED_USERID = 0x0003;
-	final static int STATUS_INVALID_PASSWORD = 0x0005;
+	final static int STATUS_UNREGISTERED_USERID = 0x0002;
+	final static int STATUS_INVALID_PASSWORD = 0x0004;
+	final static int STATUS_NETWORK_ERROR = 0x0008;
 	
+	//JSONObject Key Value
 	final static String MSGID_LABEL = "msgId";
 	final static String MSGUID = "msgUId"; //this is same as userId, when registering new id this field must be null
 	final static String MSGDIR_LABEL = "msgDir"; // send or receive
@@ -44,4 +53,6 @@ public class MsgInfo {
 	final static String PLAN_HISTORY_LABEL = "planHistory";
 	final static String PLAN_HISDATE_LABEL = "planHisDate";
 	final static String PLAN_HISVAL_LABEL = "planHisVal";
+	
+	final static String FRIEND_IS_AVATA_LABEL = "isAvata";
 }

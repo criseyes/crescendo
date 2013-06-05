@@ -10,7 +10,7 @@ public class ComManager {
 		handler = new FileEmulator();
 	}
 	
-	public String ProcessMsg(JSONObject msg) {
+	public String processMsg(JSONObject msg) {
 		int result = MsgInfo.STATUS_OK;
 		String jsonString = null;	
 		
