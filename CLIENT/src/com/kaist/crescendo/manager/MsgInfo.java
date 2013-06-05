@@ -55,4 +55,6 @@ public class MsgInfo {
 	final static String PLAN_HISVAL_LABEL = "planHisVal";
 	
 	final static String FRIEND_IS_AVATA_LABEL = "isAvata";
+	
+	final static String ITEM_COUNT_LABEL = "itemCnt";
 }

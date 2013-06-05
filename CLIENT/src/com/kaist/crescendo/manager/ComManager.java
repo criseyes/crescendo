@@ -8,6 +8,7 @@ public class ComManager {
 	public ComManager() {
 		// choose FileEmulator or RealSocket
 		handler = new FileEmulator();
+		//handler = new RealSocket();
 	}
 	
 	public String processMsg(JSONObject msg) {
