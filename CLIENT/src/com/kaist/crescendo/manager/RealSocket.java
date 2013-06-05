@@ -1,12 +1,16 @@
 package com.kaist.crescendo.manager;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import org.json.JSONObject;
 import android.util.Log;
 
 public class RealSocket implements CommunicationInterface {
+	
+	private String output;
 
 	private void connect(JSONObject msg) {
     	Socket socket = null;
@@ -43,7 +47,18 @@ public class RealSocket implements CommunicationInterface {
 	@Override
 	public String read() {
 		// TODO Auto-generated method stub
-		return null;
+		Socket socket = null;
+		try {
+			socket = new Socket("192.168.0.3", 9999);
+			
+			BufferedReader networkReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			
+			output = networkReader.readLine();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return output;
 	}
 
 }
