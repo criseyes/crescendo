@@ -10,6 +10,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.kaist.crescendo.data.FriendData;
 import com.kaist.crescendo.data.HistoryData;
 import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.data.UserData;
@@ -92,6 +93,7 @@ public class UpdateManager implements UpdateManagerInterface {
 			}
 			break;
 		case MsgInfo.ADD_NEW_PLAN:
+		case MsgInfo.UPDATE_PLAN:
 			pData = (PlanData)body;
 			try {
 				temp_body.put(MsgInfo.PLAN_UID_LABEL, pData.uId);
@@ -127,6 +129,48 @@ public class UpdateManager implements UpdateManagerInterface {
 		}
 		
 		
+	}
+	
+	private void makeMsgBody(JSONObject msg, int planId) {
+		int msgId = 0;
+		
+		JSONObject temp_body = new JSONObject();
+		
+		try {
+			msgId = msg.getInt(MsgInfo.MSGID_LABEL);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		if(msgId == MsgInfo.DEL_PLAN) {
+			try {
+				temp_body.put(MsgInfo.PLAN_UID_LABEL, planId);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void makeMsgBody(JSONObject msg, String userId) {
+		int msgId = 0;
+		
+		JSONObject temp_body = new JSONObject();
+		
+		try {
+			msgId = msg.getInt(MsgInfo.MSGID_LABEL);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		if(msgId == MsgInfo.DEL_FRIEND || msgId == MsgInfo.SEL_AVATA_FRIEND) {
+			try {
+				temp_body.put(MsgInfo.USERID_LABEL, userId);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public int register(Context context, UserData uData) {
@@ -206,9 +250,171 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		mContext = context;
 		
-		makeMsgHeader(msg, MsgInfo.SYS_LOGIN);
+		makeMsgHeader(msg, MsgInfo.ADD_NEW_PLAN);
 		
 		makeMsgBody(msg, plan);
+		
+		new SendAsyncTask().execute(msg);
+		
+		while(asyncTaskState == -1) {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
+		}
+		
+		try {
+			revMsg = new JSONObject(asyncTaskResult);
+			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		showToastPopup(result);
+		
+		return result;
+	}
+	
+	@Override
+	public int updatePlan(Context context, PlanData plan) {
+		int result = MsgInfo.STATUS_OK;
+		JSONObject msg = new JSONObject();
+		JSONObject revMsg = null;
+		
+		mContext = context;
+		
+		makeMsgHeader(msg, MsgInfo.UPDATE_PLAN);
+		
+		makeMsgBody(msg, plan);
+		
+		new SendAsyncTask().execute(msg);
+		
+		while(asyncTaskState == -1) {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
+		}
+		
+		try {
+			revMsg = new JSONObject(asyncTaskResult);
+			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		showToastPopup(result);
+		
+		return result;
+	}
+
+	@Override
+	public int deletePlan(Context context, int plan_uId) {
+		int result = MsgInfo.STATUS_OK;
+		JSONObject msg = new JSONObject();
+		JSONObject revMsg = null;
+		
+		mContext = context;
+		
+		makeMsgHeader(msg, MsgInfo.SYS_LOGIN);
+		
+		makeMsgBody(msg, plan_uId);
+		
+		new SendAsyncTask().execute(msg);
+		
+		while(asyncTaskState == -1) {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
+		}
+		
+		try {
+			revMsg = new JSONObject(asyncTaskResult);
+			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		showToastPopup(result);
+		
+		return result;
+	}
+
+	@Override
+	public int getPlan(Context context, PlanData[] plan) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getFriend(Context context, FriendData[] friend) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int addNewFriend(Context context, FriendData friend) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int delFriend(Context context, String friendUserId) {
+		int result = MsgInfo.STATUS_OK;
+		JSONObject msg = new JSONObject();
+		JSONObject revMsg = null;
+		
+		mContext = context;
+		
+		makeMsgHeader(msg, MsgInfo.DEL_FRIEND);
+		
+		makeMsgBody(msg, friendUserId);
+		
+		new SendAsyncTask().execute(msg);
+		
+		while(asyncTaskState == -1) {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
+		}
+		
+		try {
+			revMsg = new JSONObject(asyncTaskResult);
+			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		showToastPopup(result);
+		
+		return result;
+	}
+
+	@Override
+	public int setAvataFriend(Context context, String friendUserId) {
+		int result = MsgInfo.STATUS_OK;
+		JSONObject msg = new JSONObject();
+		JSONObject revMsg = null;
+		
+		mContext = context;
+		
+		makeMsgHeader(msg, MsgInfo.SEL_AVATA_FRIEND);
+		
+		makeMsgBody(msg, friendUserId);
 		
 		new SendAsyncTask().execute(msg);
 		
