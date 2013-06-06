@@ -73,12 +73,17 @@ public class FriendsListActivity extends UpdateActivity {
 		switch(requestCode){
 			case MyStaticValue.REQUESTCODE_ADDNEWFRIEND: 
 				if(resultCode == RESULT_OK){ 
-					boolean result = data.getExtras().getBoolean("sucess");
+					boolean result = data.getExtras().getBoolean("success");
 					if(result == true) /* user add new plan sucessfully */
 					{
-						/* 
-						 *  TODO  update list once more
-						 */
+						String ret = getFriendList(friendArrayList);
+						
+						if(ret.equals("good")) {
+							for(int i = 0; i < friendArrayList.size(); i++) {
+								adapter.addItem(friendArrayList.get(i));
+								adapter.notifyDataSetChanged();
+							}
+						}
 					}
 				}
 		}
