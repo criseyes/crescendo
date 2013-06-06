@@ -37,4 +37,5 @@ public class MyStaticValue {
 	 */
 	public static final int PLANTYPE_DIET = 10001;
 	public static final int PLANTYPE_READING_BOOK = 10002;
+
 }

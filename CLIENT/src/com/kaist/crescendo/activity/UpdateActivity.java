@@ -114,6 +114,8 @@ public class UpdateActivity extends Activity {
 		String result = new String();
 		int ret = -1;
 		
+		friendArrayList.clear();
+		
 		ret = mManager.getFriend(mContext, friendArrayList);
 		
 		if(ret == 0) {
@@ -141,6 +143,19 @@ public class UpdateActivity extends Activity {
 		int ret = -1;
 		
 		ret = mManager.addNewFriend(mContext, friendArrayList);
+				
+		if(ret == 0) {
+			result = "good";
+		}
+		
+		return result;
+	}
+	
+	protected String delFriend(String uid) {
+		String result = new String();
+		int ret = -1;
+		
+		ret = mManager.delFriend(mContext, uid);
 				
 		if(ret == 0) {
 			result = "good";

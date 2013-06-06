@@ -423,6 +423,16 @@ public class UpdateManager implements UpdateManagerInterface {
 
 	@Override
 	public int delFriend(Context context, String friendUserId) {
+		//make temporal code for testing
+		for(int i = 0; i < mFriendArrayList.size() ; i++) {
+			if(mFriendArrayList.get(i).id.equals(friendUserId)) {
+				mFriendArrayList.get(i).setselected(false);
+				break;
+			}
+		}
+		return 0;
+		
+		/*
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		JSONObject revMsg = null;
@@ -455,6 +465,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;
+		*/
 	}
 
 	@Override
