@@ -26,20 +26,32 @@ public class UpdateManager implements UpdateManagerInterface {
 	private int asyncTaskState;
 	private Context mContext;
 	private ArrayList<FriendData> mFriendArrayList;
+	private ArrayList<PlanData> mPlanArrayList;
+	private int planUid;
 	
 	public UpdateManager() {
 		mFriendArrayList = new ArrayList<FriendData>();
+		mPlanArrayList = new ArrayList<PlanData>();
 		
 		SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
 		String date = Formatter.format(new Date());
 		
+		planUid = 0;
+		
 		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", date, date, 0);
+		plan.uId = planUid++;
 		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", date, date, 0);
+		plan1.uId = planUid++;
 		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", date, date, MyStaticValue.FRIDAY);
+		plan2.uId = planUid++;
 		
 		mFriendArrayList.add(new FriendData("ehyewony@gamil.com", "01022563409", plan, false, false));
 		mFriendArrayList.add(new FriendData("hui.seo@gamil.com", "01012345678", plan1, false, false));
 		mFriendArrayList.add(new FriendData("crisyseye@gmail.com", "01098765432", plan2, false, false));
+		
+		mPlanArrayList.add(plan);
+		mPlanArrayList.add(plan1);
+		mPlanArrayList.add(plan2);
 	}
 	
 	private void showToastPopup(int result) {
@@ -265,6 +277,14 @@ public class UpdateManager implements UpdateManagerInterface {
 	
 	@Override
 	public int addNewPlan(Context context, PlanData plan) {
+		//make temporal test code
+		
+		plan.uId = planUid++;
+		mPlanArrayList.add(plan);
+		
+		return 0;
+		
+		/*
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		JSONObject revMsg = null;
@@ -297,10 +317,21 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;
+		*/
 	}
 	
 	@Override
 	public int updatePlan(Context context, PlanData plan) {
+		
+		for(int i = 0; i < mPlanArrayList.size(); i++) {
+			if(mPlanArrayList.get(i).uId == plan.uId) {
+				mPlanArrayList.set(i, plan);
+				break;
+			}
+		}
+		
+		return 0;
+		/*
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		JSONObject revMsg = null;
@@ -333,10 +364,21 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;
+		*/
 	}
 
 	@Override
 	public int deletePlan(Context context, int plan_uId) {
+		
+		for(int i = 0 ; i < mPlanArrayList.size(); i++) {
+			if(mPlanArrayList.get(i).uId == plan_uId) {
+				mPlanArrayList.remove(i);
+				break;
+			}
+		}
+		
+		return 0;
+		/*
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		JSONObject revMsg = null;
@@ -369,11 +411,19 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;
+		*/
 	}
 
 	@Override
-	public int getPlan(Context context, PlanData[] plan) {
+	public int getPlanList(Context context, ArrayList<PlanData> planArrayList) {
 		// TODO Auto-generated method stub
+		
+		//make temporal code for testing
+		for(int i = 0; i < mPlanArrayList.size() ; i++) {
+			PlanData plan = mPlanArrayList.get(i);
+			planArrayList.add(plan);
+		}
+				
 		return 0;
 	}
 

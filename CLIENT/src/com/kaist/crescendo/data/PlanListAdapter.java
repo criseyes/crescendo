@@ -29,6 +29,10 @@ public class PlanListAdapter extends BaseAdapter {
 		mItems = lit;
 	}
 	
+	public void clearAllItems() {
+		mItems.clear();
+	}
+	
 	public PlanListAdapter(Context context) {
 		super();
 		mContext = context;

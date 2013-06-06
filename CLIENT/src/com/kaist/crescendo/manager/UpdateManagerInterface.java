@@ -23,7 +23,7 @@ public interface UpdateManagerInterface {
 	public int addNewPlan(Context context, PlanData plan);
 	public int updatePlan(Context context, PlanData plan);
 	public int deletePlan(Context context, int plan_uId);
-	public int getPlan(Context context, PlanData plan[]);
+	public int getPlanList(Context context, ArrayList<PlanData> planArrayList);
 	
 	public int getFriend(Context context, ArrayList<FriendData> friendArrayList);
 	public int getCandidate(Context context, ArrayList<FriendData> candidateArrayList);

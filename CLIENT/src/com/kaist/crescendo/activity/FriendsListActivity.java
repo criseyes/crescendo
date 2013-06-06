@@ -52,13 +52,10 @@ public class FriendsListActivity extends UpdateActivity {
 		
 		findViewById(R.id.button_add_new_plan).setOnClickListener(mClickListener);
 		
-		/*
-		 *  TODO Get Plans List from server
-		 *  How to update my list?
-		 *  After get list, 
-		 */		
 		adapter = new FriendListAdapter(this);
 		
+		
+		//get friend list from server
 		String result = getFriendList(friendArrayList);
 		
 		if(result.equals("good")) {

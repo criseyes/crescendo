@@ -80,7 +80,7 @@ public class UpdateActivity extends Activity {
 		 */
 		ret = mManager.deletePlan(mContext, uid);
 		if(ret == 0) {
-			result= true;
+			result = true;
 		}
 		return result;
 	}
@@ -99,14 +99,17 @@ public class UpdateActivity extends Activity {
 		return result;
 	}
 	
-	protected String getPlanList()
+	protected String getPlanList(ArrayList<PlanData> planArrayList)
 	{
 		String result = new String();
-		/*
-		 *  TODO call manager's method to register
-		 */
+		int ret = -1;
 		
-		//mManager.getPlanList(mContext, id, pw, phone, birth);
+		planArrayList.clear();
+		
+		ret = mManager.getPlanList(mContext, planArrayList);
+		if(ret == 0) {
+			result = "good";
+		}
 		return result;
 	}
 	
