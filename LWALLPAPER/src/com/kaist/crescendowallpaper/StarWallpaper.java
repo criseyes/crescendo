@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.service.wallpaper.WallpaperService;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
 public class StarWallpaper extends WallpaperService {
      public static int Width, Height;
-     public static int cx, cy;
-     public static int COLORS[] = {0xFFFFFF, 0xC0FFC0, 0xFFC0C0, 0xC0FFFF, 0xF8F0FF, 0xC0F0FF};
  
      //-----------------------------------
      // onCreate   
@@ -23,6 +23,9 @@ public class StarWallpaper extends WallpaperService {
      @Override
      public void onCreate() {
           super.onCreate();
+          /* just for debugging wait to sync*/
+          /* TODO should remove before commercial release */
+          android.os.Debug.waitForDebugger();
      }
      //-----------------------------------
      // onDestroy
@@ -48,6 +51,15 @@ public class StarWallpaper extends WallpaperService {
   StarEngine() {
        SurfaceHolder holder = getSurfaceHolder();
   }
+  
+  @Override
+	public Bundle onCommand(String action, int x, int y, int z, Bundle extras,
+			boolean resultRequested) {
+
+	  	Log.d("My", "onCommand action" + action.toString());
+		return super.onCommand(action, x, y, z, extras, resultRequested);
+	}
+  
   
   //-----------------------------------
   // onCreate
@@ -143,7 +155,7 @@ public class StarWallpaper extends WallpaperService {
   
   public int bx, by;
   //private ArrayList<Star> stars = new ArrayList<Star>();
-  private ArrayList<MyAvata> avatas = new ArrayList<MyAvata>();
+  private ArrayList<MyAvataView> avatas = new ArrayList<MyAvataView>();
   private Bitmap imgBack;
   private Rect src = new Rect();
   private Rect dst = new Rect();
@@ -160,19 +172,20 @@ public class StarWallpaper extends WallpaperService {
        Display display = ((WindowManager) mContext.getSystemService(mContext.WINDOW_SERVICE)).getDefaultDisplay();
        Width  = display.getWidth();   // 화면의 폭
        Height = display.getHeight();   // 화면의 높이
-          cx = Width / 2;
-          cy = Height / 2;
-       imgBack = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.backgroud_black);
-       imgBack = Bitmap.createScaledBitmap(imgBack, (int) (Height * 1.2), (int) (Height * 1.2), true);
-       bx = by = (int) (Height * 0.6);      // 이미지 중심
+       //imgBack = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.backgroud_black);
+       
+       //imgBack = Bitmap.createScaledBitmap(imgBack, (int) (Height * 1.2), (int) (Height * 1.2), true);
+       
+       imgBack = ((BitmapDrawable) getWallpaper()).getBitmap();
+       imgBack = Bitmap.createScaledBitmap(imgBack, (int) Height, (int) Height, true);
+      
+       //bx = by = (int) (Height * 0.6);      // 이미지 중심
    
        
 //       for (int i = 1; i <= 50; i++)  //최초의 별의 갯수
 //            stars.add(new Star());
-       avatas.add(new MyAvata(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ic_launcher)));
+       avatas.add(new MyAvataView(mContext));
    
-       dst.set(0, 0, Width, Height);
-       rad = 15; // 반지름
   }
   //------------------------------
   // pause Painting
@@ -222,12 +235,13 @@ public class StarWallpaper extends WallpaperService {
    public void doTouchEvent(MotionEvent event) {
          wait = false;
          synchronized (this) {
-             for (MyAvata avata : avatas) {
+             for (MyAvataView avata : avatas) {
           	   if(avata.onTouch(event))
           		   break;
              }
               this.notify();
           }
+         
    }
 
   //------------------------------
@@ -236,12 +250,13 @@ public class StarWallpaper extends WallpaperService {
    public void run() {
          canRun = true;
          Canvas canvas = null;          // canvas를 만든다
+         
           while (canRun) {
                canvas = mHolder.lockCanvas();       // canvas를 잠그고 버퍼 할당
                try {
                     synchronized (mHolder) {       // 동기화 유지
-                         canvas.drawBitmap(imgBack, src, dst, null);  // 버퍼에 그리기
-                         MakeAndDisplayStars(canvas);
+                         canvas.drawBitmap(imgBack, 0, 0, null);  // 버퍼에 그리기
+                         Draw(canvas);
                     }
                } finally {
                 if (canvas != null)
@@ -259,38 +274,12 @@ public class StarWallpaper extends WallpaperService {
            } // sync
           } // while
         } // run
-  //------------------------------
-  // MakeAndDisplayStars
-  //------------------------------
-  private void MakeAndDisplayStars(Canvas canvas) {
-       int x = (int) (bx - Math.cos(th) * rad); // 시계 반대방향으로 회전
-       int y = (int) (by + Math.sin(th) * rad);    // 이미지 중심을 원점으로 설정
-       int ax = Width / 2;
-       int ay = Height / 2;
-       src.set(x - ax, y - ay, x + ax, x + ay);    // cx, cy는 Star에서 사용중...
-       th += 0.04;  // 각도
-   
-//       for (int i = 1; i <= 5; i++)
-//            stars.add(new Star());  // 루프당 5개씩 추가
-//   
-//       for (int idx = stars.size() - 1; idx >= 0; idx--) {
-//            if (stars.get(idx).MoveStar() == false)
-//             stars.remove(idx);
-//       }
-//   
-//       for (Star mStar : stars) {
-//            if (mStar.speed <= 2)
-//                 canvas.drawCircle(mStar.x1, mStar.y1, 1, mStar.paint);
-//            else
-//                 canvas.drawLine(mStar.x2, mStar.y2, mStar.x1, mStar.y1, mStar.paint);
-//            
-//           }
-//      } // MakeAndDisplayStars
-       
-       for (MyAvata avata : avatas) {
-    	   avata.moveBySelf();
-    	   avata.draw(canvas);
-       }  
- } // Thread
-} // end of Wallpaper
-}
+  //
+  private void Draw(Canvas canvas) {
+	   for (MyAvataView avata : avatas) {
+		   avata.moveBySelf();
+		   avata.draw(canvas);
+	   }  
+ } // Draw
+} // thread
+} // end of wallpaper

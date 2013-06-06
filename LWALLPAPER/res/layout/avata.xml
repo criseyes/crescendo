@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:clickable="true"
+        android:longClickable="true"
+        android:minHeight="@dimen/MAX_HEAD_SIZE"
+        android:minWidth="@dimen/MAX_HEAD_SIZE"
+        android:src="@drawable/common_icon11" />
+
+    <ImageView
+        android:id="@+id/body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:longClickable="true"
+        android:minHeight="@dimen/MAX_BODY_SIZE"
+        android:minWidth="@dimen/MAX_BODY_SIZE"
+        android:src="@drawable/setting_screenedit"
+        android:tag="2" />
+
+</LinearLayout>
