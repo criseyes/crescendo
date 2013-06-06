@@ -1,8 +1,6 @@
 package com.kaist.crescendo.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.widget.ListView;
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.data.FriendData;
 import com.kaist.crescendo.data.FriendListAdapter;
-import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.utils.MyStaticValue;
 
 public class FriendsListActivity extends UpdateActivity {

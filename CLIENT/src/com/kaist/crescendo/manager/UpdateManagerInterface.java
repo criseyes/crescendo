@@ -27,7 +27,7 @@ public interface UpdateManagerInterface {
 	
 	public int getFriend(Context context, ArrayList<FriendData> friendArrayList);
 	public int getCandidate(Context context, ArrayList<FriendData> candidateArrayList);
-	public int addNewFriend(Context context, FriendData friend);
+	public int addNewFriend(Context context, ArrayList<FriendData> friendArrayList);
 	public int delFriend(Context context, String friendUserId);
 	public int setAvataFriend(Context context, String friendUserId);
 }

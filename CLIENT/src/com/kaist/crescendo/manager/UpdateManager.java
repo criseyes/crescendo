@@ -408,8 +408,16 @@ public class UpdateManager implements UpdateManagerInterface {
 	}
 
 	@Override
-	public int addNewFriend(Context context, FriendData friend) {
+	public int addNewFriend(Context context, ArrayList<FriendData> friendArrayList) {
 		// TODO Auto-generated method stub
+		//make temporal code for testing
+		for(int i = 0; i < friendArrayList.size() ; i++) {
+			for(int j = 0; j < mFriendArrayList.size(); j++) {
+				if(friendArrayList.get(i).id.equals(mFriendArrayList.get(j).id)) {
+					mFriendArrayList.get(j).setselected(true);
+				}
+			}
+		}
 		return 0;
 	}
 

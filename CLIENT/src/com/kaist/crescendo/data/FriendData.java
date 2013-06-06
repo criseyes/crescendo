@@ -21,4 +21,8 @@ public class FriendData {
 		return isSelected;
 	}
 	
+	public boolean setselected(boolean value) {
+		return isSelected = value;
+	}
+	
 }

@@ -135,6 +135,19 @@ public class UpdateActivity extends Activity {
 		
 		return result;
 	}
+	
+	protected String setFriend(ArrayList<FriendData> friendArrayList) {
+		String result = new String();
+		int ret = -1;
+		
+		ret = mManager.addNewFriend(mContext, friendArrayList);
+				
+		if(ret == 0) {
+			result = "good";
+		}
+		
+		return result;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
