@@ -1,11 +1,14 @@
 package com.kaist.crescendo.activity;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.kaist.crescendo.data.FriendData;
 import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.data.UserData;
 import com.kaist.crescendo.manager.UpdateManager;
@@ -70,20 +73,30 @@ public class UpdateActivity extends Activity {
 	
 	protected boolean deletePlan(int uid)
 	{
-		String result = new String();
+		boolean result = false;
+		int ret = -1;
 		/*
 		 * TODO call manager's method to delete a plan
 		 */
-		return true;
+		ret = mManager.deletePlan(mContext, uid);
+		if(ret == 0) {
+			result= true;
+		}
+		return result;
 	}
 	
 	protected boolean updatePlan(PlanData plan)
 	{
-		String result = new String();
+		boolean result = false;
+		int ret = -1;
 		/*
 		 * TODO call manager's method to update a plan
 		 */
-		return true;
+		ret = mManager.updatePlan(mContext, plan);
+		if(ret == 0) {
+			result = true;
+		}
+		return result;
 	}
 	
 	protected String getPlanList()
@@ -94,6 +107,32 @@ public class UpdateActivity extends Activity {
 		 */
 		
 		//mManager.getPlanList(mContext, id, pw, phone, birth);
+		return result;
+	}
+	
+	protected String getFriendList(ArrayList<FriendData> friendArrayList) {
+		String result = new String();
+		int ret = -1;
+		
+		ret = mManager.getFriend(mContext, friendArrayList);
+		
+		if(ret == 0) {
+			result = "good";
+		}
+		
+		return result;
+	}
+	
+	protected String getCandidateList(ArrayList<FriendData> candidateArrayList) {
+		String result = new String();
+		int ret = -1;
+		
+		ret = mManager.getCandidate(mContext, candidateArrayList);
+		
+		if(ret == 0) {
+			result = "good";
+		}
+		
 		return result;
 	}
 

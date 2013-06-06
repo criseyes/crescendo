@@ -22,6 +22,7 @@ public class MyStaticValue {
 	public static final int REQUESTCODE_REGISTER = 1000;
 	public static final int REQUESTCODE_ADDNEWPLAN = 1001;
 	public static final int REQUESTCODE_UPDATEPLAN = 1002;
+	public static final int REQUESTCODE_ADDNEWFRIEND = 1003;
 	
 	/* String value, between activities */
 	

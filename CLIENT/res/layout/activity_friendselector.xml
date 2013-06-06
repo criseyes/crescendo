@@ -17,7 +17,7 @@
     </ListView>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/button_save_new_friend"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:layout_weight="0.13"

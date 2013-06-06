@@ -1,10 +1,15 @@
 package com.kaist.crescendo.manager;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.kaist.crescendo.R;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -20,6 +25,22 @@ public class UpdateManager implements UpdateManagerInterface {
 	private String asyncTaskResult;
 	private int asyncTaskState;
 	private Context mContext;
+	private ArrayList<FriendData> mFriendArrayList;
+	
+	public UpdateManager() {
+		mFriendArrayList = new ArrayList<FriendData>();
+		
+		SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String date = Formatter.format(new Date());
+		
+		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", date, date, 0);
+		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", date, date, 0);
+		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", date, date, MyStaticValue.FRIDAY);
+		
+		mFriendArrayList.add(new FriendData("ehyewony@gamil.com", "01022563409", plan, false, false));
+		mFriendArrayList.add(new FriendData("hui.seo@gamil.com", "01012345678", plan1, false, false));
+		mFriendArrayList.add(new FriendData("crisyseye@gmail.com", "01098765432", plan2, false, false));
+	}
 	
 	private void showToastPopup(int result) {
 		switch(result) {
@@ -357,8 +378,32 @@ public class UpdateManager implements UpdateManagerInterface {
 	}
 
 	@Override
-	public int getFriend(Context context, FriendData[] friend) {
+	public int getFriend(Context context, ArrayList<FriendData> friendArrayList) {
 		// TODO Auto-generated method stub
+		
+		//make temporal code for testing
+		for(int i = 0; i < mFriendArrayList.size() ; i++) {
+			FriendData friend = mFriendArrayList.get(i);
+			if(friend.getisSelected()) {
+				friendArrayList.add(friend);
+			}
+		}
+		
+		return 0;
+	}
+	
+	@Override
+	public int getCandidate(Context context, ArrayList<FriendData> candidateArrayList) {
+		// TODO Auto-generated method stub
+		
+		//make temporal code for testing
+		for(int i = 0; i < mFriendArrayList.size() ; i++) {
+			FriendData friend = mFriendArrayList.get(i);
+			if(friend.getisSelected() == false) {
+				candidateArrayList.add(friend);
+			}
+		}
+		
 		return 0;
 	}
 

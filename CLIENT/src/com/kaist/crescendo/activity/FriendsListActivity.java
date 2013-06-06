@@ -1,6 +1,7 @@
 package com.kaist.crescendo.activity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import android.content.Intent;
@@ -19,6 +20,7 @@ public class FriendsListActivity extends UpdateActivity {
 	
 	private FriendListAdapter adapter;
 	private ListView listView;
+	private ArrayList<FriendData> friendArrayList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class FriendsListActivity extends UpdateActivity {
 		
 		
 		listView = (ListView) findViewById(R.id.plans_list);
-		
+		friendArrayList = new ArrayList<FriendData>();
 		
 		OnClickListener mClickListener = new OnClickListener() {
 			
@@ -40,7 +42,7 @@ public class FriendsListActivity extends UpdateActivity {
 				Intent intent = new Intent();
 				intent.putExtra(MyStaticValue.MODE, MyStaticValue.MODE_NEW);
 				
-				startActivityForResult(intent.setClass(getApplicationContext(), CandidateListActivity.class), MyStaticValue.REQUESTCODE_ADDNEWPLAN);
+				startActivityForResult(intent.setClass(getApplicationContext(), CandidateListActivity.class), MyStaticValue.REQUESTCODE_ADDNEWFRIEND);
 			}
 		};
 		
@@ -50,26 +52,16 @@ public class FriendsListActivity extends UpdateActivity {
 		 *  TODO Get Plans List from server
 		 *  How to update my list?
 		 *  After get list, 
-		 */
-		getPlanList();
+		 */		
 		adapter = new FriendListAdapter(this);
 		
-		/* 
-		 *  temp code 
-		 *  TODO remove below codes.
-		 */
-		SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String date = Formatter.format(new Date());
+		String result = getFriendList(friendArrayList);
 		
-		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", date, date, 0);
-		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", date, date, 0);
-		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", date, date, MyStaticValue.FRIDAY);
-		FriendData f1 = new FriendData("huiseo@gmail.com", "01022846035", plan, false);
-		FriendData f2 = new FriendData("kimtaehee@gmail.com", "01000050125", plan1, false);
-		FriendData f3 = new FriendData("songhyegyo@gmail.com", "01012348521", plan2 , false);
-		adapter.addItem(f1);
-		adapter.addItem(f2);
-		adapter.addItem(f3);
+		if(result.equals("good")) {
+			for(int i = 0; i < friendArrayList.size(); i++) {
+				adapter.addItem(friendArrayList.get(i));
+			}
+		}
 		
 		/* TODO ÀÌ°Å Áö±Ý ÇÏ¸é Á×À» ÅÙµ¥.. */
 		//adapter.setListItems(lit);
@@ -82,7 +74,7 @@ public class FriendsListActivity extends UpdateActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		switch(requestCode){
-			case MyStaticValue.REQUESTCODE_ADDNEWPLAN: 
+			case MyStaticValue.REQUESTCODE_ADDNEWFRIEND: 
 				if(resultCode == RESULT_OK){ 
 					boolean result = data.getExtras().getBoolean("sucess");
 					if(result == true) /* user add new plan sucessfully */
