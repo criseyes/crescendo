@@ -28,6 +28,10 @@ public class FriendListAdapter extends BaseAdapter {
 		mItems = lit;
 	}
 	
+	public void clearAllItems() {
+		mItems.clear();
+	}
+	
 	public FriendListAdapter(Context context) {
 		super();
 		mContext = context;

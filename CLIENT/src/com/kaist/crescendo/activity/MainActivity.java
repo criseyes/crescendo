@@ -23,6 +23,7 @@ public class MainActivity extends UpdateActivity {
 		findViewById(R.id.main_plans_list).setOnClickListener(mClickListener);
 		findViewById(R.id.main_friends_list).setOnClickListener(mClickListener);
 		findViewById(R.id.main_manage_settings).setOnClickListener(mClickListener);
+		findViewById(R.id.main_view_status).setOnClickListener(mClickListener);
 		
 		MyStaticValue.myId = getMyID();
 	} 
@@ -54,6 +55,7 @@ public class MainActivity extends UpdateActivity {
 	           		case R.id.main_manage_widget:
 	           			break;
 	           		case R.id.main_view_status:
+	           			intent.setClass(getApplicationContext(), StatusActivity.class);
 	           			break;
 	           		default:
 	           			break;

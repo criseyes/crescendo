@@ -1,10 +1,15 @@
 package com.kaist.crescendo.manager;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.kaist.crescendo.R;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -20,6 +25,34 @@ public class UpdateManager implements UpdateManagerInterface {
 	private String asyncTaskResult;
 	private int asyncTaskState;
 	private Context mContext;
+	private ArrayList<FriendData> mFriendArrayList;
+	private ArrayList<PlanData> mPlanArrayList;
+	private int planUid;
+	
+	public UpdateManager() {
+		mFriendArrayList = new ArrayList<FriendData>();
+		mPlanArrayList = new ArrayList<PlanData>();
+		
+		SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String date = Formatter.format(new Date());
+		
+		planUid = 0;
+		
+		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", date, date, 0);
+		plan.uId = planUid++;
+		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", date, date, 0);
+		plan1.uId = planUid++;
+		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", date, date, MyStaticValue.FRIDAY);
+		plan2.uId = planUid++;
+		
+		mFriendArrayList.add(new FriendData("ehyewony@gamil.com", "01022563409", plan, false, false));
+		mFriendArrayList.add(new FriendData("hui.seo@gamil.com", "01012345678", plan1, false, false));
+		mFriendArrayList.add(new FriendData("crisyseye@gmail.com", "01098765432", plan2, false, false));
+		
+		mPlanArrayList.add(plan);
+		mPlanArrayList.add(plan1);
+		mPlanArrayList.add(plan2);
+	}
 	
 	private void showToastPopup(int result) {
 		switch(result) {
@@ -244,6 +277,14 @@ public class UpdateManager implements UpdateManagerInterface {
 	
 	@Override
 	public int addNewPlan(Context context, PlanData plan) {
+		//make temporal test code
+		
+		plan.uId = planUid++;
+		mPlanArrayList.add(plan);
+		
+		return 0;
+		
+		/*
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		JSONObject revMsg = null;
@@ -276,10 +317,21 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;
+		*/
 	}
 	
 	@Override
 	public int updatePlan(Context context, PlanData plan) {
+		
+		for(int i = 0; i < mPlanArrayList.size(); i++) {
+			if(mPlanArrayList.get(i).uId == plan.uId) {
+				mPlanArrayList.set(i, plan);
+				break;
+			}
+		}
+		
+		return 0;
+		/*
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		JSONObject revMsg = null;
@@ -312,10 +364,21 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;
+		*/
 	}
 
 	@Override
 	public int deletePlan(Context context, int plan_uId) {
+		
+		for(int i = 0 ; i < mPlanArrayList.size(); i++) {
+			if(mPlanArrayList.get(i).uId == plan_uId) {
+				mPlanArrayList.remove(i);
+				break;
+			}
+		}
+		
+		return 0;
+		/*
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		JSONObject revMsg = null;
@@ -348,28 +411,78 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;
+		*/
 	}
 
 	@Override
-	public int getPlan(Context context, PlanData[] plan) {
+	public int getPlanList(Context context, ArrayList<PlanData> planArrayList) {
 		// TODO Auto-generated method stub
+		
+		//make temporal code for testing
+		for(int i = 0; i < mPlanArrayList.size() ; i++) {
+			PlanData plan = mPlanArrayList.get(i);
+			planArrayList.add(plan);
+		}
+				
 		return 0;
 	}
 
 	@Override
-	public int getFriend(Context context, FriendData[] friend) {
+	public int getFriend(Context context, ArrayList<FriendData> friendArrayList) {
 		// TODO Auto-generated method stub
+		
+		//make temporal code for testing
+		for(int i = 0; i < mFriendArrayList.size() ; i++) {
+			FriendData friend = mFriendArrayList.get(i);
+			if(friend.getisSelected()) {
+				friendArrayList.add(friend);
+			}
+		}
+		
+		return 0;
+	}
+	
+	@Override
+	public int getCandidate(Context context, ArrayList<FriendData> candidateArrayList) {
+		// TODO Auto-generated method stub
+		
+		//make temporal code for testing
+		for(int i = 0; i < mFriendArrayList.size() ; i++) {
+			FriendData friend = mFriendArrayList.get(i);
+			if(friend.getisSelected() == false) {
+				candidateArrayList.add(friend);
+			}
+		}
+		
 		return 0;
 	}
 
 	@Override
-	public int addNewFriend(Context context, FriendData friend) {
+	public int addNewFriend(Context context, ArrayList<FriendData> friendArrayList) {
 		// TODO Auto-generated method stub
+		//make temporal code for testing
+		for(int i = 0; i < friendArrayList.size() ; i++) {
+			for(int j = 0; j < mFriendArrayList.size(); j++) {
+				if(friendArrayList.get(i).id.equals(mFriendArrayList.get(j).id)) {
+					mFriendArrayList.get(j).setselected(true);
+				}
+			}
+		}
 		return 0;
 	}
 
 	@Override
 	public int delFriend(Context context, String friendUserId) {
+		//make temporal code for testing
+		for(int i = 0; i < mFriendArrayList.size() ; i++) {
+			if(mFriendArrayList.get(i).id.equals(friendUserId)) {
+				mFriendArrayList.get(i).setselected(false);
+				break;
+			}
+		}
+		return 0;
+		
+		/*
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		JSONObject revMsg = null;
@@ -402,6 +515,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;
+		*/
 	}
 
 	@Override

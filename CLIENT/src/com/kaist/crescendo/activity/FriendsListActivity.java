@@ -1,25 +1,31 @@
 package com.kaist.crescendo.activity;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.data.FriendData;
 import com.kaist.crescendo.data.FriendListAdapter;
-import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.utils.MyStaticValue;
 
 public class FriendsListActivity extends UpdateActivity {
 	
 	private FriendListAdapter adapter;
 	private ListView listView;
+	private ArrayList<FriendData> friendArrayList;
 	
+	private final int MENU_ID_DELETE = Menu.FIRST;
+	private final int MENU_ID_CANCEL = Menu.FIRST + 1;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,7 +36,7 @@ public class FriendsListActivity extends UpdateActivity {
 		
 		
 		listView = (ListView) findViewById(R.id.plans_list);
-		
+		friendArrayList = new ArrayList<FriendData>();
 		
 		OnClickListener mClickListener = new OnClickListener() {
 			
@@ -40,40 +46,70 @@ public class FriendsListActivity extends UpdateActivity {
 				Intent intent = new Intent();
 				intent.putExtra(MyStaticValue.MODE, MyStaticValue.MODE_NEW);
 				
-				startActivityForResult(intent.setClass(getApplicationContext(), CandidateListActivity.class), MyStaticValue.REQUESTCODE_ADDNEWPLAN);
+				startActivityForResult(intent.setClass(getApplicationContext(), CandidateListActivity.class), MyStaticValue.REQUESTCODE_ADDNEWFRIEND);
 			}
 		};
 		
 		findViewById(R.id.button_add_new_plan).setOnClickListener(mClickListener);
 		
-		/*
-		 *  TODO Get Plans List from server
-		 *  How to update my list?
-		 *  After get list, 
-		 */
-		getPlanList();
 		adapter = new FriendListAdapter(this);
 		
-		/* 
-		 *  temp code 
-		 *  TODO remove below codes.
-		 */
-		SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String date = Formatter.format(new Date());
 		
-		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", date, date, 0);
-		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", date, date, 0);
-		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", date, date, MyStaticValue.FRIDAY);
-		FriendData f1 = new FriendData("huiseo@gmail.com", "01022846035", plan, false);
-		FriendData f2 = new FriendData("kimtaehee@gmail.com", "01000050125", plan1, false);
-		FriendData f3 = new FriendData("songhyegyo@gmail.com", "01012348521", plan2 , false);
-		adapter.addItem(f1);
-		adapter.addItem(f2);
-		adapter.addItem(f3);
+		//get friend list from server
+		String result = getFriendList(friendArrayList);
+		
+		if(result.equals("good")) {
+			for(int i = 0; i < friendArrayList.size(); i++) {
+				adapter.addItem(friendArrayList.get(i));
+			}
+		}
 		
 		/* TODO ÀÌ°Å Áö±Ý ÇÏ¸é Á×À» ÅÙµ¥.. */
 		//adapter.setListItems(lit);
 		listView.setAdapter(adapter);
+		
+		registerForContextMenu(listView);
+
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		
+		menu.setHeaderTitle(R.string.str_delete_friend);
+		menu.add(0, MENU_ID_DELETE, Menu.NONE, R.string.str_delete);
+		menu.add(0, MENU_ID_CANCEL, Menu.NONE, R.string.str_cancel);
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		super.onContextItemSelected(item);
+		AdapterView.AdapterContextMenuInfo menuInfo;
+		int index;
+		switch(item.getItemId()) {
+		case MENU_ID_DELETE:
+			menuInfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+			index = menuInfo.position;
+			FriendData friend = (FriendData) adapter.getItem(index);
+			String ret = delFriend(friend.id);
+			
+			if(ret == "good") {
+				ret = getFriendList(friendArrayList);
+				
+				if(ret.equals("good")) {
+					adapter.clearAllItems();
+					for(int i = 0; i < friendArrayList.size(); i++) {
+						adapter.addItem(friendArrayList.get(i));
+					}
+					adapter.notifyDataSetChanged();
+				}
+			}
+			
+			break;
+		case MENU_ID_CANCEL:
+			break;
+		}
+		return true;
 	}
 	
 	@Override
@@ -82,14 +118,20 @@ public class FriendsListActivity extends UpdateActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		switch(requestCode){
-			case MyStaticValue.REQUESTCODE_ADDNEWPLAN: 
+			case MyStaticValue.REQUESTCODE_ADDNEWFRIEND: 
 				if(resultCode == RESULT_OK){ 
-					boolean result = data.getExtras().getBoolean("sucess");
+					boolean result = data.getExtras().getBoolean("success");
 					if(result == true) /* user add new plan sucessfully */
 					{
-						/* 
-						 *  TODO  update list once more
-						 */
+						String ret = getFriendList(friendArrayList);
+						
+						if(ret.equals("good")) {
+							adapter.clearAllItems();
+							for(int i = 0; i < friendArrayList.size(); i++) {
+								adapter.addItem(friendArrayList.get(i));
+							}
+							adapter.notifyDataSetChanged();
+						}
 					}
 				}
 		}

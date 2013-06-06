@@ -1,12 +1,11 @@
 package com.kaist.crescendo.activity;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,9 +21,10 @@ public class PlanListActivity extends UpdateActivity {
 	
 	private static PlanListAdapter adapter;
 	private ListView listView;
+	private ArrayList<PlanData> planArrayList;
 	
-	private final int DELETE_ID = 0;
-	private final int UPDATE_ID = 1;
+	private final int UPDATE_ID = Menu.FIRST;
+	private final int DELETE_ID = Menu.FIRST + 1;	
 	
 	public final static PlanListAdapter getAdapterInstance() 
 	{
@@ -36,8 +36,10 @@ public class PlanListActivity extends UpdateActivity {
 		
 		super.onCreateContextMenu(menu, v, menuInfo);
 		
-		menu.add(0, DELETE_ID, 0, R.string.str_delete_plan);
+		menu.setHeaderTitle(R.string.str_plan_context_menu);
+		
 		menu.add(0, UPDATE_ID, 0, R.string.str_modify_plan2);
+		menu.add(0, DELETE_ID, 0, R.string.str_delete_plan);
 	}
 	
 	@Override
@@ -55,9 +57,14 @@ public class PlanListActivity extends UpdateActivity {
 			result = deletePlan(((PlanData) adapter.getItem(index)).uId);
 			if(result == true)
 			{
-				/* 
-				 * TODO should update list.
-				 */
+				adapter.clearAllItems();
+				String ret = getPlanList(planArrayList);
+				if(ret.equals("good")) {
+					for(int i = 0 ; i < planArrayList.size() ; i++) {
+						adapter.addItem(planArrayList.get(i));
+					}
+					adapter.notifyDataSetChanged();
+				}
 			}
 			return true;
 		case UPDATE_ID:
@@ -83,7 +90,7 @@ public class PlanListActivity extends UpdateActivity {
 		
 		
 		listView = (ListView) findViewById(R.id.plans_list);
-		
+		planArrayList = new ArrayList<PlanData>();		
 		
 		OnClickListener mClickListener = new OnClickListener() {
 			
@@ -97,20 +104,6 @@ public class PlanListActivity extends UpdateActivity {
 			}
 		};
 		
-//		OnItemLongClickListener mItemLongClickListener = new OnItemLongClickListener() {
-//
-//			@Override
-//			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-//					int arg2, long arg3) {
-//				// TODO Auto-generated method stub
-//				return true;
-//			}
-//		};
-		
-//		listView.setOnItemLongClickListener(mItemLongClickListener);
-		registerForContextMenu(listView);
-		
-		
 		findViewById(R.id.button_add_new_plan).setOnClickListener(mClickListener);
 		
 		/*
@@ -118,25 +111,20 @@ public class PlanListActivity extends UpdateActivity {
 		 *  How to update my list?
 		 *  After get list, 
 		 */
-		getPlanList();
 		adapter = new PlanListAdapter(this);
 		
-		/* 
-		 *  temp code 
-		 */
-		SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String date = Formatter.format(new Date());
+		String result = getPlanList(planArrayList);
 		
-		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test1", date, date, 0);
-		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test2", date, date, 0);
-		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test3", date, date, MyStaticValue.FRIDAY);
-		adapter.addItem(plan);
-		adapter.addItem(plan1);
-		adapter.addItem(plan2);
-		
+		if(result.equals("good")) {
+			for(int i = 0; i < planArrayList.size(); i++) {
+				adapter.addItem(planArrayList.get(i));
+			}
+		}
+	
 		/* TODO ÀÌ°Å Áö±Ý ÇÏ¸é Á×À» ÅÙµ¥.. */
 		//adapter.setListItems(lit);
 		listView.setAdapter(adapter);
+		registerForContextMenu(listView);
 	}
 	
 	@Override
@@ -147,23 +135,33 @@ public class PlanListActivity extends UpdateActivity {
 		switch(requestCode){
 			case MyStaticValue.REQUESTCODE_ADDNEWPLAN: 
 				if(resultCode == RESULT_OK){ 
-					boolean result = data.getExtras().getBoolean("sucess");
+					boolean result = data.getExtras().getBoolean("success");
 					if(result == true) /* user add new plan sucessfully */
 					{
-						/* 
-						 *  TODO  update list once more
-						 */
+						adapter.clearAllItems();
+						String ret = getPlanList(planArrayList);
+						if(ret.equals("good")) {
+							for(int i = 0 ; i < planArrayList.size() ; i++) {
+								adapter.addItem(planArrayList.get(i));
+							}
+							adapter.notifyDataSetChanged();
+						}
 					}
 				}
 				break;
 			case MyStaticValue.REQUESTCODE_UPDATEPLAN: 
 				if(resultCode == RESULT_OK){ 
-					boolean result = data.getExtras().getBoolean("sucess");
+					boolean result = data.getExtras().getBoolean("success");
 					if(result == true) /* user add new plan sucessfully */
 					{
-						/* 
-						 *  TODO  update list once more
-						 */
+						adapter.clearAllItems();
+						String ret = getPlanList(planArrayList);
+						if(ret.equals("good")) {
+							for(int i = 0 ; i < planArrayList.size() ; i++) {
+								adapter.addItem(planArrayList.get(i));
+							}
+							adapter.notifyDataSetChanged();
+						}
 					}
 				}
 				break;

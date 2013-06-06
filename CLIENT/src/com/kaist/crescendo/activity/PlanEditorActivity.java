@@ -192,7 +192,7 @@ public class PlanEditorActivity extends UpdateActivity {
 		EditText start = (EditText)this.findViewById(R.id.editStartDate);
 		EditText end = (EditText)this.findViewById(R.id.editEndDate);
 		
-		if(title.getText().length() < 3 == false)
+		if(title.getText().length() < 3)
 		{
 			isOK = false;
 			Toast.makeText(this, "Please Input valid Tile..", Toast.LENGTH_LONG).show();
@@ -215,22 +215,20 @@ public class PlanEditorActivity extends UpdateActivity {
 			if(mode == MyStaticValue.MODE_NEW)
 			{
 				PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, title.getText().toString(), start.getText().toString(), end.getText().toString(), dayOfWeek);
-				addNewPlan(plan);
-				/*
-				 *  TODO should check returned value 
-				 */
-				complete();
+				String ret = addNewPlan(plan);
+				if(ret.equals("good")) {
+					complete();
+				}
 			}
 			else {
 				plan.title = title.getText().toString();
 				plan.start = start.getText().toString();
 				plan.end = end.getText().toString();
 				plan.dayOfWeek = dayOfWeek;
-				updatePlan(plan);
-				/*
-				 *  TODO should check returned value 
-				 */
-				complete();
+				boolean ret = updatePlan(plan);
+				if(ret == true) {
+					complete();
+				}
 			}
 		}
 	}

@@ -42,8 +42,13 @@
     <string name="str_settings_change_pw">비밀번호 변경</string>
     <string name="str_settings_help">도움말</string>
     <string name="str_settings_title">환경을 설정합니다.</string>
-    <string name="str_delete_plan">선택한 목표를 삭제합니다.</string>
-    <string name="str_modify_plan2">선택한 목표를 수정합니다.</string>
+    <string name="str_plan_context_menu">목표 수정/삭제</string>
+    <string name="str_delete_plan">삭제</string>
+    <string name="str_modify_plan2">수정</string>
+    <string name="str_delete">삭제</string>
+    <string name="str_cancel">취소</string>
+    <string name="str_delete_friend">친구 삭제</string>
+    <string name="str_show_status">현재까지 목표 진행 상황입니다.</string>
     
     <string name="str_success">정상적으로 처리되었습니다.</string>
     <string name="str_duplicated_user">이미 등록된 아이디 입니다. 다른 아이디로 등록하세요</string>
