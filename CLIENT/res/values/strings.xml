@@ -48,6 +48,7 @@
     <string name="str_delete">삭제</string>
     <string name="str_cancel">취소</string>
     <string name="str_delete_friend">친구 삭제</string>
+    <string name="str_show_status">현재까지 목표 진행 상황입니다.</string>
     
     <string name="str_success">정상적으로 처리되었습니다.</string>
     <string name="str_duplicated_user">이미 등록된 아이디 입니다. 다른 아이디로 등록하세요</string>
