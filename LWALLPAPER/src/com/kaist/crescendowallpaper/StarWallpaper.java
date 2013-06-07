@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.service.wallpaper.WallpaperService;
 import android.util.Log;
 import android.view.Display;
@@ -51,7 +51,7 @@ public class StarWallpaper extends WallpaperService {
   // Constructor
   //-----------------------------------
   StarEngine() {
-       SurfaceHolder holder = getSurfaceHolder();
+       //SurfaceHolder holder = getSurfaceHolder();
   }
   
   @Override
@@ -59,6 +59,8 @@ public class StarWallpaper extends WallpaperService {
 			boolean resultRequested) {
 
 	  	Log.d("My", "onCommand action" + action.toString());
+	  	if(mThread.onCommand(action, x, y, z, extras, resultRequested) == true)
+	  		return null;
 		return super.onCommand(action, x, y, z, extras, resultRequested);
 	}
   
@@ -157,13 +159,20 @@ public class StarWallpaper extends WallpaperService {
   
   public int bx, by;
   //private ArrayList<Star> stars = new ArrayList<Star>();
-  private ArrayList<MyAvataView> avatas = new ArrayList<MyAvataView>();
-  private Bitmap imgBack;
-  private Rect src = new Rect();
-  private Rect dst = new Rect();
-  private float  th;     // 각도
-  private int    rad;      // 반지름
+  //private ArrayList<MyAvataView> avatas = new ArrayList<MyAvataView>();
+  private ArrayList<MyAvata2> avatas = new ArrayList<MyAvata2>();
   
+  private Bitmap imgBack;
+  
+  public boolean onCommand(String action, int x, int y, int z, Bundle extras, boolean resultRequested)
+  {
+	  for (MyAvata2 avata : avatas) {
+     	   if(avata.onCommand(action, x, y, z, System.currentTimeMillis()))
+     		   return true;
+	  }
+	  return false;
+	  
+  }
   //------------------------------
   // Constructor
   //------------------------------
@@ -186,7 +195,7 @@ public class StarWallpaper extends WallpaperService {
        
 //       for (int i = 1; i <= 50; i++)  //최초의 별의 갯수
 //            stars.add(new Star());
-       avatas.add(new MyAvataView(mContext));
+       avatas.add(new MyAvata2(mContext, 0));
    
   }
   //------------------------------
@@ -225,7 +234,6 @@ public class StarWallpaper extends WallpaperService {
    public void setSurfaceSize(int width, int height) {
        Width = width;
        Height = height;
-       dst.set(0, 0, Width, Height);
         synchronized (this) {
               this.notify();
          }
@@ -237,7 +245,7 @@ public class StarWallpaper extends WallpaperService {
    public void doTouchEvent(MotionEvent event) {
          wait = false;
          synchronized (this) {
-             for (MyAvataView avata : avatas) {
+             for (MyAvata2 avata : avatas) {
           	   if(avata.onTouch(event))
           		   break;
              }
@@ -278,7 +286,7 @@ public class StarWallpaper extends WallpaperService {
         } // run
   //
   private void Draw(Canvas canvas) {
-	   for (MyAvataView avata : avatas) {
+	   for (MyAvata2 avata : avatas) {
 		   avata.moveBySelf();
 		   avata.draw(canvas);
 	   }  
