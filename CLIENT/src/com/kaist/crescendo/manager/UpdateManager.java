@@ -47,18 +47,18 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		planUid = 0;
 		
+
 		for(int i = 0 ; i < 10 ; i++) {
 			hisCalendar.add(Calendar.DAY_OF_MONTH, 1);
 			mHistoryArrayList.add(new HistoryData(Formatter.format(hisCalendar.getTime()), 90 - i));
 		}
 		
-		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", startDate, endDate, 0);
+		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", startDate, endDate, 0, 11, 10 );
 		plan.uId = planUid++;
-		plan.initValue = 90;
-		plan.targetValue = 60;
-		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", startDate, endDate, 0);
+		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", startDate, endDate,0,  11, 10 );
 		plan1.uId = planUid++;
-		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", startDate, endDate, MyStaticValue.FRIDAY);
+		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", startDate, endDate,MyStaticValue.FRIDAY,11, 10 );
+
 		plan2.uId = planUid++;
 		
 		mFriendArrayList.add(new FriendData("ehyewony@gamil.com", "01022563409", plan, false, false));

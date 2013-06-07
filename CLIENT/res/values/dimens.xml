@@ -5,5 +5,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_horizontal_margin_double">24dp</dimen>
     <dimen name="list_icon_max_size">60dp</dimen>
+    <dimen name="planeditor_common_margin">8dp</dimen>
 
 </resources>
