@@ -1,5 +1,4 @@
-package com.kaist.crescendo.chart;
-
+package com.essence.chart;
 
 import java.util.Random;
 

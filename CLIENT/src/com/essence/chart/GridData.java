@@ -1,8 +1,4 @@
-package com.kaist.crescendo.chart;
-
-import com.kaist.crescendo.chart.Cell;
-import com.kaist.crescendo.chart.Row;
-import com.kaist.crescendo.chart.Value;
+package com.essence.chart;
 
 public class GridData {
 	public static final int GRIDDATA_DAFAULT_ROW = 5;

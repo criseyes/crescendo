@@ -1,4 +1,4 @@
-package com.kaist.crescendo.chart;
+package com.essence.chart;
 
 import android.view.MotionEvent;
 
