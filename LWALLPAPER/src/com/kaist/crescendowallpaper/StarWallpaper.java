@@ -41,6 +41,8 @@ public class StarWallpaper extends WallpaperService {
      public Engine onCreateEngine() {
           return new StarEngine();
  }
+     
+
 //----------------  StarEngine  ----------------------------------------------------
  class StarEngine extends Engine {
       private MyThread mThread;

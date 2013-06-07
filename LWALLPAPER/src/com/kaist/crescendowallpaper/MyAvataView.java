@@ -31,15 +31,15 @@ public class MyAvataView {
 	public int startX, startY; // Á¡ÀÇ ÁÂÇ¥
 	private int countX;
 	private int countY;
-	private int directX;
-	private int directY;
+	private int directX = 1;
+	private int directY = 1;
 	private View v;
 	private ImageView head;
 	private ImageView body;
 	private Bitmap headImg[];
 	private Bitmap bodyImg[];
 	private boolean isStickyMode;
-	private long lastDownEventAction;
+	private long lastDownEventActionTime;
 	private boolean isNeedDrawDirecty;
 	
 	public MyAvataView(Context context) {
@@ -143,19 +143,27 @@ public class MyAvataView {
 			countY = MAX_COUNT;
 		}
 		
-		head.offsetLeftAndRight(directX);
-		head.offsetTopAndBottom(directY);
-		body.offsetLeftAndRight(directX);
-		body.offsetTopAndBottom(directY);
+		startX += directX;
+		startY += directY;
+		
+		setLayer(startX,startY);
 		
 		countX--;
 		countY--;
 		
-		head.layout(head.getLeft(), head.getRight(), head.getTop(), head.getBottom());
-		body.layout(body.getLeft(), body.getRight(), body.getTop(), body.getBottom());
+		
+		
+		//Log.d("layout ","head.getLeft(): "+head.getLeft()+ "head.getRight(): " + head.getRight() + "head.getTop(): " + head.getTop() + "head.getBottom(): " + head.getBottom() );
+		//Log.d("layout ","body.getLeft(): "+body.getLeft()+ "body.getRight(): " + body.getRight() + "body.getTop(): " + body.getTop() + "body.getBottom(): " + body.getBottom() );
 	}
 	
 	public void setPosition(int x, int y) {
+		
+		setLayer(x,y);
+		isNeedDrawDirecty = true;
+	}
+	
+	private void setLayer(int x, int y) {
 		startX = x;
 		startY = y;
 		
@@ -169,10 +177,6 @@ public class MyAvataView {
 		body.setTop(startY + HEAD_SY);
 		body.setBottom(startY + HEAD_SY + BODY_SY);
 		
-		head.layout(head.getLeft(), head.getRight(), head.getTop(), head.getBottom());
-		body.layout(body.getLeft(), body.getRight(), body.getTop(), body.getBottom());
-		
-		isNeedDrawDirecty = true;
 	}
 	
 	public void draw(Canvas canvas) {
@@ -188,6 +192,8 @@ public class MyAvataView {
 		
 		//head.draw(canvas);
 		//body.draw(canvas);
+		head.layout(head.getLeft(), head.getRight(), head.getTop(), head.getBottom());
+		body.layout(body.getLeft(), body.getRight(), body.getTop(), body.getBottom());
 		
 		v.draw(canvas);
 	}
@@ -197,9 +203,9 @@ public class MyAvataView {
 		//v.dispatchTouchEvent(event);
 		//v.
 		//head.dispatchTouchEvent(event);
-		Log.d("MyTag", "onTouch :" + event.getAction()+"x= "+ event.getX()+"y= "+ event.getY());
-		
-		if(isStickyMode == true || lastDownEventAction == MotionEvent.ACTION_DOWN) /* to catch drag gesture */
+		//Log.d("MyTag", "onTouch :" + event.getAction()+"x= "+ event.getX()+"y= "+ event.getY());
+		long time = event.getEventTime();
+		if(isStickyMode == true || time - lastDownEventActionTime < (DOUBLE_TAP_INTV*2)) /* to catch drag gesture */
 		{
 			if(event.getAction() == MotionEvent.ACTION_MOVE) {
 				isStickyMode = true;
@@ -209,7 +215,7 @@ public class MyAvataView {
 			else 
 				{
 					isStickyMode = false;
-					lastDownEventAction = MotionEvent.ACTION_OUTSIDE;
+					lastDownEventActionTime = MotionEvent.ACTION_OUTSIDE;
 					return true;
 				}
 		}
@@ -220,17 +226,17 @@ public class MyAvataView {
 			
 			if(event.getAction() == MotionEvent.ACTION_DOWN)
 			{
-				long time = event.getEventTime();
 				
-				if(time - lastDownEventAction < DOUBLE_TAP_INTV) {  
+				
+				if(time - lastDownEventActionTime < DOUBLE_TAP_INTV) {  
 					wowDoubleTap();
 				}
 				
-				lastDownEventAction = time;
+				lastDownEventActionTime = time;
 			}
 			return true;
 		}
-		lastDownEventAction = MotionEvent.ACTION_OUTSIDE;
+		lastDownEventActionTime = MotionEvent.ACTION_OUTSIDE;
 		return false;
 	}
 	
