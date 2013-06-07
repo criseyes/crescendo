@@ -1,4 +1,4 @@
-package com.kaist.crescendo.chart;
+package com.essence.chart;
 
 public class ChartLibrary {
 	final static private String	m_strLibraryName = "essence.chart";

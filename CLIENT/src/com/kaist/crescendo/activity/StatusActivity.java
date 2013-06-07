@@ -2,7 +2,7 @@ package com.kaist.crescendo.activity;
 
 import java.util.ArrayList;
 
-import com.kaist.crescendo.chart.Chart;
+import com.essence.chart.Chart;
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.data.PlanData;
 import android.os.Bundle;

@@ -47,7 +47,6 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		planUid = 0;
 		
-
 		for(int i = 0 ; i < 10 ; i++) {
 			hisCalendar.add(Calendar.DAY_OF_MONTH, 1);
 			mHistoryArrayList.add(new HistoryData(Formatter.format(hisCalendar.getTime()), 90 - i));
