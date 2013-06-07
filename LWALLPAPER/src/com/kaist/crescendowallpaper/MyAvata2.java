@@ -21,7 +21,7 @@ public class MyAvata2 {
 	private static final int HEAD_SXOFFSET = (BODY_SX - HEAD_SY)/2;
 	
 	private static final Random rand = new Random();
-	private static final long DOUBLE_TAP_INTV = 500;
+	private static final long DOUBLE_TAP_INTV = 600;
 	
 	public int startX, startY; // Á¡ÀÇ ÁÂÇ¥
 	private int countX;
@@ -201,7 +201,7 @@ public class MyAvata2 {
 		{
 			isStickyMode = false;
 			
-			if(tapTime - lastTapEventTime < 500 )
+			if(tapTime - lastTapEventTime < DOUBLE_TAP_INTV )
 				wowDoubleTap();
 			lastTapEventTime = tapTime;
 		}

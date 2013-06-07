@@ -12,6 +12,8 @@
     <string name="str_planEditor_title">제목</string>
     <string name="str_planEditor_startdate">시작일</string>
     <string name="str_planEditor_endDate">완료일</string>
+    <string name="str_planEditor_initValue">현재값</string>
+    <string name="str_planEditor_targetValue">목표값</string>
     <string name="str_planEditor_repeatPeriod">반복주기</string>
     <string name="str_monday">월</string>
     <string name="str_tuesday">화</string>
@@ -20,6 +22,7 @@
     <string name="str_friday">금</string>
     <string name="str_saturday">토</string>
     <string name="str_sunday">일</string>
+    <string name="str_alarm_time">알람 시간</string>
     <string name="str_ID">ID</string>
     <string name="str_PW">Password</string>
     <string name="str_PhoneNumber">Phone Number</string>

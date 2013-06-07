@@ -76,7 +76,6 @@ public class UpdateManager implements UpdateManagerInterface {
 	private void makeMsgHeader(JSONObject msg, int msgId) {
 		try {
 			msg.put(MsgInfo.MSGID_LABEL, msgId);
-			msg.put(MsgInfo.MSGUID, MyStaticValue.myId);
 			msg.put(MsgInfo.MSGDIR_LABEL, MsgInfo.MSG_SEND_VALUE);
 			msg.put(MsgInfo.MSGLEN_LABLE, 0);
 			msg.put(MsgInfo.MSGRET_LABEL, MsgInfo.STATUS_OK);
@@ -98,6 +97,13 @@ public class UpdateManager implements UpdateManagerInterface {
 			msgId = msg.getInt(MsgInfo.MSGID_LABEL);
 		} catch (Exception e) {
 			// TODO: handle exception
+		}
+		
+		try {
+			temp_body.put(MsgInfo.DEF_USERID_LABEL, MyStaticValue.myId);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 		switch(msgId) {

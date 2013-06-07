@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fadingEdge="none" >
-
+    android:layout_height="match_parent" >
+ 
+    <ScrollView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:orientation="vertical" >
-
+        
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
@@ -41,9 +44,9 @@
             android:id="@+id/editStartDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-   			android:clickable="true"
-   			android:editable="false"
-            android:ems="10"  />
+            android:clickable="true"
+            android:editable="false"
+            android:ems="10" />
 
         <TextView
             android:id="@+id/textView3"
@@ -57,9 +60,39 @@
             android:id="@+id/editEndDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:clickable="true"
             android:editable="false"
-            android:clickable="true" />
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/textViewInitValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:text="@string/str_planEditor_initValue"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/editInitValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/textViewTargetValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:text="@string/str_planEditor_targetValue"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/editTargetValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:ems="10" />
 
         <TextView
             android:id="@+id/textView4"
@@ -74,81 +107,78 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal" >
 
-
-                   
             <ToggleButton
                 android:id="@+id/button_mon"
-                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                
                 android:minWidth="35dip"
-                android:textOn="@string/str_monday"
-                android:textOff="@string/str_monday" />
+                android:textOff="@string/str_monday"
+                android:textOn="@string/str_monday" />
 
             <ToggleButton
                 android:id="@+id/button_tues"
-                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="35dip"
-                
-                android:textOn="@string/str_tuesday" 
-                android:textOff="@string/str_tuesday"/>
-
-
+                android:textOff="@string/str_tuesday"
+                android:textOn="@string/str_tuesday" />
 
             <ToggleButton
                 android:id="@+id/button_wed"
-                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="35dip"
-                
-                android:textOn="@string/str_wednesday"
-                android:textOff="@string/str_wednesday" />
+                android:textOff="@string/str_wednesday"
+                android:textOn="@string/str_wednesday" />
 
             <ToggleButton
                 android:id="@+id/button_thur"
-                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="35dip"
-                
-                android:textOn="@string/str_thursday"
-                android:textOff="@string/str_thursday" />
+                android:textOff="@string/str_thursday"
+                android:textOn="@string/str_thursday" />
 
             <ToggleButton
                 android:id="@+id/button_fri"
-                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="35dip"
-                
-                android:textOn="@string/str_friday"
-                android:textOff="@string/str_friday" />
+                android:textOff="@string/str_friday"
+                android:textOn="@string/str_friday" />
 
             <ToggleButton
                 android:id="@+id/button_sat"
-                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                
                 android:minWidth="35dip"
-                android:textOn="@string/str_saturday"
-                android:textOff="@string/str_saturday" />
+                android:textOff="@string/str_saturday"
+                android:textOn="@string/str_saturday" />
 
             <ToggleButton
                 android:id="@+id/button_sun"
-                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                
                 android:minWidth="35dip"
-                android:textOn="@string/str_sunday"
-                android:textOff="@string/str_sunday" />
-
+                android:textOff="@string/str_sunday"
+                android:textOn="@string/str_sunday" />
         </LinearLayout>
+        
+        <TextView
+            android:id="@+id/textViewAlarmTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:text="@string/str_alarm_time"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <EditText
+            android:id="@+id/editAlarmTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:editable="false"
+            android:ems="10" />
 
         <Button
             android:id="@+id/planeditor_save"
@@ -157,7 +187,6 @@
             android:layout_gravity="right"
             android:layout_margin="@dimen/activity_vertical_margin"
             android:text="@string/str_save" />
-
     </LinearLayout>
-
+     </ScrollView>
 </FrameLayout>

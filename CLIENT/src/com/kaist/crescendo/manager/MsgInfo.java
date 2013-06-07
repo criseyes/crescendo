@@ -31,12 +31,13 @@ public class MsgInfo {
 	
 	//JSONObject Key Value
 	final static String MSGID_LABEL = "msgId";
-	final static String MSGUID = "msgUId"; //this is same as userId, when registering new id this field must be null
 	final static String MSGDIR_LABEL = "msgDir"; // send or receive
 	final static String MSGLEN_LABLE = "msgLen";
 	final static String MSGRET_LABEL = "msgRet"; // result from sever about previous request
 	
 	final static String MSGBODY_LABEL = "msgBody";
+	
+	final static String DEF_USERID_LABEL = "defUserId"; //this is same as userId, when registering new id this field must be null
 	
 	final static String USERID_LABEL = "userId";
 	final static String PASSWORD_LABEL = "passWord";

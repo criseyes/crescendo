@@ -11,6 +11,7 @@ public class PlanData {
 	public int dayOfWeek;
 	public int targetValue;
 	public int initValue;
+	public boolean isSelected = false;
 	public String title;
 	public String start; /* should be YYYY-MM-DD */
 	public String end; /* should be YYYY-MM-DD */

@@ -54,6 +54,7 @@ public class GraphView extends View {
 		float graphwidth = width - (2 * border);
 
 		paint.setTextAlign(Align.LEFT);
+		paint.setTextSize(30);
 		int vers = verlabels.length - 1;
 		for (int i = 0; i < verlabels.length; i++) {
 			paint.setColor(Color.DKGRAY);

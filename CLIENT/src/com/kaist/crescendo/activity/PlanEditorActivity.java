@@ -1,11 +1,15 @@
 package com.kaist.crescendo.activity;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.zip.DataFormatException;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
@@ -28,12 +32,21 @@ public class PlanEditorActivity extends UpdateActivity {
 	EditText startDay;
 	EditText endDay;
 	
+	EditText initValue;
+	EditText targetValue;
+	
+	Calendar alarmTime = Calendar.getInstance();
+	
+	EditText alarmTimeValue;
+	
 	DatePickerDialog.OnDateSetListener startDateSetListener = new DatePickerDialog.OnDateSetListener() {
 		
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			
+			SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");		
 			startCalendar.set(year, monthOfYear, dayOfMonth);
-			startDay.setText(DateFormat.getDateInstance().format(startCalendar.getTime()));
+			startDay.setText(Formatter.format(startCalendar.getTime()));
 		}
 	};
 	
@@ -41,8 +54,9 @@ public class PlanEditorActivity extends UpdateActivity {
 		
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
 			endCalendar.set(year, monthOfYear, dayOfMonth);
-			endDay.setText(DateFormat.getDateInstance().format(endCalendar.getTime()));
+			endDay.setText(Formatter.format(endCalendar.getTime()));
 		}
 	};
 
@@ -91,6 +105,8 @@ public class PlanEditorActivity extends UpdateActivity {
 		startDay = (EditText) findViewById(R.id.editStartDate);
 		endDay = (EditText) findViewById(R.id.editEndDate);
 		
+		alarmTimeValue = (EditText) findViewById(R.id.editAlarmTime);
+		
 		mode = getIntent().getExtras().getInt(MyStaticValue.MODE);
 		
 		if(mode != MyStaticValue.MODE_NEW) /* user want to update existing plan */
@@ -103,6 +119,8 @@ public class PlanEditorActivity extends UpdateActivity {
 			plan = (PlanData) adapter.getItem(index);
 			startDay.setText(plan.start);
 			endDay.setText(plan.end);
+			initValue.setText(plan.initValue);
+			targetValue.setText(plan.targetValue);
 			((EditText) findViewById(R.id.editTile)).setText(plan.title);
 			setAlarmDayOfWeek(plan.dayOfWeek);
 			
@@ -110,12 +128,16 @@ public class PlanEditorActivity extends UpdateActivity {
 		else {  /* Add new plan */
 			setTitle(R.string.str_addnewplan);
 			/* calendar goes to be now */
+			SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
 			startCalendar.set(startCalendar.get(Calendar.YEAR),startCalendar.get(Calendar.MONTH), startCalendar.get(Calendar.DAY_OF_MONTH));
-			startDay.setText(DateFormat.getDateInstance().format(startCalendar.getTime()));
+			startDay.setText(Formatter.format(startCalendar.getTime()));
 		
 			/* to next year */
 			endCalendar.set(endCalendar.get(Calendar.YEAR)+1,endCalendar.get(Calendar.MONTH), endCalendar.get(Calendar.DAY_OF_MONTH));
-			endDay.setText(DateFormat.getDateInstance().format(endCalendar.getTime()));
+			endDay.setText(Formatter.format(endCalendar.getTime()));
+			
+			/* alarm time */
+			alarmTimeValue.setText(alarmTime.get(Calendar.HOUR_OF_DAY) + ":" + alarmTime.get(Calendar.MINUTE));
 		}
 				
 		findViewById(R.id.editStartDate).setOnClickListener(mStartDayListener);
