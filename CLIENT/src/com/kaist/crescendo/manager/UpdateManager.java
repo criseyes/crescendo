@@ -38,11 +38,11 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		planUid = 0;
 		
-		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", date, date, 0);
+		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", date, date, 0, 11, 10 );
 		plan.uId = planUid++;
-		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", date, date, 0);
+		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", date, date,0,  11, 10 );
 		plan1.uId = planUid++;
-		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", date, date, MyStaticValue.FRIDAY);
+		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", date, date,MyStaticValue.FRIDAY,11, 10 );
 		plan2.uId = planUid++;
 		
 		mFriendArrayList.add(new FriendData("ehyewony@gamil.com", "01022563409", plan, false, false));
