@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.kaist.crescendo.R;
-import com.kaist.crescendo.data.FriendData;
 import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.data.PlanListAdapter;
 import com.kaist.crescendo.utils.MyStaticValue;
@@ -116,6 +115,11 @@ public class PlanListActivity extends UpdateActivity {
 				PlanData plan = (PlanData) adapter.getItem(position);
 				adapter.clearSelectedPlan();
 				plan.isSelected = true;
+				
+				if(updatePlan(plan) == true) {
+					
+				}
+				
 				adapter.notifyDataSetChanged();
 			}
 		});

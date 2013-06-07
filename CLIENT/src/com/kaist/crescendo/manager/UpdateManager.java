@@ -2,6 +2,7 @@ package com.kaist.crescendo.manager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.json.JSONArray;
@@ -27,22 +28,37 @@ public class UpdateManager implements UpdateManagerInterface {
 	private Context mContext;
 	private ArrayList<FriendData> mFriendArrayList;
 	private ArrayList<PlanData> mPlanArrayList;
+	private ArrayList<HistoryData> mHistoryArrayList;
 	private int planUid;
 	
 	public UpdateManager() {
 		mFriendArrayList = new ArrayList<FriendData>();
 		mPlanArrayList = new ArrayList<PlanData>();
+		mHistoryArrayList = new ArrayList<HistoryData>(); 
 		
 		SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String date = Formatter.format(new Date());
+		Calendar calendar = Calendar.getInstance();
+
+		String startDate = Formatter.format(calendar.getTime());
+		calendar.add(Calendar.DAY_OF_MONTH, 20);
+		String endDate = Formatter.format(calendar.getTime());
+		
+		Calendar hisCalendar = Calendar.getInstance();
 		
 		planUid = 0;
 		
-		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", date, date, 0);
+		for(int i = 0 ; i < 10 ; i++) {
+			hisCalendar.add(Calendar.DAY_OF_MONTH, 1);
+			mHistoryArrayList.add(new HistoryData(Formatter.format(hisCalendar.getTime()), 90 - i));
+		}
+		
+		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", startDate, endDate, 0);
 		plan.uId = planUid++;
-		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", date, date, 0);
+		plan.initValue = 90;
+		plan.targetValue = 60;
+		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", startDate, endDate, 0);
 		plan1.uId = planUid++;
-		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", date, date, MyStaticValue.FRIDAY);
+		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", startDate, endDate, MyStaticValue.FRIDAY);
 		plan2.uId = planUid++;
 		
 		mFriendArrayList.add(new FriendData("ehyewony@gamil.com", "01022563409", plan, false, false));
@@ -149,7 +165,7 @@ public class UpdateManager implements UpdateManagerInterface {
 				for(int i = 0 ; i < pData.hItem.size() ; i++) {
 					//add plan history data using JSONArray
 					JSONObject hData = new JSONObject();
-					hData.put(MsgInfo.PLAN_HISDATE_LABEL, ((HistoryData)pData.hItem.get(i)).Date);
+					hData.put(MsgInfo.PLAN_HISDATE_LABEL, ((HistoryData)pData.hItem.get(i)).date);
 					hData.put(MsgInfo.PLAN_HISVAL_LABEL, ((HistoryData)pData.hItem.get(i)).value);
 					HisArray.put(i, hData);
 				}
