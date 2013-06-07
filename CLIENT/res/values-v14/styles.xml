@@ -11,5 +11,6 @@
 	<style name="MyAppTheme" parent="@android:style/Theme.Holo" >
 		
 		<item name="android:windowBackground">@drawable/blackwallpaper_bamboo</item>
+		<item name="android:textColor">#ffffff</item>
 	</style>
 </resources>

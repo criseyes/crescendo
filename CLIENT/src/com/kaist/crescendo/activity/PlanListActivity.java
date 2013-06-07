@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.kaist.crescendo.R;
+import com.kaist.crescendo.data.FriendData;
 import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.data.PlanListAdapter;
 import com.kaist.crescendo.utils.MyStaticValue;
@@ -105,6 +107,20 @@ public class PlanListActivity extends UpdateActivity {
 		};
 		
 		findViewById(R.id.button_add_new_plan).setOnClickListener(mClickListener);
+		listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		listView.setItemsCanFocus(false);
+		
+		listView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> adapt, View view, int position, long id) {
+				PlanData plan = (PlanData) adapter.getItem(position);
+				adapter.clearSelectedPlan();
+				plan.isSelected = true;
+				adapter.notifyDataSetChanged();
+			}
+		});
+		
+		
 		
 		/*
 		 *  TODO Get Plans List from server

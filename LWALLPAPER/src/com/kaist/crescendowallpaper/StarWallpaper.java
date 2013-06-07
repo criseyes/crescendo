@@ -196,6 +196,8 @@ public class StarWallpaper extends WallpaperService {
 //       for (int i = 1; i <= 50; i++)  //최초의 별의 갯수
 //            stars.add(new Star());
        avatas.add(new MyAvata2(mContext, 0));
+       avatas.add(new MyAvata2(mContext, 0));
+       avatas.add(new MyAvata2(mContext, 0));
    
   }
   //------------------------------
