@@ -10,6 +10,7 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_margin="4dp"
+	    
 	    android:adjustViewBounds="true"
 	    android:maxHeight="@dimen/list_icon_max_size"
 	    android:maxWidth="@dimen/list_icon_max_size"
@@ -18,49 +19,45 @@
 	    android:src="@drawable/icon_diet" />
 
 	<LinearLayout
-	    android:layout_width="208dp"
+	    android:layout_width="0dip"
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical"
+	    android:layout_weight="5"
 	    android:focusable="false"
 	    android:clickable="false" >
 
 		<TextView
 		    android:id="@+id/toptext"
-		    android:layout_width="fill_parent"
-		    android:layout_height="match_parent"
-		    android:layout_weight="5"
-		    android:layout_gravity="center_vertical"
-		    android:gravity="center_vertical"
+		    android:layout_width="wrap_content"
+		    android:layout_height="38dp"
+		     android:layout_weight="5"
+		    android:clickable="false"
+		    android:focusable="false"
+		    android:gravity="left|center_vertical"
 		    android:singleLine="true"
 		    android:text="title"
-		     android:focusable="false"
-	    android:clickable="false"
-		    android:textColor="#eeeeee"
-		    android:textSize="10pt"
-		    android:textStyle="bold" />
+		    android:textSize="8pt"
+		     />
 
 		<TextView
 		    android:id="@+id/bottomtext"
-		    android:layout_width="fill_parent"
-		    android:layout_height="match_parent"
-		    android:layout_gravity="bottom"
+		    android:layout_width="wrap_content"
+		    android:layout_height="26dp"
+		    android:layout_weight="3"
+		    android:clickable="false"
+		    android:focusable="false"
+		    android:gravity="left|center_vertical"
 		    android:singleLine="true"
-		    android:text="time"
-		     android:focusable="false"
-	    android:clickable="false"
-		    android:textAlignment="center"
-		    android:textSize="7pt" />
-
-		
+		    android:text="time" />
 
 	</LinearLayout>
 
-	<CheckBox
-	    android:id="@+id/isdefault"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:focusable="false"
-	    android:clickable="false"
-	    android:gravity="right|center_vertical|start" />
+		<CheckBox
+		    android:id="@+id/isdefault"
+		    android:layout_weight="1"
+		    android:layout_width="0dip"
+		    android:layout_height="match_parent"
+		    android:clickable="false"
+		    android:focusable="false" />
 
 </LinearLayout>

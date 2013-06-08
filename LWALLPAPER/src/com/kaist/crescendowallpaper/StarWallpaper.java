@@ -44,7 +44,7 @@ public class StarWallpaper extends WallpaperService {
           super.onCreate();
           /* just for debugging wait to sync*/
           /* TODO should remove before commercial release */
-          android.os.Debug.waitForDebugger();
+          //android.os.Debug.waitForDebugger();
           
           try {
 			mCrescendo = createPackageContext("com.kaist.crescendo", Context.MODE_PRIVATE);

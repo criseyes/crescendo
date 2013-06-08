@@ -122,7 +122,7 @@ public class PlanEditorActivity extends UpdateActivity {
 			plan = (PlanData) adapter.getItem(index);
 			startDay.setText(plan.start);
 			endDay.setText(plan.end);
-			initValue.setText(Float.toString(plan.initValue));
+			initValue.setText(Float.toString(plan.initValue) + "kg");
 			targetValue.setText(Float.toString(plan.targetValue));
 			((EditText) findViewById(R.id.editTile)).setText(plan.title);
 			setAlarmDayOfWeek(plan.dayOfWeek);
@@ -139,8 +139,8 @@ public class PlanEditorActivity extends UpdateActivity {
 			endCalendar.set(endCalendar.get(Calendar.YEAR)+1,endCalendar.get(Calendar.MONTH), endCalendar.get(Calendar.DAY_OF_MONTH));
 			endDay.setText(Formatter.format(endCalendar.getTime()));
 			
-			initValue.setText("80kg");
-			targetValue.setText("70kg");
+			initValue.setText("80" + "kg");
+			targetValue.setText("70" + "kg");
 			/* alarm time */
 			alarmTimeValue.setText(alarmTime.get(Calendar.HOUR_OF_DAY) + ":" + alarmTime.get(Calendar.MINUTE));
 		}
@@ -244,7 +244,7 @@ public class PlanEditorActivity extends UpdateActivity {
 			if(mode == MyStaticValue.MODE_NEW)
 			{
 				PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, title.getText().toString(), start.getText().toString(), end.getText().toString(), dayOfWeek,
-										Float.parseFloat(initV.getText().toString()), Float.parseFloat(targetV.getText().toString()));
+										Float.parseFloat(initV.getText().toString().replace("kg", "")), Float.parseFloat(targetV.getText().toString().replace("kg", "")));
 				String ret = addNewPlan(plan);
 				if(ret.equals("good")) {
 					complete();
@@ -255,6 +255,9 @@ public class PlanEditorActivity extends UpdateActivity {
 				plan.start = start.getText().toString();
 				plan.end = end.getText().toString();
 				plan.dayOfWeek = dayOfWeek;
+				plan.initValue = Float.parseFloat(initV.getText().toString().replace("kg", ""));
+				plan.targetValue = Float.parseFloat(targetV.getText().toString().replace("kg", ""));
+				
 				boolean ret = updatePlan(plan);
 				if(ret == true) {
 					complete();
