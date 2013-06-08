@@ -15,9 +15,9 @@ public class MyPref {
 	public static final String AVATA_ENABLED = "AvataEnabled";
 	
 	public static final String FRIEND_ENABLED = "FriendEnabled";
-	public static final String FRIEND_AVATA_NAME = "MyAvataName";
-	public static final String FRIEND_AVATA_TYPE = "MyAvataType";
-	public static final String FRIEND_AVATA_UID = "MyAvataUId";
+	public static final String FRIEND_AVATA_NAME = "FriendAvataName";
+	public static final String FRIEND_AVATA_TYPE = "FriendAvataType";
+	public static final String FRIEND_AVATA_UID = "FriendAvataUId";
 	public static final String FRIEND_ID = "FriendID";
 	
 	/* ALARM NOTIFICATION */

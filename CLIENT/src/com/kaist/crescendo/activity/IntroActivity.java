@@ -34,7 +34,7 @@ public class IntroActivity extends Activity {
 		@Override
 		public void run() {
 			/* Call Register Activity when session is not established */
-			SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+			SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
 			boolean saved = prefs.getBoolean(MyPref.KEY_SESSION, false);
 			String saved_phone = prefs.getString(MyPref.KEY_PHONE, "0");
 			

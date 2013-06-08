@@ -80,7 +80,7 @@ public class PasswordActivity extends UpdateActivity {
 	}
 	
 	private void saveSessionStatus(boolean status) {
-		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putBoolean(MyPref.KEY_SESSION, status);
 		editor.commit();

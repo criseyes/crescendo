@@ -44,5 +44,8 @@ public class MyStaticValue {
 	 */
 	public static final int PLANTYPE_DIET = 10001;
 	public static final int PLANTYPE_READING_BOOK = 10002;
+	
+	/* action */
+	public static final String ACTION_UPDATEWALLPAPER = "android.intent.action.crescendo.changesettings";
 
 }

@@ -25,7 +25,7 @@ public class EntranceActivity extends UpdateActivity {
 	
 	/*  save latest session information */
 	private void saveSessionStatus(boolean status) {
-		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putBoolean(MyPref.KEY_SESSION, status);
 		editor.commit();
@@ -80,7 +80,7 @@ public class EntranceActivity extends UpdateActivity {
 				saveSessionStatus(true);
 				
 				/* saved last login id */
-				SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+				SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
 				SharedPreferences.Editor editor = prefs.edit();
 				editor.putString(MyPref.KEY_MYID, id.getText().toString());
 				editor.commit();
@@ -107,7 +107,7 @@ public class EntranceActivity extends UpdateActivity {
 					((EditText) findViewById(R.id.editPW)).setText(data.getStringExtra(MyStaticValue.RESULT_PW));
 					
 					/* save phone information to preference */
-					SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+					SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
 					SharedPreferences.Editor editor = prefs.edit();
 					editor.putString(MyPref.KEY_PHONE, data.getStringExtra(MyStaticValue.RESULT_PHONE));
 					editor.commit();

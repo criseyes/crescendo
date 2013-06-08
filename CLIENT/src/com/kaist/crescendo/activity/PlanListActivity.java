@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -93,7 +94,7 @@ public class PlanListActivity extends UpdateActivity {
 			
 			/* save info. to preference */
 				
-			SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+			SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
 			SharedPreferences.Editor editor = prefs.edit();
 			
 			editor.putInt(MyPref.MY_AVATA_UID, plan.uId);
@@ -105,11 +106,20 @@ public class PlanListActivity extends UpdateActivity {
 			editor.putString(MyPref.MY_AVATA_TITLE, plan.title);
 			editor.commit();
 			
+			sendBroadCasetIntent();
 			adapter.notifyDataSetChanged();
 			return true;
 		}
 		return super.onContextItemSelected(item);
 	}
+	
+	private void sendBroadCasetIntent()
+	{
+		Intent intent = new Intent(MyStaticValue.ACTION_UPDATEWALLPAPER);
+
+		sendBroadcast(intent);
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -211,7 +221,9 @@ public class PlanListActivity extends UpdateActivity {
 							for(int i = 0 ; i < planArrayList.size() ; i++) {
 								adapter.addItem(planArrayList.get(i));
 							}
+						
 							adapter.notifyDataSetChanged();
+							sendBroadCasetIntent();
 						}
 					}
 				}

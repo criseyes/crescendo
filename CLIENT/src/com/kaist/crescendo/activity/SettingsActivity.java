@@ -3,6 +3,7 @@ package com.kaist.crescendo.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -10,6 +11,7 @@ import android.widget.Switch;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.utils.MyPref;
+import com.kaist.crescendo.utils.MyStaticValue;
 
 public class SettingsActivity extends UpdateActivity {
 
@@ -45,7 +47,7 @@ public class SettingsActivity extends UpdateActivity {
 	private void loadSettings()
 	{
 		
-		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
 		isEnabled = prefs.getBoolean(MyPref.AVATA_ENABLED, false);
 		isAlarm = prefs.getBoolean(MyPref.ALARM_NOTI, false);
 		isFriendEnabled = prefs.getBoolean(MyPref.FRIEND_ENABLED, false);
@@ -59,7 +61,7 @@ public class SettingsActivity extends UpdateActivity {
 
 		@Override
 		public void onCheckedChanged(CompoundButton v, boolean isChecked) {
-			SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+			SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
 			SharedPreferences.Editor editor = prefs.edit();
 			
 			switch (v.getId())
@@ -72,12 +74,22 @@ public class SettingsActivity extends UpdateActivity {
            			break;
            		case R.id.settings_setfriendwidget:
            			editor.putBoolean(MyPref.FRIEND_ENABLED, isChecked);
+           			break;
            }
-			editor.commit();
+			//editor.commit();
+			editor.apply();
+			sendBroadCasetIntent();
 		}
+		
 
 	};
 	
+	private void sendBroadCasetIntent()
+	{
+		Intent intent = new Intent(MyStaticValue.ACTION_UPDATEWALLPAPER);
+
+		sendBroadcast(intent);
+	}
 	
 	/* handling buttons */
 	Button.OnClickListener mClickListener = new View.OnClickListener()

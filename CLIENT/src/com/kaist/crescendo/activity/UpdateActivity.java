@@ -232,7 +232,7 @@ public class UpdateActivity extends Activity {
 	
 	protected String getMyID()
 	{
-		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
 		String myId = prefs.getString(MyPref.KEY_MYID, "");
 		return myId;
 	}

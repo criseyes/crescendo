@@ -2,7 +2,10 @@ package com.kaist.crescendowallpaper;
 
 import java.util.ArrayList;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
@@ -15,18 +18,19 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
+
 public class StarWallpaper extends WallpaperService {
     public static int Width, Height;
-	private Context mCrescendo;
+	private static Context mCrescendo;
 	
-	private boolean isAvataEnabled;
-	private boolean isFriendEnabled;
+	private static boolean isAvataEnabled;
+	private static boolean isFriendEnabled;
 	
-	private int myAvataType;
-	private int friendAvataType;
+	private static int myAvataType;
+	private static int friendAvataType;
 	
-	private String myAvataName;
-	private String friendAvataName;
+	private static String myAvataName;
+	private static String friendAvataName;
 	
 	Engine myEngine; 
 	
@@ -50,12 +54,32 @@ public class StarWallpaper extends WallpaperService {
 		}
           
           loadSettings();
+          IntentFilter filter = new IntentFilter("android.intent.action.crescendo.changesettings");
+          registerReceiver(mReceiver, filter);
      }
      
+     BroadcastReceiver mReceiver = new BroadcastReceiver()
+     {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			try {
+				mCrescendo = createPackageContext("com.kaist.crescendo", Context.MODE_PRIVATE);
+			} catch (NameNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			loadSettings();
+			((StarEngine) myEngine).restart();
+		}
+    	 
+     };
+     
+   
  	private void loadSettings()
  	{
  		
- 		SharedPreferences prefs = mCrescendo.getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+ 		SharedPreferences prefs = mCrescendo.getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
  		isAvataEnabled = prefs.getBoolean(MyPref.AVATA_ENABLED, false);
  		isFriendEnabled = prefs.getBoolean(MyPref.FRIEND_ENABLED, false);
  		
@@ -64,6 +88,8 @@ public class StarWallpaper extends WallpaperService {
  		
  		myAvataName = prefs.getString(MyPref.MY_AVATA_NAME, "");
  		friendAvataName = prefs.getString(MyPref.FRIEND_AVATA_NAME, "");
+ 		
+ 		Log.d("loadSettings", friendAvataName + myAvataName + myAvataType + friendAvataType + isFriendEnabled +  isAvataEnabled);
  	
  	}
  	
@@ -95,6 +121,15 @@ public class StarWallpaper extends WallpaperService {
        //SurfaceHolder holder = getSurfaceHolder();
   }
   
+  public void restart(){
+		  mThread.pausePainting();
+		  mThread.stopPainting();
+		  mThread.end();
+	       
+	   mThread = new MyThread(mholder, getApplicationContext(), mCrescendo);
+	   mThread.start();
+	   mThread.resumePainting();
+  }
 
 
 @Override
@@ -134,17 +169,11 @@ public class StarWallpaper extends WallpaperService {
   @Override
   public void onVisibilityChanged(boolean visible) {
        if (visible) {
-    	   loadSettings();
-           
-    	   mThread = new MyThread(mholder, getApplicationContext(), mCrescendo);
-    	   mThread.start();
     	   mThread.resumePainting();
        }
        else
        {
     		 mThread.pausePainting();
-    		  mThread.stopPainting();
-    		  mThread.end();
        }
   }
   

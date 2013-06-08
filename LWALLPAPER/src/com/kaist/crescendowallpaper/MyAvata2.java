@@ -61,7 +61,10 @@ public class MyAvata2 {
 			headImgs.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.man_shop), HEAD_SX, HEAD_SY, true));
 		else {
 			Bitmap bit = BitmapFactory.decodeFile(file.getPath().toString());
-			headImgs.add(Bitmap.createScaledBitmap(bit, HEAD_SX, HEAD_SY, true));
+			if(bit==null)
+				headImgs.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.man_shop), HEAD_SX, HEAD_SY, true));
+			else
+				headImgs.add(Bitmap.createScaledBitmap(bit, HEAD_SX, HEAD_SY, true));
 		}
           
         bodyImgs.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.sbody0_0), BODY_SX, BODY_SY, true));

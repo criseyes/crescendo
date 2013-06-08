@@ -85,7 +85,7 @@ public class AvataEditorActivity extends UpdateActivity {
 	private void loadSettings()
 	{
 		
-		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
 		name = prefs.getString(MyPref.MY_AVATA_NAME, "");
 		title = prefs.getString(MyPref.MY_AVATA_TITLE, "");
 		
@@ -100,7 +100,7 @@ public class AvataEditorActivity extends UpdateActivity {
 	private void saveSettings(boolean isEnable, String name)
 	{
 		
-		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
 		
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putBoolean(MyPref.AVATA_ENABLED, isEnable);
@@ -108,6 +108,15 @@ public class AvataEditorActivity extends UpdateActivity {
 		
 		editor.putString(MyPref.MY_AVATA_NAME, name);
 		editor.commit();
+		
+		sendBroadCasetIntent();
+	}
+	
+	private void sendBroadCasetIntent()
+	{
+		Intent intent = new Intent(MyStaticValue.ACTION_UPDATEWALLPAPER);
+
+		sendBroadcast(intent);
 	}
 	
 
