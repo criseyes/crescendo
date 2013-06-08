@@ -2,7 +2,6 @@ package com.kaist.crescendowallpaper;
 
 import java.util.ArrayList;
 
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -17,15 +16,21 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
 public class StarWallpaper extends WallpaperService {
-	
-	public static final String KEY_SESSION = "SESSION_CREATED";
-	public static final String KEY_PHONE = "PHONE_ESTABLISHED";
-	public static final String KEY_MYID = "MY_EMAIL_ID";
-	
-	public static final String myPref = "MyPref";
-	
-     public static int Width, Height;
+    public static int Width, Height;
 	private Context mCrescendo;
+	
+	private boolean isAvataEnabled;
+	private boolean isFriendEnabled;
+	
+	private int myAvataType;
+	private int friendAvataType;
+	
+	private String myAvataName;
+	private String friendAvataName;
+	
+	Engine myEngine; 
+	
+	
  
      //-----------------------------------
      // onCreate   
@@ -43,13 +48,25 @@ public class StarWallpaper extends WallpaperService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-         SharedPreferences prefs = mCrescendo.getSharedPreferences(this.myPref, MODE_PRIVATE);
-		boolean saved = prefs.getBoolean(KEY_SESSION, false);
-		String saved_phone = prefs.getString(KEY_PHONE, "0");
-		Log.d("test", saved_phone);
-         
+          
+          loadSettings();
      }
+     
+ 	private void loadSettings()
+ 	{
+ 		
+ 		SharedPreferences prefs = mCrescendo.getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+ 		isAvataEnabled = prefs.getBoolean(MyPref.AVATA_ENABLED, false);
+ 		isFriendEnabled = prefs.getBoolean(MyPref.FRIEND_ENABLED, false);
+ 		
+ 		myAvataType = prefs.getInt(MyPref.MY_AVATA_TYPE, 0);
+ 		friendAvataType = prefs.getInt(MyPref.FRIEND_AVATA_TYPE, 0);
+ 		
+ 		myAvataName = prefs.getString(MyPref.MY_AVATA_NAME, "");
+ 		friendAvataName = prefs.getString(MyPref.FRIEND_AVATA_NAME, "");
+ 	
+ 	}
+ 	
      //-----------------------------------
      // onDestroy
      //-----------------------------------
@@ -62,13 +79,14 @@ public class StarWallpaper extends WallpaperService {
      //-----------------------------------
      @Override
      public Engine onCreateEngine() {
-          return new StarEngine();
+          return myEngine = new StarEngine();
  }
      
 
 //----------------  StarEngine  ----------------------------------------------------
  class StarEngine extends Engine {
       private MyThread mThread;
+	private SurfaceHolder mholder;
   
   //-----------------------------------
   // Constructor
@@ -77,7 +95,9 @@ public class StarWallpaper extends WallpaperService {
        //SurfaceHolder holder = getSurfaceHolder();
   }
   
-  @Override
+
+
+@Override
 	public Bundle onCommand(String action, int x, int y, int z, Bundle extras,
 			boolean resultRequested) {
 
@@ -95,7 +115,8 @@ public class StarWallpaper extends WallpaperService {
   public void onCreate(SurfaceHolder holder) {
        super.onCreate(holder);
        setTouchEventsEnabled(true);
-       mThread = new MyThread(holder, getApplicationContext());
+       mholder = holder; 
+       mThread = new MyThread(holder, getApplicationContext(),mCrescendo );
   }
   
   //-----------------------------------
@@ -112,11 +133,21 @@ public class StarWallpaper extends WallpaperService {
   //-----------------------------------
   @Override
   public void onVisibilityChanged(boolean visible) {
-       if (visible)
-            mThread.resumePainting();
+       if (visible) {
+    	   loadSettings();
+           
+    	   mThread = new MyThread(mholder, getApplicationContext(), mCrescendo);
+    	   mThread.start();
+    	   mThread.resumePainting();
+       }
        else
-            mThread.pausePainting();
+       {
+    		 mThread.pausePainting();
+    		  mThread.stopPainting();
+    		  mThread.end();
+       }
   }
+  
   
   //-----------------------------------
   // onSurfaceCreated
@@ -175,7 +206,7 @@ public class StarWallpaper extends WallpaperService {
  
 //------------------  thread  -----------------------------------------------------
  class MyThread extends Thread {
-  private SurfaceHolder mHolder;
+  public SurfaceHolder mHolder;
   private Context mContext;
   private boolean wait = true;
   private boolean canRun = true;
@@ -187,6 +218,8 @@ public class StarWallpaper extends WallpaperService {
   
   private Bitmap imgBack;
   
+  
+  
   public boolean onCommand(String action, int x, int y, int z, Bundle extras, boolean resultRequested)
   {
 	  for (MyAvata2 avata : avatas) {
@@ -196,10 +229,20 @@ public class StarWallpaper extends WallpaperService {
 	  return false;
 	  
   }
-  //------------------------------
+  public void end() {
+	  
+	try {
+		finalize();
+	} catch (Throwable e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+}
+//------------------------------
   // Constructor
   //------------------------------
-  public MyThread(SurfaceHolder holder, Context context) {
+  public MyThread(SurfaceHolder holder, Context context, Context appContext) {
        mHolder = holder;
        mContext = context;
    
@@ -218,9 +261,15 @@ public class StarWallpaper extends WallpaperService {
        
 //       for (int i = 1; i <= 50; i++)  //최초의 별의 갯수
 //            stars.add(new Star());
-       avatas.add(new MyAvata2(mContext, 0));
-       avatas.add(new MyAvata2(mContext, 0));
-       avatas.add(new MyAvata2(mContext, 0));
+       if(isAvataEnabled == true)
+       {
+    	   avatas.add(new MyAvata2(mContext, appContext, myAvataType, myAvataName, true));
+       }
+       
+       if(isFriendEnabled == true)
+       {
+    	   avatas.add(new MyAvata2(mContext, appContext, friendAvataType, friendAvataName, false ));
+       }
    
   }
   //------------------------------

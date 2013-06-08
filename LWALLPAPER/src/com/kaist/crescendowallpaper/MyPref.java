@@ -1,5 +1,4 @@
-package com.kaist.crescendo.utils;
-
+package com.kaist.crescendowallpaper;
 
 public class MyPref {
 	public static final String KEY_SESSION = "SESSION_CREATED";

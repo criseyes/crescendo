@@ -1,5 +1,6 @@
 package com.kaist.crescendowallpaper;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -40,12 +41,28 @@ public class MyAvata2 {
 	private boolean isNeedDrawDirecty;
 	private Context mContext;
 	
-	public MyAvata2(Context context, int type) {
+	public static final String AVATA_FILNENAME = "myAvata.png";
+	
+	public MyAvata2(Context context, Context appContext, int type, String name, boolean isMe) {
         startX = rand.nextInt(StarWallpaper.Width - BODY_SX);
         startY = rand.nextInt(StarWallpaper.Height - (HEAD_SY + BODY_SY));
 
-        headImgs.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.man_shop), HEAD_SX, HEAD_SY, true));
-        headImgs.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.man_shop_press), HEAD_SX, HEAD_SY, true));
+//        headImgs.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.man_shop), HEAD_SX, HEAD_SY, true));
+//        headImgs.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.man_shop_press), HEAD_SX, HEAD_SY, true));
+        
+        appContext.getFileStreamPath(AVATA_FILNENAME);
+        File file;
+        if(isMe)
+        	file = appContext.getFileStreamPath(AVATA_FILNENAME);
+        else
+        	file = appContext.getFileStreamPath(AVATA_FILNENAME);
+        
+		if(file.exists() == false)
+			headImgs.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.man_shop), HEAD_SX, HEAD_SY, true));
+		else {
+			Bitmap bit = BitmapFactory.decodeFile(file.getPath().toString());
+			headImgs.add(Bitmap.createScaledBitmap(bit, HEAD_SX, HEAD_SY, true));
+		}
           
         bodyImgs.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.sbody0_0), BODY_SX, BODY_SY, true));
         bodyImgs.add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(context.getResources(), R.drawable.sbody0_1), BODY_SX, BODY_SY, true));

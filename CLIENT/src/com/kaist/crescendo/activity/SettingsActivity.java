@@ -15,6 +15,7 @@ public class SettingsActivity extends UpdateActivity {
 
 	private boolean isEnabled;
 	private boolean isAlarm;
+	private boolean isFriendEnabled;
 
 
 	@Override
@@ -30,6 +31,7 @@ public class SettingsActivity extends UpdateActivity {
 		findViewById(R.id.settings_help).setOnClickListener(mClickListener);
 		
 		((Switch) findViewById(R.id.settings_setalarm)).setOnCheckedChangeListener(mSwitchListener);
+		((Switch) findViewById(R.id.settings_setfriendwidget)).setOnCheckedChangeListener(mSwitchListener);
 		((Switch) findViewById(R.id.settings_setwidget)).setOnCheckedChangeListener(mSwitchListener);
 		/*
 		 *  TODO, set initial value
@@ -37,8 +39,7 @@ public class SettingsActivity extends UpdateActivity {
 		loadSettings();
 		((Switch) findViewById(R.id.settings_setalarm)).setChecked(isAlarm);
 		((Switch) findViewById(R.id.settings_setwidget)).setChecked(isEnabled);
-		
-		
+		((Switch) findViewById(R.id.settings_setfriendwidget)).setChecked(isFriendEnabled);
 	}
 	
 	private void loadSettings()
@@ -47,6 +48,7 @@ public class SettingsActivity extends UpdateActivity {
 		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
 		isEnabled = prefs.getBoolean(MyPref.AVATA_ENABLED, false);
 		isAlarm = prefs.getBoolean(MyPref.ALARM_NOTI, false);
+		isFriendEnabled = prefs.getBoolean(MyPref.FRIEND_ENABLED, false);
 	
 	}
 	
@@ -68,6 +70,8 @@ public class SettingsActivity extends UpdateActivity {
            		case R.id.settings_setwidget:
            			editor.putBoolean(MyPref.AVATA_ENABLED, isChecked);
            			break;
+           		case R.id.settings_setfriendwidget:
+           			editor.putBoolean(MyPref.FRIEND_ENABLED, isChecked);
            }
 			editor.commit();
 		}

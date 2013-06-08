@@ -45,7 +45,8 @@
     <string name="str_add_newfriend">관심 목록에 추가할 친구를 선택합니다.</string>
     <string name="str_managing_friend">관심 친구 목록을 관리합니다.</string>
     <string name="str_changing_password">비밀 번호를 변경합니다.</string>
-    <string name="str_settings_widget">위젯 표시</string>
+    <string name="str_settings_widget">내 위젯 표시</string>
+    <string name="str_settings_friendwidget">친구 위젯 표시</string>
     <string name="str_settings_alarm">알림 효과</string>
     <string name="str_settings_change_pw">비밀번호 변경</string>
     <string name="str_settings_help">도움말</string>

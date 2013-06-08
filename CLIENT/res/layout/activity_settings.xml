@@ -19,6 +19,16 @@
 	       android:textAppearance="?android:attr/textAppearanceLarge"
 	       android:textColor="#000000"
 	       tools:targetApi="14" />
+	   
+	   <Switch
+	       android:id="@+id/settings_setfriendwidget"
+	       android:layout_width="match_parent"
+	       android:layout_height="wrap_content"
+	       android:layout_margin="@dimen/activity_vertical_margin"
+	       android:text="@string/str_settings_friendwidget"
+	       android:textAppearance="?android:attr/textAppearanceLarge"
+	       android:textColor="#000000"
+	       tools:targetApi="14" />
 	
 	    <Switch
 	        android:id="@+id/settings_setalarm"
