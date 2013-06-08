@@ -3,12 +3,15 @@ __author__ = 'heeseo'
 import logging
 import sys
 import SocketServer
+import json, MySQLdb 
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(name)s: %(message)s',
                     )
 
 handler_tbl = {}
+msg_type_file = '../../CLIENT/src/com/kaist/crescendo/manager/MsgInfo.java'
+msg_header = {"msgId":0,"msgLen":0,"msgDir":0,"msgRet":0,"msgBody":{}} 
 
 class CrecendoRequestHandler(SocketServer.BaseRequestHandler):
 
@@ -25,12 +28,40 @@ class CrecendoRequestHandler(SocketServer.BaseRequestHandler):
 
     def handle(self):
         self.logger.debug('handle')
-
+	retVal = 0
         # Echo the back to the client
         data = self.request.recv(1024)
-        self.logger.debug('recv()->"%s"', data)
-        self.request.send(data)
+	print "================================================================"
+	print data 
+	print "================================================================"
+	# Parsing the JSON data to extract message's header
+        msgData = json.loads(data)
+	msgCmd = msgData['msgId']
+
+	# Call hander function based on msgId 
+	retVal = getattr(self,handler_tbl[msgCmd])(json.loads(data)['msgBody'])
+
+	# Create Message data to reply to client 
+	msgData["msgDir"] = 0
+	msgData["msgRet"] = retVal
+	
+	reply_data = json.dumps(msgData)
+       	
+	self.logger.debug('recv()->"%s"', reply_data)
+        self.request.send(reply_data)
         return
+
+    def handle_register_user(self, msgBody):
+        print 'haha handle_register_user'
+	print msgBody 
+	print type(msgBody)
+	query_string = "insert into user_table (userid, birthday, phoneno, passwd) values ('%s', '%s', '%s', '%s');"%(\
+		msgBody["userId"],msgBody["birthDay"],msgBody["phoneNum"],msgBody["passWord"])	
+	print query_string
+ 
+	db = MySQLdb.connect(db='crecendo', user='root', passwd='test1234')
+	cur = db.cursor()
+	return cur.execute(query_string)
 
     def finish(self):
         self.logger.debug('finish')
@@ -48,13 +79,13 @@ class CrecendoServer(SocketServer.TCPServer):
         return
 
     def initialize_handler(self):
-        with open('./MsgInfo.java','r') as f:
+        with open(msg_type_file,'r') as f:
             for line in f:
                 if 'msgDir' in line:
                     print 'end'
                     break
                 elif 'final static int' in line:
-                    handler_tbl[line.strip().split()[5].split(';')[0]] = 'handle_'+(line.strip().split()[3].lower())
+                    handler_tbl[int(line.strip().split()[5].split(';')[0],16)] = 'handle_'+(line.strip().split()[3].lower())
 
         f.close()
 
@@ -101,7 +132,7 @@ if __name__ == '__main__':
     import socket
     import threading
 
-    address = ('localhost', 9999) # let the kernel give us a port
+    address = ('172.27.175.37', 9999) # let the kernel give us a port
     server = CrecendoServer(address, CrecendoRequestHandler)
     ip, port = server.server_address # find out what port we were given
 

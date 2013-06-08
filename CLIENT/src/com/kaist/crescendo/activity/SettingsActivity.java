@@ -1,6 +1,7 @@
 package com.kaist.crescendo.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -8,8 +9,13 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.kaist.crescendo.R;
+import com.kaist.crescendo.utils.MyPref;
 
 public class SettingsActivity extends UpdateActivity {
+
+	private boolean isEnabled;
+	private boolean isAlarm;
+	private boolean isFriendEnabled;
 
 
 	@Override
@@ -25,11 +31,27 @@ public class SettingsActivity extends UpdateActivity {
 		findViewById(R.id.settings_help).setOnClickListener(mClickListener);
 		
 		((Switch) findViewById(R.id.settings_setalarm)).setOnCheckedChangeListener(mSwitchListener);
+		((Switch) findViewById(R.id.settings_setfriendwidget)).setOnCheckedChangeListener(mSwitchListener);
 		((Switch) findViewById(R.id.settings_setwidget)).setOnCheckedChangeListener(mSwitchListener);
 		/*
 		 *  TODO, set initial value
 		 */
+		loadSettings();
+		((Switch) findViewById(R.id.settings_setalarm)).setChecked(isAlarm);
+		((Switch) findViewById(R.id.settings_setwidget)).setChecked(isEnabled);
+		((Switch) findViewById(R.id.settings_setfriendwidget)).setChecked(isFriendEnabled);
 	}
+	
+	private void loadSettings()
+	{
+		
+		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+		isEnabled = prefs.getBoolean(MyPref.AVATA_ENABLED, false);
+		isAlarm = prefs.getBoolean(MyPref.ALARM_NOTI, false);
+		isFriendEnabled = prefs.getBoolean(MyPref.FRIEND_ENABLED, false);
+	
+	}
+	
 	
 	public Switch.OnCheckedChangeListener mSwitchListener = new Switch.OnCheckedChangeListener()
 
@@ -37,21 +59,21 @@ public class SettingsActivity extends UpdateActivity {
 
 		@Override
 		public void onCheckedChanged(CompoundButton v, boolean isChecked) {
-			// TODO Auto-generated method stub
+			SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+			SharedPreferences.Editor editor = prefs.edit();
+			
 			switch (v.getId())
            {
            		case R.id.settings_setalarm:
-           			/* 
-           			 * TODO
-           			 */
+           			editor.putBoolean(MyPref.ALARM_NOTI, isChecked);
            			break;
            		case R.id.settings_setwidget:
-           			/*
-           			 * TODO
-           			 */
-           			
+           			editor.putBoolean(MyPref.AVATA_ENABLED, isChecked);
            			break;
+           		case R.id.settings_setfriendwidget:
+           			editor.putBoolean(MyPref.FRIEND_ENABLED, isChecked);
            }
+			editor.commit();
 		}
 
 	};
