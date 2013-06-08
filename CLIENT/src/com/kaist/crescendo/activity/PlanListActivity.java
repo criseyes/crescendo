@@ -2,6 +2,7 @@ package com.kaist.crescendo.activity;
 
 import java.util.ArrayList;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -16,6 +17,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.data.PlanListAdapter;
+import com.kaist.crescendo.utils.MyPref;
 import com.kaist.crescendo.utils.MyStaticValue;
 
 public class PlanListActivity extends UpdateActivity {
@@ -88,6 +90,20 @@ public class PlanListActivity extends UpdateActivity {
 			if(updatePlan(plan) == true) {
 				
 			}
+			
+			/* save info. to preference */
+				
+			SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
+			SharedPreferences.Editor editor = prefs.edit();
+			
+			editor.putInt(MyPref.MY_AVATA_UID, plan.uId);
+			editor.commit();
+			
+			editor.putInt(MyPref.MY_AVATA_TYPE, plan.type);
+			editor.commit();
+			
+			editor.putString(MyPref.MY_AVATA_TITLE, plan.title);
+			editor.commit();
 			
 			adapter.notifyDataSetChanged();
 			return true;

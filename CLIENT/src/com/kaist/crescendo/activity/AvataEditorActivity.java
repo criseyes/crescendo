@@ -34,6 +34,7 @@ public class AvataEditorActivity extends UpdateActivity {
 	private boolean isEnabled;
 	private int planType;
 	private int planUid;
+	private String title;
 	
 	
 	@Override
@@ -53,7 +54,7 @@ public class AvataEditorActivity extends UpdateActivity {
 		
 		if(planType == MyStaticValue.PLANTYPE_DIET) /* avata type */
 		{
-			((EditText) findViewById(R.id.avataType)).setText(getResources().getString(R.string.str_plantype_diet));
+			
 			((ImageView) findViewById(R.id.avataIcon)).setImageDrawable(this.getResources().getDrawable(R.drawable.icon_diet));
 		}
 		else if(planType == MyStaticValue.PLANTYPE_READING_BOOK)
@@ -62,6 +63,7 @@ public class AvataEditorActivity extends UpdateActivity {
 			((ImageView) findViewById(R.id.avataIcon)).setImageDrawable(this.getResources().getDrawable(R.drawable.icono_reading));
 		}
 		
+		((EditText) findViewById(R.id.avataType)).setText(title);
 		/* avata image */
 			
 		File file = getApplicationContext().getFileStreamPath(MyStaticValue.AVATA_FILNENAME);
@@ -85,6 +87,7 @@ public class AvataEditorActivity extends UpdateActivity {
 		
 		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_PRIVATE);
 		name = prefs.getString(MyPref.MY_AVATA_NAME, "");
+		title = prefs.getString(MyPref.MY_AVATA_TITLE, "");
 		
 		isEnabled = prefs.getBoolean(MyPref.AVATA_ENABLED, false);
 		
