@@ -2,6 +2,7 @@ package com.kaist.crescendo.manager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.json.JSONArray;
@@ -27,22 +28,38 @@ public class UpdateManager implements UpdateManagerInterface {
 	private Context mContext;
 	private ArrayList<FriendData> mFriendArrayList;
 	private ArrayList<PlanData> mPlanArrayList;
+	private ArrayList<HistoryData> mHistoryArrayList;
 	private int planUid;
 	
 	public UpdateManager() {
 		mFriendArrayList = new ArrayList<FriendData>();
 		mPlanArrayList = new ArrayList<PlanData>();
+		mHistoryArrayList = new ArrayList<HistoryData>(); 
 		
 		SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
-		String date = Formatter.format(new Date());
+		Calendar calendar = Calendar.getInstance();
+
+		String startDate = Formatter.format(calendar.getTime());
+		calendar.add(Calendar.DAY_OF_MONTH, 20);
+		String endDate = Formatter.format(calendar.getTime());
+		
+		Calendar hisCalendar = Calendar.getInstance();
 		
 		planUid = 0;
 		
-		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", date, date, 0);
+		for(int i = 0 ; i < 10 ; i++) {
+			hisCalendar.add(Calendar.DAY_OF_MONTH, 1);
+			mHistoryArrayList.add(new HistoryData(Formatter.format(hisCalendar.getTime()), 90 - i));
+		}
+		
+		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", startDate, endDate, 0, 90, 60 );
+		plan.isSelected = true;
 		plan.uId = planUid++;
-		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", date, date, 0);
+		plan.hItem.addAll(mHistoryArrayList);
+		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", startDate, endDate,0,  11, 10 );
 		plan1.uId = planUid++;
-		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", date, date, MyStaticValue.FRIDAY);
+		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", startDate, endDate,MyStaticValue.FRIDAY,11, 10 );
+
 		plan2.uId = planUid++;
 		
 		mFriendArrayList.add(new FriendData("ehyewony@gamil.com", "01022563409", plan, false, false));
@@ -149,7 +166,7 @@ public class UpdateManager implements UpdateManagerInterface {
 				for(int i = 0 ; i < pData.hItem.size() ; i++) {
 					//add plan history data using JSONArray
 					JSONObject hData = new JSONObject();
-					hData.put(MsgInfo.PLAN_HISDATE_LABEL, ((HistoryData)pData.hItem.get(i)).Date);
+					hData.put(MsgInfo.PLAN_HISDATE_LABEL, ((HistoryData)pData.hItem.get(i)).date);
 					hData.put(MsgInfo.PLAN_HISVAL_LABEL, ((HistoryData)pData.hItem.get(i)).value);
 					HisArray.put(i, hData);
 				}
@@ -170,6 +187,35 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 	}
 	
+	private void makeMsgBody(JSONObject msg, String curPassword, String newPassword) {
+		int msgId = 0;
+		
+		JSONObject temp_body = new JSONObject();
+		
+		try {
+			msgId = msg.getInt(MsgInfo.MSGID_LABEL);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		try {
+			temp_body.put(MsgInfo.DEF_USERID_LABEL, MyStaticValue.myId);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if(msgId == MsgInfo.CHANGE_PASSWORD) {
+			try {
+				temp_body.put(MsgInfo.PASSWORD_LABEL, curPassword);
+				temp_body.put(MsgInfo.NEWPASSWORD_LABEL, newPassword);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	private void makeMsgBody(JSONObject msg, int planId) {
 		int msgId = 0;
 		
@@ -179,6 +225,13 @@ public class UpdateManager implements UpdateManagerInterface {
 			msgId = msg.getInt(MsgInfo.MSGID_LABEL);
 		} catch (Exception e) {
 			// TODO: handle exception
+		}
+		
+		try {
+			temp_body.put(MsgInfo.DEF_USERID_LABEL, MyStaticValue.myId);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 		if(msgId == MsgInfo.DEL_PLAN) {
@@ -200,6 +253,13 @@ public class UpdateManager implements UpdateManagerInterface {
 			msgId = msg.getInt(MsgInfo.MSGID_LABEL);
 		} catch (Exception e) {
 			// TODO: handle exception
+		}
+		
+		try {
+			temp_body.put(MsgInfo.DEF_USERID_LABEL, MyStaticValue.myId);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		
 		if(msgId == MsgInfo.DEL_FRIEND || msgId == MsgInfo.SEL_AVATA_FRIEND) {
@@ -558,6 +618,42 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;
+	}
+	
+	public int changePassword(Context context, String curPassword, String newPassword) {
+		int result = MsgInfo.STATUS_OK;
+		
+		JSONObject msg = new JSONObject();
+		JSONObject revMsg = null;
+		
+		mContext = context;
+		
+		makeMsgHeader(msg, MsgInfo.CHANGE_PASSWORD);
+		
+		makeMsgBody(msg, curPassword, newPassword);
+		
+		new SendAsyncTask().execute(msg);
+		
+		while(asyncTaskState == -1) {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
+		}
+		
+		try {
+			revMsg = new JSONObject(asyncTaskResult);
+			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		showToastPopup(result);
+		
+		return result;		
 	}
 	
 	public class SendAsyncTask extends AsyncTask<JSONObject, Integer, Integer>{

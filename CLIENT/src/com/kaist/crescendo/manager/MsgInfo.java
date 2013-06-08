@@ -18,6 +18,8 @@ public class MsgInfo {
 	final static int DEL_FRIEND = 0x4003; //delete friend which selected before
 	final static int SEL_AVATA_FRIEND = 0x4004;
 	
+	final static int CHANGE_PASSWORD = 5000;
+	
 	//msgDir value
 	final static int MSG_SEND_VALUE = 1;
 	final static int MSG_RECEIVE_VALUE = 2;
@@ -58,4 +60,6 @@ public class MsgInfo {
 	final static String FRIEND_IS_AVATA_LABEL = "isAvata";
 	
 	final static String ITEM_COUNT_LABEL = "itemCnt";
+	
+	final static String NEWPASSWORD_LABEL = "newPassWord";
 }

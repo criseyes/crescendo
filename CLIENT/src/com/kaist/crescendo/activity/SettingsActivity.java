@@ -66,18 +66,13 @@ public class SettingsActivity extends UpdateActivity {
 	           switch (v.getId())
 	           {
 	           		case R.id.setttings_changepw:
-	           			/* 
-	           			 * TODO
-	           			 */
+	           			intent.setClass(getApplicationContext(), PasswordActivity.class);
 	           			break;
 	           		case R.id.settings_help:
-	           			//intent.setClass(getApplicationContext(), FriendsListActivity.class);
-	           			/* 
-	           			 * TODO
-	           			 */
+	           			intent.setClass(getApplicationContext(), HelpsActivity.class);	           			
 	           			break;
 	           }
-	           //startActivity(intent);
+	           startActivity(intent);
 	      }
 	};
 }

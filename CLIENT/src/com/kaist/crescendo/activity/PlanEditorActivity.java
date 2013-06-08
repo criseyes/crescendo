@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.data.PlanData;
@@ -104,6 +105,8 @@ public class PlanEditorActivity extends UpdateActivity {
 		
 		startDay = (EditText) findViewById(R.id.editStartDate);
 		endDay = (EditText) findViewById(R.id.editEndDate);
+		initValue = (EditText) findViewById(R.id.editInitValue);
+		targetValue = (EditText) findViewById(R.id.editTargetValue);
 		
 		alarmTimeValue = (EditText) findViewById(R.id.editAlarmTime);
 		
@@ -119,8 +122,8 @@ public class PlanEditorActivity extends UpdateActivity {
 			plan = (PlanData) adapter.getItem(index);
 			startDay.setText(plan.start);
 			endDay.setText(plan.end);
-			initValue.setText(plan.initValue);
-			targetValue.setText(plan.targetValue);
+			initValue.setText(Float.toString(plan.initValue));
+			targetValue.setText(Float.toString(plan.targetValue));
 			((EditText) findViewById(R.id.editTile)).setText(plan.title);
 			setAlarmDayOfWeek(plan.dayOfWeek);
 			
@@ -136,6 +139,8 @@ public class PlanEditorActivity extends UpdateActivity {
 			endCalendar.set(endCalendar.get(Calendar.YEAR)+1,endCalendar.get(Calendar.MONTH), endCalendar.get(Calendar.DAY_OF_MONTH));
 			endDay.setText(Formatter.format(endCalendar.getTime()));
 			
+			initValue.setText("80kg");
+			targetValue.setText("70kg");
 			/* alarm time */
 			alarmTimeValue.setText(alarmTime.get(Calendar.HOUR_OF_DAY) + ":" + alarmTime.get(Calendar.MINUTE));
 		}
@@ -171,19 +176,19 @@ public class PlanEditorActivity extends UpdateActivity {
 		
 		int dayOfWeek = 0;
 		
-		if(findViewById(R.id.button_mon).isSelected())
+		if(((ToggleButton)findViewById(R.id.button_mon)).isChecked())
 			dayOfWeek += MyStaticValue.MONDAY;
-		if(findViewById(R.id.button_tues).isSelected())
+		if(((ToggleButton)findViewById(R.id.button_tues)).isChecked())
 			dayOfWeek += MyStaticValue.TUESDAY;
-		if(findViewById(R.id.button_wed).isSelected())
+		if(((ToggleButton)findViewById(R.id.button_wed)).isChecked())
 			dayOfWeek += MyStaticValue.WEDNESDAY;
-		if(findViewById(R.id.button_thur).isSelected())
+		if(((ToggleButton)findViewById(R.id.button_thur)).isChecked())
 			dayOfWeek += MyStaticValue.THURSDAY;
-		if(findViewById(R.id.button_fri).isSelected())
+		if(((ToggleButton)findViewById(R.id.button_fri)).isChecked())
 			dayOfWeek += MyStaticValue.FRIDAY;
-		if(findViewById(R.id.button_sat).isSelected())
+		if(((ToggleButton)findViewById(R.id.button_sat)).isChecked())
 			dayOfWeek += MyStaticValue.SATURDAY;
-		if(findViewById(R.id.button_sun).isSelected())
+		if(((ToggleButton)findViewById(R.id.button_sun)).isChecked())
 			dayOfWeek += MyStaticValue.SUNDAY;
 		
 		return dayOfWeek;
@@ -192,19 +197,19 @@ public class PlanEditorActivity extends UpdateActivity {
 	private void setAlarmDayOfWeek(int dayOfWeek)	{
 
 		if((dayOfWeek & MyStaticValue.MONDAY) > 0)
-			findViewById(R.id.button_mon).setSelected(true);
+			((ToggleButton)findViewById(R.id.button_mon)).setChecked(true);
 		if((dayOfWeek & MyStaticValue.TUESDAY) > 0)
-			findViewById(R.id.button_tues).setSelected(true);
+			((ToggleButton)findViewById(R.id.button_tues)).setChecked(true);
 		if((dayOfWeek & MyStaticValue.WEDNESDAY) > 0)
-			findViewById(R.id.button_wed).setSelected(true);
+			((ToggleButton)findViewById(R.id.button_wed)).setChecked(true);
 		if((dayOfWeek & MyStaticValue.THURSDAY) > 0)
-			findViewById(R.id.button_thur).setSelected(true);
+			((ToggleButton)findViewById(R.id.button_thur)).setChecked(true);
 		if((dayOfWeek & MyStaticValue.FRIDAY) > 0)
-			findViewById(R.id.button_fri).setSelected(true);
+			((ToggleButton)findViewById(R.id.button_fri)).setChecked(true);
 		if((dayOfWeek & MyStaticValue.SATURDAY) > 0)
-			findViewById(R.id.button_sat).setSelected(true);
+			((ToggleButton)findViewById(R.id.button_sat)).setChecked(true);
 		if((dayOfWeek & MyStaticValue.SUNDAY) > 0)
-			findViewById(R.id.button_sun).setSelected(true);
+			((ToggleButton)findViewById(R.id.button_sun)).setChecked(true);
 	}
 	
 	protected void verifyAndSave() {
@@ -213,6 +218,8 @@ public class PlanEditorActivity extends UpdateActivity {
 		EditText title = (EditText)this.findViewById(R.id.editTile);
 		EditText start = (EditText)this.findViewById(R.id.editStartDate);
 		EditText end = (EditText)this.findViewById(R.id.editEndDate);
+		EditText initV = (EditText)this.findViewById(R.id.editInitValue);
+		EditText targetV = (EditText)this.findViewById(R.id.editTargetValue);
 		
 		if(title.getText().length() < 3)
 		{
@@ -236,7 +243,8 @@ public class PlanEditorActivity extends UpdateActivity {
 		{
 			if(mode == MyStaticValue.MODE_NEW)
 			{
-				PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, title.getText().toString(), start.getText().toString(), end.getText().toString(), dayOfWeek);
+				PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, title.getText().toString(), start.getText().toString(), end.getText().toString(), dayOfWeek,
+										Float.parseFloat(initV.getText().toString()), Float.parseFloat(targetV.getText().toString()));
 				String ret = addNewPlan(plan);
 				if(ret.equals("good")) {
 					complete();

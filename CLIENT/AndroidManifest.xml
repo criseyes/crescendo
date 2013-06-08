@@ -5,6 +5,7 @@
     android:versionName="1.0" 
     android:launchMode="singleInstance"
 	android:excludeFromRecents="true"
+	android:sharedUserId="android.uid.com.kaist.crescendo"
 	android:taskAffinity="" >
 
     <uses-sdk
@@ -20,7 +21,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/str_app_name" 
-        android:theme="@style/MyAppTheme" >
+        android:theme="@style/MyAppTheme2" >
         <activity
             android:name="com.kaist.crescendo.activity.MainActivity"
             android:label="@string/str_app_name" >
@@ -55,6 +56,14 @@
         </activity>
         <activity
             android:name="com.kaist.crescendo.activity.SettingsActivity"
+            android:label="@string/str_input_register_information" >
+        </activity>
+        <activity
+            android:name="com.kaist.crescendo.activity.PasswordActivity"
+            android:label="@string/str_input_register_information" >
+        </activity>
+        <activity
+            android:name="com.kaist.crescendo.activity.HelpsActivity"
             android:label="@string/str_input_register_information" >
         </activity>
         <activity 
