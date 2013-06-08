@@ -22,10 +22,24 @@ public class StatusActivity extends UpdateActivity {
 		
 		mChart = (Chart)findViewById(R.id.chart01);
 		
-		mChart.setChartType(Chart.Chart_Type_Line);
+		planArrayList = new ArrayList<PlanData>();
 		
-		mChart.setYAxisMaximum(true, 2000);
+		String result = getPlanList(planArrayList);
 		
-		mChart.invalidate();
+		if(result.equals("good")) {
+			PlanData plan = null;
+			for(int i = 0; i < planArrayList.size() ; i++) {
+				if(planArrayList.get(i).isSelected == true) {
+					plan = planArrayList.get(i);
+					break;
+				}
+			}
+			
+			if(plan != null) {
+				mChart.setChartType(Chart.Chart_Type_3D_Line, plan);
+				mChart.setYAxisMaximum(true, 2000);
+				mChart.invalidate();
+			}
+		}
 	}
 }

@@ -168,6 +168,7 @@ public class UpdateActivity extends Activity {
 		return result;
 	}
 	
+
 	protected String sendAvataData(AvataData avata) {
 		String result = new String();
 		int ret = -1;
@@ -178,6 +179,18 @@ public class UpdateActivity extends Activity {
 				
 		if(ret == 0) {
 			result = "good";
+		}
+		return result;
+	}
+
+	protected boolean changePassword(String curPassword, String newPassword) {
+		boolean result = false;
+		int ret = -1;
+		
+		ret = mManager.changePassword(mContext, curPassword, newPassword);
+		
+		if(ret == 0) {
+			result = true;
 		}
 		
 		return result;

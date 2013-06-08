@@ -11,11 +11,11 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="17" />
-    
+    <uses-permission android:name="android.permission.INTERNET" />    
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    
  
     <application
         android:allowBackup="true"
@@ -56,6 +56,14 @@
         </activity>
         <activity
             android:name="com.kaist.crescendo.activity.SettingsActivity"
+            android:label="@string/str_input_register_information" >
+        </activity>
+        <activity
+            android:name="com.kaist.crescendo.activity.PasswordActivity"
+            android:label="@string/str_input_register_information" >
+        </activity>
+        <activity
+            android:name="com.kaist.crescendo.activity.HelpsActivity"
             android:label="@string/str_input_register_information" >
         </activity>
         <activity 

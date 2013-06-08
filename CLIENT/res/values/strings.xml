@@ -23,9 +23,12 @@
     <string name="str_saturday">토</string>
     <string name="str_sunday">일</string>
     <string name="str_alarm_time">알람 시간</string>
-    <string name="str_ID">ID</string>
-    <string name="str_PW">Password</string>
-    <string name="str_PhoneNumber">Phone Number</string>
+    <string name="str_ID">아이디</string>
+    <string name="str_PW">비밀번호</string>
+    <string name="str_curPW">기존 비밀번호</string>
+    <string name="str_newPW">신규 비밀번호</string>
+    <string name="str_confirmPW">신규 비밀번호 확인</string>
+    <string name="str_PhoneNumber">전화번호</string>
     <string name="str_birthday">생일</string>
     <string name="str_newregister">회원가입</string>
     <string name="str_save">저장</string>
@@ -33,6 +36,7 @@
     <string name="str_login">로그인</string>
     <string name="str_title_welcome">환영합니다!</string>
     <string name="str_register">등록</string>
+    <string name="str_change">변경</string>
     <string name="str_add_new_friend">새로운 친구 추가</string>
     <string name="str_input_register_information">회원 가입에 필요한 정보를 입력해 주세요.</string>
     <string name="str_managing_plans">등록한 목표를 관리합니다.</string>
@@ -40,6 +44,7 @@
     <string name="str_modify_plan">목표를 수정합니다.</string>
     <string name="str_add_newfriend">관심 목록에 추가할 친구를 선택합니다.</string>
     <string name="str_managing_friend">관심 친구 목록을 관리합니다.</string>
+    <string name="str_changing_password">비밀 번호를 변경합니다.</string>
     <string name="str_settings_widget">위젯 표시</string>
     <string name="str_settings_alarm">알림 효과</string>
     <string name="str_settings_change_pw">비밀번호 변경</string>
@@ -53,11 +58,14 @@
     <string name="str_cancel">취소</string>
     <string name="str_delete_friend">친구 삭제</string>
     <string name="str_show_status">현재까지 목표 진행 상황입니다.</string>
+    <string name="str_enter_id">이메일 주소를 입력해주세요.</string>
+    <string name="str_password_lenght">7자리 이상 입력해주세요.</string>
     
     <string name="str_success">정상적으로 처리되었습니다.</string>
     <string name="str_duplicated_user">이미 등록된 아이디 입니다. 다른 아이디로 등록하세요</string>
     <string name="str_invalid_password">비밀번호가 틀립니다. 다시 입력해주세요.</string>
     <string name="str_unresigered_user">등록되지 않은 아이디 입니다. 먼저 등록해주세요.</string>
+    
     <string name="str_avataname">아바타 이름</string>
     <string name="str_avattype">아바타 타입</string>
     <string name="str_avatimage">아바타 이미지</string>
@@ -65,5 +73,8 @@
     
     <string name="str_plantype_diet">다이어트</string>
     <string name="str_plantype_reading">독서</string>
+
+    <string name="str_tooshort_password">비밀번호가 너무 짧습니다. 7자리 이상 입력해주세요.</string>
+    <string name="str_change_password_relogin">비밀번호가 변경되어 재 실행시 다시 로그인해야합니다.</string>
 
 </resources>

@@ -16,7 +16,7 @@ public class RealSocket implements CommunicationInterface {
     	Socket socket = null;
     	try{
     		// Code to send data 
-    		socket = new Socket("192.168.0.3", 9999);
+    		socket = new Socket("14.63.227.174", 9999);
     		
     		//ObjectOutputStream objOut = new ObjectOutputStream(socket.getOutputStream());
     		BufferedWriter objOut = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -32,7 +32,7 @@ public class RealSocket implements CommunicationInterface {
 		//			tv.setText(response);
 		//		}
     	//	});
-    	}catch(Exception ex) {
+    	} catch(Exception ex) {
     		Log.e("家南立加坷幅", ex.getMessage());
     	}
 	}
@@ -40,7 +40,27 @@ public class RealSocket implements CommunicationInterface {
 	@Override
 	public int write(JSONObject msg) {
 		// TODO Auto-generated method stub
-		connect(msg);
+		//connect(msg);
+		Socket socket = null;
+		
+		try {
+    		// Code to send data 
+    		socket = new Socket("14.63.227.174", 9999);
+    		
+    		//ObjectOutputStream objOut = new ObjectOutputStream(socket.getOutputStream());
+    		BufferedWriter objOut = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+    		objOut.write(msg.toString());
+    		objOut.flush();
+    		
+    		BufferedReader objIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			output = objIn.readLine();
+			Log.d("read data from Server", output.toString()); 
+			
+    		
+		} catch(Exception ex) {
+    		Log.e("家南立加坷幅", ex.getMessage());
+    	}
+		
 		return 0;
 	}
 
@@ -51,8 +71,7 @@ public class RealSocket implements CommunicationInterface {
 		try {
 			socket = new Socket("192.168.0.3", 9999);
 			
-			BufferedReader networkReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			
+			BufferedReader networkReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));			
 			output = networkReader.readLine();
 		} catch (Exception e) {
 			// TODO: handle exception
