@@ -12,7 +12,7 @@ public class MyStaticValue {
 	/* Avata */
 	public static final String AVATA_FILNENAME = "myAvata.png";
 	public static final int AVATA_WIDTH = 90;
-	public static final int AVATA_HIGHT = 90;
+	public static final int AVATA_HIGHT = 120;
 	
 	/* Day of Week */
 	public static final int MONDAY = 	0x1;
