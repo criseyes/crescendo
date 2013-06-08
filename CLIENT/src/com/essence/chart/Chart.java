@@ -2,6 +2,9 @@ package com.essence.chart;
 
 import java.util.Random;
 
+import com.kaist.crescendo.data.PlanData;
+import com.kaist.crescendo.utils.MyStaticValue;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -539,6 +542,39 @@ public class Chart extends View {
 	 
 	 public	int	getChartType() {
 		 return native_getChartType(m_NativeChart);
+	 }
+	 
+	 public void setChartType(int type, PlanData plan) {
+		 
+		setTitle(MyStaticValue.myId + "님의 현재 상태입니다.");
+		
+		int HisDataCnt = plan.hItem.size();
+		if(HisDataCnt != 0) {
+			HisDataCnt += 1; // add initValue
+								
+			String[] strColumns = { plan.title,"Target Graph", "Real Grpah"};
+			String[] strRows = new String[HisDataCnt];
+			int [][] realValue = new int[HisDataCnt][2];
+			
+			double offset = (plan.targetValue - plan.initValue)/HisDataCnt;
+			
+			realValue[0][0] = (int) plan.initValue;
+			realValue[0][1] = (int) plan.initValue;
+			strRows[0] = plan.start;
+			
+			for(int i = 1; i < HisDataCnt ; i++) {
+				strRows[i] = plan.hItem.get(i - 1).date;
+				realValue[i][0] = (int) (plan.initValue + offset*i);
+				realValue[i][1] = plan.hItem.get(i - 1).value;
+			}
+			
+			InputData(strRows.length, strColumns.length, strColumns, strRows, 
+					(int) (plan.targetValue >= plan.initValue? plan.targetValue:plan.initValue), realValue);
+			 
+			native_setChartType(m_NativeChart, type);
+			
+			m_nCurChartType = type;
+		}
 	 }
 	 
 	 public void setChartType(int type) {

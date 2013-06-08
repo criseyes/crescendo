@@ -100,9 +100,9 @@ public class RegisterEditorActivity extends UpdateActivity {
 			Toast.makeText(this, "Please Input valid ID format (Email address)", Toast.LENGTH_LONG).show();
 		}
 					
-		if(isOK == true && pw.getText().length() < 5) {
+		if(isOK == true && pw.getText().length() < 7) {
 			isOK = false;
-			Toast.makeText(this, "Please Input Password more than 5 characters", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Please Input Password more than 7 characters", Toast.LENGTH_LONG).show();
 		}
 		
 		if(isOK == true && ph.getText().length() < 9) {

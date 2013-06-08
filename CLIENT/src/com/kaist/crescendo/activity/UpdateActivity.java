@@ -166,6 +166,19 @@ public class UpdateActivity extends Activity {
 		
 		return result;
 	}
+	
+	protected boolean changePassword(String curPassword, String newPassword) {
+		boolean result = false;
+		int ret = -1;
+		
+		ret = mManager.changePassword(mContext, curPassword, newPassword);
+		
+		if(ret == 0) {
+			result = true;
+		}
+		
+		return result;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

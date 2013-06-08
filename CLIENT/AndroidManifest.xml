@@ -57,6 +57,14 @@
             android:name="com.kaist.crescendo.activity.SettingsActivity"
             android:label="@string/str_input_register_information" >
         </activity>
+        <activity
+            android:name="com.kaist.crescendo.activity.PasswordActivity"
+            android:label="@string/str_input_register_information" >
+        </activity>
+        <activity
+            android:name="com.kaist.crescendo.activity.HelpsActivity"
+            android:label="@string/str_input_register_information" >
+        </activity>
         <activity 
             android:name="com.kaist.crescendo.activity.StatusActivity"
             android:label="@string/str_input_register_information">            

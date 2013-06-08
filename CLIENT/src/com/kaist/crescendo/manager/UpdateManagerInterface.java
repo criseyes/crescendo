@@ -30,4 +30,6 @@ public interface UpdateManagerInterface {
 	public int addNewFriend(Context context, ArrayList<FriendData> friendArrayList);
 	public int delFriend(Context context, String friendUserId);
 	public int setAvataFriend(Context context, String friendUserId);
+	
+	public int changePassword(Context context, String curPassword, String newPassword);
 }
