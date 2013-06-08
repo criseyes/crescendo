@@ -28,7 +28,7 @@
     <string name="str_curPW">기존 비밀번호</string>
     <string name="str_newPW">신규 비밀번호</string>
     <string name="str_confirmPW">신규 비밀번호 확인</string>
-    <string name="str_PhoneNumber">Phone Number</string>
+    <string name="str_PhoneNumber">전화번호</string>
     <string name="str_birthday">생일</string>
     <string name="str_newregister">회원가입</string>
     <string name="str_save">저장</string>
@@ -57,6 +57,8 @@
     <string name="str_cancel">취소</string>
     <string name="str_delete_friend">친구 삭제</string>
     <string name="str_show_status">현재까지 목표 진행 상황입니다.</string>
+    <string name="str_enter_id">이메일 주소를 입력해주세요.</string>
+    <string name="str_password_lenght">7자리 이상 입력해주세요.</string>
     
     <string name="str_success">정상적으로 처리되었습니다.</string>
     <string name="str_duplicated_user">이미 등록된 아이디 입니다. 다른 아이디로 등록하세요</string>

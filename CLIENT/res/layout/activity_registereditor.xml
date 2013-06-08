@@ -23,7 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="enter ID" >
+            android:hint="@string/str_enter_id"
+            android:inputType="textEmailAddress">
             <requestFocus />
         </EditText>
 
@@ -39,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="more than 7 char"
+            android:hint="@string/str_password_lenght"
             android:inputType="textPassword" />
 
         <TextView

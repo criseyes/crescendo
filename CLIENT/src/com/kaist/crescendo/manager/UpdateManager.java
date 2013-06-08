@@ -663,8 +663,8 @@ public class UpdateManager implements UpdateManagerInterface {
 		protected void onPreExecute() {
 			asyncTaskState = -1;
 			dialog = new ProgressDialog(mContext);
-			dialog.setTitle("Networking");
-			dialog.setMessage("Please wait while sending");
+			dialog.setTitle("처리중");
+			dialog.setMessage("잠시만 기다려주세요.");
 			dialog.setIndeterminate(true);
 			dialog.setCancelable(true);
 			dialog.show();
