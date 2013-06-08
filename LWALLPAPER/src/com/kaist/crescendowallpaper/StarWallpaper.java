@@ -2,12 +2,14 @@ package com.kaist.crescendowallpaper;
 
 import java.util.ArrayList;
 
+
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.service.wallpaper.WallpaperService;
 import android.util.Log;
 import android.view.Display;
@@ -15,7 +17,15 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.WindowManager;
 public class StarWallpaper extends WallpaperService {
+	
+	public static final String KEY_SESSION = "SESSION_CREATED";
+	public static final String KEY_PHONE = "PHONE_ESTABLISHED";
+	public static final String KEY_MYID = "MY_EMAIL_ID";
+	
+	public static final String myPref = "MyPref";
+	
      public static int Width, Height;
+	private Context mCrescendo;
  
      //-----------------------------------
      // onCreate   
@@ -26,6 +36,19 @@ public class StarWallpaper extends WallpaperService {
           /* just for debugging wait to sync*/
           /* TODO should remove before commercial release */
           android.os.Debug.waitForDebugger();
+          
+          try {
+			mCrescendo = createPackageContext("com.kaist.crescendo", Context.MODE_PRIVATE);
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+         SharedPreferences prefs = mCrescendo.getSharedPreferences(this.myPref, MODE_PRIVATE);
+		boolean saved = prefs.getBoolean(KEY_SESSION, false);
+		String saved_phone = prefs.getString(KEY_PHONE, "0");
+		Log.d("test", saved_phone);
+         
      }
      //-----------------------------------
      // onDestroy
