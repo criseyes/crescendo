@@ -25,7 +25,8 @@ public class PlanListActivity extends UpdateActivity {
 	private ArrayList<PlanData> planArrayList;
 	
 	private final int UPDATE_ID = Menu.FIRST;
-	private final int DELETE_ID = Menu.FIRST + 1;	
+	private final int DELETE_ID = Menu.FIRST + 1;
+	private final int SETDEFAULT_ID = Menu.FIRST + 2;	
 	
 	public final static PlanListAdapter getAdapterInstance() 
 	{
@@ -41,6 +42,7 @@ public class PlanListActivity extends UpdateActivity {
 		
 		menu.add(0, UPDATE_ID, 0, R.string.str_modify_plan2);
 		menu.add(0, DELETE_ID, 0, R.string.str_delete_plan);
+		menu.add(0, SETDEFAULT_ID, 0, R.string.str_set_default_plan);
 	}
 	
 	@Override
@@ -78,6 +80,17 @@ public class PlanListActivity extends UpdateActivity {
 			
 			startActivityForResult(intent.setClass(getApplicationContext(), PlanEditorActivity.class), MyStaticValue.REQUESTCODE_UPDATEPLAN);
 			return true;
+		case SETDEFAULT_ID:
+			PlanData plan = (PlanData) adapter.getItem(menuInfo.position);
+			adapter.clearSelectedPlan();
+			plan.isSelected = true;
+			
+			if(updatePlan(plan) == true) {
+				
+			}
+			
+			adapter.notifyDataSetChanged();
+			return true;
 		}
 		return super.onContextItemSelected(item);
 	}
@@ -106,23 +119,23 @@ public class PlanListActivity extends UpdateActivity {
 		};
 		
 		findViewById(R.id.button_add_new_plan).setOnClickListener(mClickListener);
-		listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+		//listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		listView.setItemsCanFocus(false);
 		
-		listView.setOnItemClickListener(new OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> adapt, View view, int position, long id) {
-				PlanData plan = (PlanData) adapter.getItem(position);
-				adapter.clearSelectedPlan();
-				plan.isSelected = true;
-				
-				if(updatePlan(plan) == true) {
-					
-				}
-				
-				adapter.notifyDataSetChanged();
-			}
-		});
+		//listView.setOnItemClickListener(new OnItemClickListener() {
+//			@Override
+//			public void onItemClick(AdapterView<?> adapt, View view, int position, long id) {
+//				PlanData plan = (PlanData) adapter.getItem(position);
+//				adapter.clearSelectedPlan();
+//				plan.isSelected = true;
+//				
+//				if(updatePlan(plan) == true) {
+//					
+//				}
+//				
+//				adapter.notifyDataSetChanged();
+//			}
+//		});
 		
 		
 		

@@ -9,6 +9,11 @@ public class MyStaticValue {
 	public static final int MODE_UPDATE = 0;
 	public static final int MODE_NEW = 1;
 	
+	/* Avata */
+	public static final String AVATA_FILNENAME = "myAvata.png";
+	public static final int AVATA_WIDTH = 90;
+	public static final int AVATA_HIGHT = 90;
+	
 	/* Day of Week */
 	public static final int MONDAY = 	0x1;
 	public static final int TUESDAY = 	0x10;
@@ -23,6 +28,8 @@ public class MyStaticValue {
 	public static final int REQUESTCODE_ADDNEWPLAN = 1001;
 	public static final int REQUESTCODE_UPDATEPLAN = 1002;
 	public static final int REQUESTCODE_ADDNEWFRIEND = 1003;
+	
+	public static final int REQUESTCODE_GETAVATAIMAGE = 1050;
 	
 	/* String value, between activities */
 	

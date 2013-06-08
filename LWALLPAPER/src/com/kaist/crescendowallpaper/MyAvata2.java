@@ -16,8 +16,8 @@ public class MyAvata2 {
 	private static final int MIN_COUNT = 50;
 	private static final int BODY_SX = 100;
 	private static final int BODY_SY = 100;
-	private static final int HEAD_SY = 70;
-	private static final int HEAD_SX = 70;
+	private static final int HEAD_SY = 90;
+	private static final int HEAD_SX = 90;
 	private static final int HEAD_SXOFFSET = (BODY_SX - HEAD_SY)/2;
 	
 	private static final Random rand = new Random();

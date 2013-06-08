@@ -58,6 +58,15 @@ public class PlanListAdapter extends BaseAdapter {
 		   plan.isSelected = false;
 	   }  
 	}
+	
+	public PlanData getDefaultPlan()
+	{
+		for (PlanData plan : mItems) {
+			   if(plan.isSelected == true)
+				   return plan;
+		   }
+		return null;
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {

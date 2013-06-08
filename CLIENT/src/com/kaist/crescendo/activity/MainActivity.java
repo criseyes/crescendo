@@ -24,6 +24,7 @@ public class MainActivity extends UpdateActivity {
 		findViewById(R.id.main_friends_list).setOnClickListener(mClickListener);
 		findViewById(R.id.main_manage_settings).setOnClickListener(mClickListener);
 		findViewById(R.id.main_view_status).setOnClickListener(mClickListener);
+		findViewById(R.id.main_manage_widget).setOnClickListener(mClickListener);
 		
 		MyStaticValue.myId = getMyID();
 	} 
@@ -53,6 +54,7 @@ public class MainActivity extends UpdateActivity {
 	           			intent.setClass(getApplicationContext(), SettingsActivity.class);
 	           			break;
 	           		case R.id.main_manage_widget:
+	           			intent.setClass(getApplicationContext(), AvataEditorActivity.class);
 	           			break;
 	           		case R.id.main_view_status:
 	           			intent.setClass(getApplicationContext(), StatusActivity.class);

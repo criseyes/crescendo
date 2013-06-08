@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.kaist.crescendo.data.AvataData;
 import com.kaist.crescendo.data.FriendData;
 import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.data.UserData;
@@ -159,6 +160,21 @@ public class UpdateActivity extends Activity {
 		int ret = -1;
 		
 		ret = mManager.delFriend(mContext, uid);
+				
+		if(ret == 0) {
+			result = "good";
+		}
+		
+		return result;
+	}
+	
+	protected String sendAvataData(AvataData avata) {
+		String result = new String();
+		int ret = -1;
+		
+		/* 
+		 *  TODO 
+		 */
 				
 		if(ret == 0) {
 			result = "good";

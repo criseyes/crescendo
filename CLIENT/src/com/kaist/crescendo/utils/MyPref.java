@@ -8,5 +8,14 @@ public class MyPref {
 	
 	public static final String myPref = "MyPref";
 	
-
+	/* AVATA */
+	public static final String MY_AVATA_NAME = "MyAvataName";
+	public static final String MY_AVATA_TYPE = "MyAvataType";
+	public static final String MY_AVATA_UID = "MyAvataUId";
+	public static final String AVATA_ENABLED = "AvataEnabled";
+	
+	public static final String FRIEND_AVATA_NAME = "MyAvataName";
+	public static final String FRIEND_AVATA_TYPE = "MyAvataType";
+	public static final String FRIEND_AVATA_UID = "MyAvataUId";
+	public static final String FRIEND_ID = "FriendID";
 }
