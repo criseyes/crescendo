@@ -103,6 +103,8 @@ public class PlanListAdapter extends BaseAdapter {
 		
 		if(mItems.get(position).type == MyStaticValue.PLANTYPE_DIET)
 			icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_diet));
+		else if(mItems.get(position).type == MyStaticValue.PLANTYPE_READING_BOOK)
+			icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icono_reading));
 		return v;
 	}
 

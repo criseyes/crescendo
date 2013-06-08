@@ -41,8 +41,11 @@ public class IntroActivity extends Activity {
 			/* Get phone number, it's unique id */
 			TelephonyManager systemService = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 	        String PhoneNumber = systemService.getLine1Number(); 
-	        PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
-	        PhoneNumber="0"+PhoneNumber;
+	        
+	        if(PhoneNumber.length() > 10) {
+		        PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
+		        PhoneNumber="0"+PhoneNumber;
+	        }
 	        
 	        if(saved_phone.equals(PhoneNumber) == false) /* if SIM is changed, it'll be required new session */
 	        	saved = false;

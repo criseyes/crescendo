@@ -121,6 +121,8 @@ public class PlanListActivity extends UpdateActivity {
 		findViewById(R.id.button_add_new_plan).setOnClickListener(mClickListener);
 		//listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		listView.setItemsCanFocus(false);
+		listView.setClickable(false);
+		listView.setFocusable(false);
 		
 		//listView.setOnItemClickListener(new OnItemClickListener() {
 //			@Override
