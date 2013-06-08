@@ -1,6 +1,5 @@
 package com.kaist.crescendo.activity;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -11,6 +10,10 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PointF;
+import android.media.FaceDetector;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore.Images;
@@ -19,10 +22,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.data.AvataData;
-import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.utils.MyPref;
 import com.kaist.crescendo.utils.MyStaticValue;
 
@@ -34,8 +37,7 @@ public class AvataEditorActivity extends UpdateActivity {
 	private boolean isEnabled;
 	private int planType;
 	private int planUid;
-	
-	
+		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -181,17 +183,52 @@ public class AvataEditorActivity extends UpdateActivity {
 		}
 	};
 	
-	
+
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) 
 	{
 		switch(requestCode)
 		{
 		case MyStaticValue.REQUESTCODE_GETAVATAIMAGE:
 			if(resultCode==RESULT_OK){
-			    
+						    
 			    try {
 			    	Uri selPhotoUri = data.getData();
-			    	img = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), MyStaticValue.AVATA_WIDTH, MyStaticValue.AVATA_HIGHT, true);
+			    	Bitmap oriImg = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), 640, 480, true);
+			    	Bitmap maskBitmap = Bitmap.createBitmap(oriImg.getWidth(), oriImg.getHeight(), Bitmap.Config.RGB_565);
+			    	Canvas c = new Canvas();
+			    	c.setBitmap(maskBitmap);
+			    	Paint p = new Paint();
+			    	p.setFilterBitmap(true);
+			    	c.drawBitmap(oriImg, 0, 0, p);
+			    	oriImg.recycle();
+			    	
+			    	oriImg = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), 640, 480, true);
+			    	
+			    	//FaceDetector faceDetector = new FaceDetector(oriImg.getWidth(),oriImg.getHeight(), 2);
+			    	FaceDetector faceDetector = new FaceDetector(maskBitmap.getWidth(),maskBitmap.getHeight(), 1);
+			    	FaceDetector.Face[] detectedFace = new FaceDetector.Face[1];
+			    	
+			    	int detected_num = faceDetector.findFaces(maskBitmap, detectedFace);
+			    	
+			    	Log.v("faceDetect", "width:" + maskBitmap.getWidth() + "height:" + maskBitmap.getHeight() + "config:" + maskBitmap.getConfig());
+			    	
+			    	//float confidence = detectedFace[0].confidence();
+			    	
+			    	if(detected_num > 0 ) {
+			    		PointF point = new PointF();
+			    		int eye_distance = (int) detectedFace[0].eyesDistance();
+			    		detectedFace[0].getMidPoint(point);
+			    		int x = (int) (point.x - eye_distance);
+			    		int y = (int) (point.y - eye_distance);
+			    		if(x < 0) x = 0;
+			    		if(y < 0) y = 0;
+			    		Bitmap cropImg = Bitmap.createBitmap(oriImg, x, y, eye_distance*2, eye_distance*3);
+			    		img = Bitmap.createScaledBitmap(cropImg, MyStaticValue.AVATA_WIDTH, MyStaticValue.AVATA_HIGHT, true);
+			    	} else {
+			    		img = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), MyStaticValue.AVATA_WIDTH, MyStaticValue.AVATA_HIGHT, true);
+			    		Toast.makeText(this, "얼굴을 찾지 못하였습니다.", Toast.LENGTH_LONG).show();
+			    	}
+			    	
 			    } catch (FileNotFoundException e) {
 			    	e.printStackTrace();
 			    } catch (IOException e) {
