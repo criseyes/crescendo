@@ -24,7 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="enter your ID (@email)" >
+            android:hint="@string/str_enter_id" 
+            android:inputType="textEmailAddress" >
         </EditText>
 
         <TextView
@@ -39,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="@string/str_enter_pw"
             android:inputType="textPassword" />
 
         <Button

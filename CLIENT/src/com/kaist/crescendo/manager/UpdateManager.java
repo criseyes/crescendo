@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.kaist.crescendo.data.FriendData;
@@ -30,6 +31,7 @@ public class UpdateManager implements UpdateManagerInterface {
 	private ArrayList<PlanData> mPlanArrayList;
 	private ArrayList<HistoryData> mHistoryArrayList;
 	private int planUid;
+	private final String TAG = "UpdateManger";
 	
 	public UpdateManager() {
 		mFriendArrayList = new ArrayList<FriendData>();
@@ -688,6 +690,8 @@ public class UpdateManager implements UpdateManagerInterface {
 			int result = MsgInfo.STATUS_OK;
 			
 			asyncTaskResult = manager.processMsg(params[0]);
+			
+			//Log.v(TAG, asyncTaskResult);
 			
 			dialog.dismiss();
 			

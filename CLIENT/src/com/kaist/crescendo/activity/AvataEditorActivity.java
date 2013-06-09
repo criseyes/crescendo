@@ -297,7 +297,7 @@ public class AvataEditorActivity extends UpdateActivity {
 			asyncTaskState = -1;
 			dialog = new ProgressDialog(mContext);
 			dialog.setTitle("처리중");
-			dialog.setMessage("기다려주세요.");
+			dialog.setMessage("잠시만 기다려주세요.");
 			dialog.setIndeterminate(true);
 			dialog.setCancelable(true);
 			dialog.show();

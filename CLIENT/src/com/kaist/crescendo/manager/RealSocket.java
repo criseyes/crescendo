@@ -13,10 +13,12 @@ public class RealSocket implements CommunicationInterface {
 	
 	private String output;
 	private Socket socket;
-    	
+	private final String TAG = "RealSocket";
+	
 	@Override
 	public int write(JSONObject msg) {
 		// TODO Auto-generated method stub
+		int result = MsgInfo.STATUS_NETWORK_ERROR;
 
 		socket = null;
 		
@@ -29,16 +31,13 @@ public class RealSocket implements CommunicationInterface {
     		objOut.write(msg.toString());
     		objOut.flush();
     		
-    		//BufferedReader objIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			//output = objIn.readLine();
-			//Log.d("read data from Server", output.toString()); 
-			
+    		result = MsgInfo.STATUS_OK;
     		
 		} catch(Exception ex) {
-    		Log.e("家南立加坷幅", ex.getMessage());
+    		Log.e(TAG, "Socket error : " + ex.getMessage());
     	}
 		
-		return 0;
+		return result;
 	}
 
 	@Override
@@ -49,7 +48,7 @@ public class RealSocket implements CommunicationInterface {
 		try {
 			objIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			output = objIn.readLine();
-			Log.d("read data from Server", output.toString());
+			Log.d(TAG, "read data from server :" + output.toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
