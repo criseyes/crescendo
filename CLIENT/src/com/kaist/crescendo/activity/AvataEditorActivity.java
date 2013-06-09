@@ -297,7 +297,7 @@ public class AvataEditorActivity extends UpdateActivity {
 	    		canvas.drawBitmap(cropImg, rect, rect, paint);
 	    		*/
 	    		
-	    		BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.face);
+	    		BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.face2);
 	    		Bitmap faceImg = drawable.getBitmap();
 	    		Bitmap output = Bitmap.createScaledBitmap(faceImg, cropImg.getWidth(), cropImg.getHeight(), true);
 	    		Canvas canvas = new Canvas(output);
