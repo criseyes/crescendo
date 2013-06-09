@@ -22,6 +22,8 @@ import android.graphics.PointF;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.FaceDetector;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -270,8 +272,8 @@ public class AvataEditorActivity extends UpdateActivity {
 	    		int eye_distance = (int) detectedFace[0].eyesDistance();
 	    		detectedFace[0].getMidPoint(point);
 	    		int x = (int) (point.x - eye_distance);
-	    		int y = (int) (point.y - eye_distance);
-	    		int width = eye_distance * 2;
+	    		int y = (int) (point.y - (float)eye_distance * 1.3f);
+	    		int width = (int)((float)eye_distance * 2.2f);
 	    		int height = eye_distance * 3;
 	    		if(x < 0) x = 0;
 	    		if(y < 0) y = 0;
@@ -279,19 +281,37 @@ public class AvataEditorActivity extends UpdateActivity {
 	    		if((y + height) >= RESIZE_HEIGHT) height = RESIZE_HEIGHT - y;
 	    		Bitmap cropImg = Bitmap.createBitmap(oriImg, x, y, width, height);
 	    		// make bitmap image to rounded rect
+	    		/*
 	    		Bitmap output = Bitmap.createBitmap(cropImg.getWidth(), cropImg.getHeight(), Config.ARGB_8888);
 	    		Canvas canvas = new Canvas(output);
 	    		final int color = 0xff424242;
 	    		final Paint paint = new Paint();
 	    		final Rect rect = new Rect(0,0,cropImg.getWidth(),cropImg.getHeight());
 	    		final RectF rectF = new RectF(rect);
-	    		final float roundPx = 40;
+	    		final float roundPx = 35;
 	    		paint.setAntiAlias(true);
 	    		canvas.drawARGB(0,0,0,0);
 	    		paint.setColor(color);
 	    		canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
 	    		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
-	    		canvas.drawBitmap(cropImg, rect, rect, paint);	    		
+	    		canvas.drawBitmap(cropImg, rect, rect, paint);
+	    		*/
+	    		
+	    		BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.face);
+	    		Bitmap faceImg = drawable.getBitmap();
+	    		Bitmap output = Bitmap.createScaledBitmap(faceImg, cropImg.getWidth(), cropImg.getHeight(), true);
+	    		Canvas canvas = new Canvas(output);
+	    		final int color = 0xff424242;
+	    		final Paint paint = new Paint();
+	    		final Rect rect = new Rect(0,0,cropImg.getWidth(),cropImg.getHeight());
+	    		//final RectF rectF = new RectF(rect);
+	    		//final float roundPx = 35;
+	    		paint.setAntiAlias(true);
+	    		//canvas.drawARGB(0,0,0,0);
+	    		paint.setColor(color);
+	    		//canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+	    		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+	    		canvas.drawBitmap(cropImg, rect, rect, paint);
 	    		
 	    		img = Bitmap.createScaledBitmap(output, MyStaticValue.AVATA_WIDTH, MyStaticValue.AVATA_HIGHT, true);
 	    		isOK = true;
