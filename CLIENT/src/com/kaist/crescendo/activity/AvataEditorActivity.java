@@ -5,6 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.json.JSONObject;
+
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -15,6 +19,7 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.media.FaceDetector;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore.Images;
 import android.util.Log;
@@ -26,6 +31,8 @@ import android.widget.Toast;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.data.AvataData;
+import com.kaist.crescendo.manager.ComManager;
+import com.kaist.crescendo.manager.MsgInfo;
 import com.kaist.crescendo.utils.MyPref;
 import com.kaist.crescendo.utils.MyStaticValue;
 
@@ -38,6 +45,10 @@ public class AvataEditorActivity extends UpdateActivity {
 	private int planType;
 	private int planUid;
 	private String title;
+	
+	private Context mContext;
+	private int asyncTaskState;
+	private boolean asynTaskResult;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +91,8 @@ public class AvataEditorActivity extends UpdateActivity {
 		}
 		
 		findViewById(R.id.button_save).setOnClickListener(mClickListener);
-
 		
+		mContext = this;
 	}
 	
 	private void loadSettings()
@@ -202,52 +213,117 @@ public class AvataEditorActivity extends UpdateActivity {
 		{
 		case MyStaticValue.REQUESTCODE_GETAVATAIMAGE:
 			if(resultCode==RESULT_OK){
-						    
-			    try {
-			    	Uri selPhotoUri = data.getData();
-			    	Bitmap oriImg = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), 640, 480, true);
-			    	Bitmap maskBitmap = Bitmap.createBitmap(oriImg.getWidth(), oriImg.getHeight(), Bitmap.Config.RGB_565);
-			    	Canvas c = new Canvas();
-			    	c.setBitmap(maskBitmap);
-			    	Paint p = new Paint();
-			    	p.setFilterBitmap(true);
-			    	c.drawBitmap(oriImg, 0, 0, p);
-			    	oriImg.recycle();
-			    	
-			    	oriImg = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), 640, 480, true);
-			    	
-			    	//FaceDetector faceDetector = new FaceDetector(oriImg.getWidth(),oriImg.getHeight(), 2);
-			    	FaceDetector faceDetector = new FaceDetector(maskBitmap.getWidth(),maskBitmap.getHeight(), 1);
-			    	FaceDetector.Face[] detectedFace = new FaceDetector.Face[1];
-			    	
-			    	int detected_num = faceDetector.findFaces(maskBitmap, detectedFace);
-			    	
-			    	Log.v("faceDetect", "width:" + maskBitmap.getWidth() + "height:" + maskBitmap.getHeight() + "config:" + maskBitmap.getConfig());
-			    	
-			    	//float confidence = detectedFace[0].confidence();
-			    	
-			    	if(detected_num > 0 ) {
-			    		PointF point = new PointF();
-			    		int eye_distance = (int) detectedFace[0].eyesDistance();
-			    		detectedFace[0].getMidPoint(point);
-			    		int x = (int) (point.x - eye_distance);
-			    		int y = (int) (point.y - eye_distance);
-			    		if(x < 0) x = 0;
-			    		if(y < 0) y = 0;
-			    		Bitmap cropImg = Bitmap.createBitmap(oriImg, x, y, eye_distance*2, eye_distance*3);
-			    		img = Bitmap.createScaledBitmap(cropImg, MyStaticValue.AVATA_WIDTH, MyStaticValue.AVATA_HIGHT, true);
-			    	} else {
-			    		img = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), MyStaticValue.AVATA_WIDTH, MyStaticValue.AVATA_HIGHT, true);
-			    		Toast.makeText(this, "얼굴을 찾지 못하였습니다.", Toast.LENGTH_LONG).show();
-			    	}
-			    	
-			    } catch (FileNotFoundException e) {
-			    	e.printStackTrace();
-			    } catch (IOException e) {
-			    	e.printStackTrace();
-			    }
-			    imgView.setImageBitmap(img);
+				Uri selPhotoUri = data.getData();				
+				new FaceDector().execute(selPhotoUri);
+				
+				/*
+				while(asyncTaskState == -1) {
+					try {
+						Thread.sleep(200);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						break;
+					}
+				}
+				*/
 			}
+			break;
+		}
+	}
+	
+	private boolean doFaceDetect(Uri selPhotoUri) {
+		boolean isOK = false;
+		
+		try {
+	    	Bitmap oriImg = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), 640, 480, true);
+	    	Bitmap maskBitmap = Bitmap.createBitmap(oriImg.getWidth(), oriImg.getHeight(), Bitmap.Config.RGB_565);
+	    	Canvas c = new Canvas();
+	    	c.setBitmap(maskBitmap);
+	    	Paint p = new Paint();
+	    	p.setFilterBitmap(true);
+	    	c.drawBitmap(oriImg, 0, 0, p);
+	    	oriImg.recycle();
+	    	
+	    	oriImg = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), 640, 480, true);
+	    	
+	    	//FaceDetector faceDetector = new FaceDetector(oriImg.getWidth(),oriImg.getHeight(), 2);
+	    	FaceDetector faceDetector = new FaceDetector(maskBitmap.getWidth(),maskBitmap.getHeight(), 1);
+	    	FaceDetector.Face[] detectedFace = new FaceDetector.Face[1];
+	    	
+	    	int detected_num = faceDetector.findFaces(maskBitmap, detectedFace);
+	    	
+	    	Log.v("faceDetect", "width:" + maskBitmap.getWidth() + "height:" + maskBitmap.getHeight() + "config:" + maskBitmap.getConfig());
+	    	
+	    	//float confidence = detectedFace[0].confidence();
+	    	
+	    	if(detected_num > 0 ) {
+	    		PointF point = new PointF();
+	    		int eye_distance = (int) detectedFace[0].eyesDistance();
+	    		detectedFace[0].getMidPoint(point);
+	    		int x = (int) (point.x - eye_distance);
+	    		int y = (int) (point.y - eye_distance);
+	    		if(x < 0) x = 0;
+	    		if(y < 0) y = 0;
+	    		Bitmap cropImg = Bitmap.createBitmap(oriImg, x, y, eye_distance*2, eye_distance*3);
+	    		img = Bitmap.createScaledBitmap(cropImg, MyStaticValue.AVATA_WIDTH, MyStaticValue.AVATA_HIGHT, true);
+	    		isOK = true;
+	    	} else {
+	    		img = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), MyStaticValue.AVATA_WIDTH, MyStaticValue.AVATA_HIGHT, true);
+	    	}
+	    	
+	    } catch (FileNotFoundException e) {
+	    	e.printStackTrace();
+	    } catch (IOException e) {
+	    	e.printStackTrace();
+	    }
+		
+		return isOK;
+	}
+	
+	public class FaceDector extends AsyncTask<Uri, Integer, Boolean> {
+
+		private ProgressDialog dialog;
+		
+		@Override
+		protected void onPreExecute() {
+			asyncTaskState = -1;
+			dialog = new ProgressDialog(mContext);
+			dialog.setTitle("처리중");
+			dialog.setMessage("기다려주세요.");
+			dialog.setIndeterminate(true);
+			dialog.setCancelable(true);
+			dialog.show();
+			super.onPreExecute();
+		}
+		
+		@Override
+		protected void onProgressUpdate(Integer... progress) {
+			
+		}
+		
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if(result == false) {
+				Toast.makeText(mContext, "얼굴을 찾지 못하였습니다.", Toast.LENGTH_LONG).show();
+			}
+			imgView.setImageBitmap(img);
+			super.onPostExecute(result);
+		}
+
+		@Override
+		protected Boolean doInBackground(Uri... params) {
+			boolean result = false;
+			Uri uri = params[0];
+			
+			result = doFaceDetect(uri);
+			
+			dialog.dismiss();
+			
+			asyncTaskState = 0;
+			
+			return result;
 		}
 	}
 }
