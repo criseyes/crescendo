@@ -13,10 +13,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.Bitmap.Config;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.media.FaceDetector;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -273,7 +278,22 @@ public class AvataEditorActivity extends UpdateActivity {
 	    		if((x + width) >= RESIZE_WIDTH) width = RESIZE_WIDTH - x;
 	    		if((y + height) >= RESIZE_HEIGHT) height = RESIZE_HEIGHT - y;
 	    		Bitmap cropImg = Bitmap.createBitmap(oriImg, x, y, width, height);
-	    		img = Bitmap.createScaledBitmap(cropImg, MyStaticValue.AVATA_WIDTH, MyStaticValue.AVATA_HIGHT, true);
+	    		// make bitmap image to rounded rect
+	    		Bitmap output = Bitmap.createBitmap(cropImg.getWidth(), cropImg.getHeight(), Config.ARGB_8888);
+	    		Canvas canvas = new Canvas(output);
+	    		final int color = 0xff424242;
+	    		final Paint paint = new Paint();
+	    		final Rect rect = new Rect(0,0,cropImg.getWidth(),cropImg.getHeight());
+	    		final RectF rectF = new RectF(rect);
+	    		final float roundPx = 40;
+	    		paint.setAntiAlias(true);
+	    		canvas.drawARGB(0,0,0,0);
+	    		paint.setColor(color);
+	    		canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+	    		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
+	    		canvas.drawBitmap(cropImg, rect, rect, paint);	    		
+	    		
+	    		img = Bitmap.createScaledBitmap(output, MyStaticValue.AVATA_WIDTH, MyStaticValue.AVATA_HIGHT, true);
 	    		isOK = true;
 	    	} else {
 	    		img = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), MyStaticValue.AVATA_WIDTH, MyStaticValue.AVATA_HIGHT, true);
