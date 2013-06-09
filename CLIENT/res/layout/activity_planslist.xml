@@ -20,10 +20,11 @@
         android:id="@+id/plans_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:dividerHeight="2dp"
+        android:dividerHeight="1dp"
          android:focusable="false"
 	    android:clickable="false"
-        android:divider="#ffffff" >
+        android:divider="#000000" 
+        android:showDividers="beginning|middle|end" >
 
     </ListView>
 
