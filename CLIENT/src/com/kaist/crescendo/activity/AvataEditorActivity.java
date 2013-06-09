@@ -49,6 +49,9 @@ public class AvataEditorActivity extends UpdateActivity {
 	private Context mContext;
 	private int asyncTaskState;
 	private boolean asynTaskResult;
+	
+	private static final int RESIZE_WIDTH = 640;
+	private static final int RESIZE_HEIGHT = 480;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -236,7 +239,7 @@ public class AvataEditorActivity extends UpdateActivity {
 		boolean isOK = false;
 		
 		try {
-	    	Bitmap oriImg = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), 640, 480, true);
+	    	Bitmap oriImg = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), RESIZE_WIDTH, RESIZE_HEIGHT, true);
 	    	Bitmap maskBitmap = Bitmap.createBitmap(oriImg.getWidth(), oriImg.getHeight(), Bitmap.Config.RGB_565);
 	    	Canvas c = new Canvas();
 	    	c.setBitmap(maskBitmap);
@@ -245,7 +248,7 @@ public class AvataEditorActivity extends UpdateActivity {
 	    	c.drawBitmap(oriImg, 0, 0, p);
 	    	oriImg.recycle();
 	    	
-	    	oriImg = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), 640, 480, true);
+	    	oriImg = Bitmap.createScaledBitmap(Images.Media.getBitmap( getContentResolver(), selPhotoUri ), RESIZE_WIDTH, RESIZE_HEIGHT, true);
 	    	
 	    	//FaceDetector faceDetector = new FaceDetector(oriImg.getWidth(),oriImg.getHeight(), 2);
 	    	FaceDetector faceDetector = new FaceDetector(maskBitmap.getWidth(),maskBitmap.getHeight(), 1);
@@ -263,9 +266,13 @@ public class AvataEditorActivity extends UpdateActivity {
 	    		detectedFace[0].getMidPoint(point);
 	    		int x = (int) (point.x - eye_distance);
 	    		int y = (int) (point.y - eye_distance);
+	    		int width = eye_distance * 2;
+	    		int height = eye_distance * 3;
 	    		if(x < 0) x = 0;
 	    		if(y < 0) y = 0;
-	    		Bitmap cropImg = Bitmap.createBitmap(oriImg, x, y, eye_distance*2, eye_distance*3);
+	    		if((x + width) >= RESIZE_WIDTH) width = RESIZE_WIDTH - x;
+	    		if((y + height) >= RESIZE_HEIGHT) height = RESIZE_HEIGHT - y;
+	    		Bitmap cropImg = Bitmap.createBitmap(oriImg, x, y, width, height);
 	    		img = Bitmap.createScaledBitmap(cropImg, MyStaticValue.AVATA_WIDTH, MyStaticValue.AVATA_HIGHT, true);
 	    		isOK = true;
 	    	} else {
