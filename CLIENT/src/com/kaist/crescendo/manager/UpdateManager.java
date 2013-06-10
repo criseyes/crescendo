@@ -116,6 +116,7 @@ public class UpdateManager implements UpdateManagerInterface {
 				temp_body.put(MsgInfo.PLAN_DAYOFWEEK_LABEL, pData.dayOfWeek);
 				temp_body.put(MsgInfo.PLAN_SDATE_LABEL, pData.start);
 				temp_body.put(MsgInfo.PLAN_EDATE_LABEL, pData.end);
+				temp_body.put(MsgInfo.PLAN_ALARMTIME_LABEL, pData.alarm);
 				temp_body.put(MsgInfo.PLAN_INIT_VAL_LABEL, pData.initValue);
 				temp_body.put(MsgInfo.PLAN_TARGET_VAL_LABEL, pData.targetValue);
 				temp_body.put(MsgInfo.PLAN_IS_SELECTED_LABEL, pData.isSelected);
