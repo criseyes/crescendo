@@ -6,8 +6,8 @@ import android.content.Intent;
 
 public class AlarmReceiver extends BroadcastReceiver {
 	static final String BOOT_ACTION = "android.intent.action.BOOT_COMPLETED";
-	static final String START_ACTION = "com.kaist.crescendo.START_SERVICE";
-	static final String ALARM_ACTION = "com.kaist.crescendo.ALARM_EXPIRED";
+	static final String START_ACTION = "android.intent.action.com.kaist.crescendo.START_SERVICE";
+	static final String ALARM_ACTION = "android.intent.action.com.kaist.crescendo.ALARM_EXPIRED";
 
 	@Override
 	public void onReceive(Context context, Intent intent) {

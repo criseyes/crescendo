@@ -79,8 +79,9 @@
             android:process=":remote"
             android:exported="false" >
             <intent-filter>
-                <action android:name="com.kaist.crescendo.START_SERVICE" />
-                <action android:name="com.kaist.crescendo.ALARM_EXPIRED" />
+                <action android:name="android.intent.action.com.kaist.crescendo.START_SERVICE" />
+                <action android:name="android.intent.action.com.kaist.crescendo.ALARM_EXPIRED" />
+                <action android:name="android.intent.action.com.kaist.crescendo.ON_BIND" />
             </intent-filter>
         </service>
         <receiver android:name="com.kaist.crescendo.alarm.AlarmReceiver" 

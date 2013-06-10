@@ -9,21 +9,31 @@ import android.util.Log;
 public class AlarmService extends Service {
 	static private String TAG = "AlarmService";
 	
-	public static final String INTENT_ACTION = "intent.action.com.kasit.crescendo.ON_BIND";
+	public static final String INTENT_ACTION = "android.intent.action.com.kaist.crescendo.ON_BIND";
 	
 	// IAlarmService interface ¿Ã¥Ÿ. 
 	private IAlarmService.Stub serviceStub = new IAlarmService.Stub() {
 
 		@Override
-		public int AddAlarm(int planId, int dayOfWeek, String alarmTime)
+		public int addAlarm(int planId, int dayOfWeek, String alarmTime)
 				throws RemoteException {
 			// TODO Auto-generated method stub
+			Log.v(TAG, "[addAlarm]" + "planId : " + planId + ", dayOfWeek : " + dayOfWeek + ", alarmTime : " + alarmTime);
+			return 0;
+		}
+		
+		@Override
+		public int updateAlarm(int planId, int dayOfWeek, String alarmTime)
+				throws RemoteException {
+			// TODO Auto-generated method stub
+			Log.v(TAG, "[updateAlarm]" + "planId : " + planId + ", dayOfWeek : " + dayOfWeek + ", alarmTime : " + alarmTime);
 			return 0;
 		}
 
 		@Override
-		public int DelAlarm(int planId) throws RemoteException {
+		public int delAlarm(int planId) throws RemoteException {
 			// TODO Auto-generated method stub
+			Log.v(TAG, "[delAlarm]" + "planId : " + planId);
 			return 0;
 		}
 
@@ -31,6 +41,7 @@ public class AlarmService extends Service {
 		public boolean registerCallback(IAlarmServiceCallback callback)
 				throws RemoteException {
 			// TODO Auto-generated method stub
+			Log.v(TAG, "[registerCallback]");
 			return false;
 		}
 
@@ -38,6 +49,7 @@ public class AlarmService extends Service {
 		public boolean unreigsterCallback(IAlarmServiceCallback callback)
 				throws RemoteException {
 			// TODO Auto-generated method stub
+			Log.v(TAG, "[unreigsterCallback]");
 			return false;
 		}
     };

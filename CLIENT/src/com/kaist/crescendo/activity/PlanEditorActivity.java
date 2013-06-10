@@ -8,6 +8,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
@@ -269,6 +270,13 @@ public class PlanEditorActivity extends UpdateActivity {
 										Float.parseFloat(initV.getText().toString().replace("kg", "")), Float.parseFloat(targetV.getText().toString().replace("kg", "")));
 				String ret = addNewPlan(plan);
 				if(ret.equals("good")) {
+					//add new alarm to alarmService
+					try {
+						getServiceInterface().addAlarm(plan.uId, plan.dayOfWeek, plan.alarm);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					complete();
 				}
 			}
@@ -282,6 +290,13 @@ public class PlanEditorActivity extends UpdateActivity {
 				
 				boolean ret = updatePlan(plan);
 				if(ret == true) {
+					//update alarm to alarmService
+					try {
+						getServiceInterface().updateAlarm(plan.uId, plan.dayOfWeek, plan.alarm);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					complete();
 				}
 			}

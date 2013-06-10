@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +25,7 @@ public class FileEmulator implements CommunicationInterface{
 	
 	static private JSONArray mFriendJSONArray;
 	static private JSONArray mPlanJSONArray;
-	static int planUid;
+	static private int planUid;
 	
 	public FileEmulator() {
 		

@@ -435,6 +435,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		try {
 			revMsg = new JSONObject(asyncTaskResult);
+			plan.uId = revMsg.getJSONObject(MsgInfo.MSGBODY_LABEL).getInt(MsgInfo.PLAN_UID_LABEL);
 			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
 		} catch (Exception e) {
 			// TODO: handle exception

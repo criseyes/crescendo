@@ -20,10 +20,12 @@ import com.kaist.crescendo.utils.MyPref;
 public class UpdateActivity extends Activity {
 	private final static UpdateManagerInterface mManager = new UpdateManager(); // singleton
 	private Context mContext;
-	private IAlarmService mService;
+	private static IAlarmService mService;
 	
 	protected void setServiceInterface(IAlarmService serviceInterface) {
-		mService = serviceInterface;
+		if(mService == null) {
+			mService = serviceInterface;
+		}
 	}
 	
 	protected IAlarmService getServiceInterface() {

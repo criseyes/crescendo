@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -25,6 +26,7 @@ import com.kaist.crescendo.utils.MyStaticValue;
 public class MainActivity extends UpdateActivity {
 	private Handler mHandler;
 	private boolean mFlag = false;
+	private final String TAG = "MainActivity";
 	
 	IAlarmServiceCallback mCallback = new IAlarmServiceCallback.Stub() {
 		
@@ -54,8 +56,11 @@ public class MainActivity extends UpdateActivity {
 		@Override
 		public void onServiceConnected(ComponentName name, IBinder service) {
 			// TODO Auto-generated method stub
+			Log.v(TAG, "onServiceConnected : " + service);
 			if(service != null) {
-				mService = IAlarmService.Stub.asInterface(service);				
+				mService = IAlarmService.Stub.asInterface(service);
+				Log.v(TAG, "mService : " + mService);
+				setServiceInterface(mService);
 				try {
 					mService.registerCallback(mCallback);
 				} catch (RemoteException e) {
@@ -68,11 +73,13 @@ public class MainActivity extends UpdateActivity {
 	
 	private void bindService() {
 		bindService(new Intent(AlarmService.INTENT_ACTION), mConnection, Context.BIND_AUTO_CREATE);
+		Log.v(TAG, "bindService");
 		//register mService for other activity
 	}
 	
 	private void unBindService() {
 		unbindService(mConnection);
+		Log.v(TAG, "unBindService");
 		//unregister mService
 	}
 
