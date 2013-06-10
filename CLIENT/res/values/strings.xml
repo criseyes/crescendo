@@ -62,6 +62,7 @@
     <string name="str_enter_id">이메일 주소를 입력해주세요.</string>
     <string name="str_enter_pw">비밀번호를 입력해주세요.</string>
     <string name="str_password_lenght">7자리 이상 입력해주세요.</string>
+    <string name="str_finish_app">뒤로 버튼을 한번 더 누르시면 종료됩니다.</string>
     
     <string name="str_success">정상적으로 처리되었습니다.</string>
     <string name="str_duplicated_user">이미 등록된 아이디 입니다. 다른 아이디로 등록하세요</string>

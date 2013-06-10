@@ -5,11 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.RemoteException;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.activity.UpdateActivity;
@@ -19,6 +23,8 @@ import com.kaist.crescendo.alarm.IAlarmServiceCallback;
 import com.kaist.crescendo.utils.MyStaticValue;
 
 public class MainActivity extends UpdateActivity {
+	private Handler mHandler;
+	private boolean mFlag = false;
 	
 	IAlarmServiceCallback mCallback = new IAlarmServiceCallback.Stub() {
 		
@@ -86,12 +92,38 @@ public class MainActivity extends UpdateActivity {
 		MyStaticValue.myId = getMyID();
 		
 		bindService();
+		
+		mHandler = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				if(msg.what == 0) {
+					mFlag = false;
+				}
+			}
+		};
 	}
 	
 	@Override
 	protected void onDestroy() {
 		unBindService();
+		super.onDestroy();
 	};
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(keyCode == KeyEvent.KEYCODE_BACK) {
+			if(!mFlag) {
+				Toast.makeText(this, getResources().getText(R.string.str_finish_app), Toast.LENGTH_LONG).show();
+				mFlag = true;
+				mHandler.sendEmptyMessageDelayed(0, 2000);
+				return false;
+			} else {
+				finish();
+			}
+		}
+		
+		return super.onKeyDown(keyCode, event);
+	}
 	
 	
 	/* handling buttons */
