@@ -27,7 +27,7 @@ public class UpdateManager implements UpdateManagerInterface {
 	private String asyncTaskResult;
 	private int asyncTaskState;
 	private Context mContext;
-	private final String TAG = "UpdateManger";
+	private final String TAG = "UpdateManager";
 		
 	private void showToastPopup(int result) {
 		switch(result) {
@@ -139,9 +139,15 @@ public class UpdateManager implements UpdateManagerInterface {
 				// TODO: handle exception
 			}			
 			break;
-			
-		case MsgInfo.GET_FRIEND_CNT:
-		case MsgInfo.GET_PLAN_CNT:
+		
+		case MsgInfo.GET_PLAN:
+		case MsgInfo.GET_FRIEND:
+			try {
+				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 			
 		default:
