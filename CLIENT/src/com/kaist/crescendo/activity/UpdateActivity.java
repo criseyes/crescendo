@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import com.kaist.crescendo.alarm.IAlarmService;
 import com.kaist.crescendo.data.AvataData;
 import com.kaist.crescendo.data.FriendData;
 import com.kaist.crescendo.data.PlanData;
@@ -19,6 +20,15 @@ import com.kaist.crescendo.utils.MyPref;
 public class UpdateActivity extends Activity {
 	private final static UpdateManagerInterface mManager = new UpdateManager(); // singleton
 	private Context mContext;
+	private IAlarmService mService;
+	
+	protected void setServiceInterface(IAlarmService serviceInterface) {
+		mService = serviceInterface;
+	}
+	
+	protected IAlarmService getServiceInterface() {
+		return mService;
+	}
 	
 	public static UpdateManagerInterface getInstance() 
 	{

@@ -8,6 +8,9 @@ import android.util.Log;
 
 public class AlarmService extends Service {
 	static private String TAG = "AlarmService";
+	
+	public static final String INTENT_ACTION = "intent.action.com.kasit.crescendo.ON_BIND";
+	
 	// IAlarmService interface ¿Ã¥Ÿ. 
 	private IAlarmService.Stub serviceStub = new IAlarmService.Stub() {
 

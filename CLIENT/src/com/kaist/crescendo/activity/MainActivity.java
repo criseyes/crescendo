@@ -1,17 +1,74 @@
 package com.kaist.crescendo.activity;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.view.Menu;
+import android.os.IBinder;
+import android.os.RemoteException;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.activity.UpdateActivity;
+import com.kaist.crescendo.alarm.AlarmService;
+import com.kaist.crescendo.alarm.IAlarmService;
+import com.kaist.crescendo.alarm.IAlarmServiceCallback;
 import com.kaist.crescendo.utils.MyStaticValue;
 
 public class MainActivity extends UpdateActivity {
+	
+	IAlarmServiceCallback mCallback = new IAlarmServiceCallback.Stub() {
+		
+		@Override
+		public void alarmExpired(int planId) throws RemoteException {
+			// TODO Auto-generated method stub
+			
+		}
+	};
+	
+	IAlarmService mService;
+	ServiceConnection mConnection = new ServiceConnection() {
+		
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+			// TODO Auto-generated method stub
+			if(mService != null) {
+				try {
+					mService.unreigsterCallback(mCallback);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}			
+		}
+		
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			// TODO Auto-generated method stub
+			if(service != null) {
+				mService = IAlarmService.Stub.asInterface(service);				
+				try {
+					mService.registerCallback(mCallback);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}			
+		}
+	};
+	
+	private void bindService() {
+		bindService(new Intent(AlarmService.INTENT_ACTION), mConnection, Context.BIND_AUTO_CREATE);
+		//register mService for other activity
+	}
+	
+	private void unBindService() {
+		unbindService(mConnection);
+		//unregister mService
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +84,14 @@ public class MainActivity extends UpdateActivity {
 		findViewById(R.id.main_manage_widget).setOnClickListener(mClickListener);
 		
 		MyStaticValue.myId = getMyID();
-	} 
+		
+		bindService();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		unBindService();
+	};
 	
 	
 	/* handling buttons */
