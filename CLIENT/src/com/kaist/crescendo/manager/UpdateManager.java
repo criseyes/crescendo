@@ -27,7 +27,7 @@ public class UpdateManager implements UpdateManagerInterface {
 	private String asyncTaskResult;
 	private int asyncTaskState;
 	private Context mContext;
-	private final String TAG = "UpdateManger";
+	private final String TAG = "UpdateManager";
 		
 	private void showToastPopup(int result) {
 		switch(result) {
@@ -116,6 +116,7 @@ public class UpdateManager implements UpdateManagerInterface {
 				temp_body.put(MsgInfo.PLAN_DAYOFWEEK_LABEL, pData.dayOfWeek);
 				temp_body.put(MsgInfo.PLAN_SDATE_LABEL, pData.start);
 				temp_body.put(MsgInfo.PLAN_EDATE_LABEL, pData.end);
+				temp_body.put(MsgInfo.PLAN_ALARMTIME_LABEL, pData.alarm);
 				temp_body.put(MsgInfo.PLAN_INIT_VAL_LABEL, pData.initValue);
 				temp_body.put(MsgInfo.PLAN_TARGET_VAL_LABEL, pData.targetValue);
 				temp_body.put(MsgInfo.PLAN_IS_SELECTED_LABEL, pData.isSelected);
@@ -139,9 +140,15 @@ public class UpdateManager implements UpdateManagerInterface {
 				// TODO: handle exception
 			}			
 			break;
-			
-		case MsgInfo.GET_FRIEND_CNT:
-		case MsgInfo.GET_PLAN_CNT:
+		
+		case MsgInfo.GET_PLAN:
+		case MsgInfo.GET_FRIEND:
+			try {
+				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 			
 		default:
@@ -270,6 +277,7 @@ public class UpdateManager implements UpdateManagerInterface {
 					String startDay = null;
 					String endDay = null;
 					String title = null;
+					String alarm = null;
 					int type = 0;
 					boolean isSel = false;
 					double initVal = 0.0f;
@@ -285,6 +293,7 @@ public class UpdateManager implements UpdateManagerInterface {
 						title = obj.getString(MsgInfo.PLAN_TITLE_LABEL);
 						type = obj.getInt(MsgInfo.PLAN_TYPE_LABEL);
 						startDay = obj.getString(MsgInfo.PLAN_SDATE_LABEL);
+						alarm = obj.getString(MsgInfo.PLAN_ALARMTIME_LABEL);
 						endDay = obj.getString(MsgInfo.PLAN_EDATE_LABEL);
 						initVal = obj.getDouble(MsgInfo.PLAN_INIT_VAL_LABEL);
 						tarVal = obj.getDouble(MsgInfo.PLAN_TARGET_VAL_LABEL);
@@ -295,7 +304,7 @@ public class UpdateManager implements UpdateManagerInterface {
 						e.printStackTrace();
 					}				
 					
-					PlanData plan = new PlanData(type, title, startDay, endDay, dayOfWeek, initVal, tarVal);
+					PlanData plan = new PlanData(type, title, startDay, endDay, alarm, dayOfWeek, initVal, tarVal);
 					plan.uId = uId;
 					plan.isSelected = isSel;
 					
@@ -426,6 +435,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		try {
 			revMsg = new JSONObject(asyncTaskResult);
+			plan.uId = revMsg.getJSONObject(MsgInfo.MSGBODY_LABEL).getInt(MsgInfo.PLAN_UID_LABEL);
 			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
 		} catch (Exception e) {
 			// TODO: handle exception

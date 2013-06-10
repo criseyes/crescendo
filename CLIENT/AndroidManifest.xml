@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />    
  
     <application
         android:allowBackup="true"
@@ -70,10 +70,27 @@
             android:name="com.kaist.crescendo.activity.StatusActivity"
             android:label="@string/str_input_register_information">            
         </activity>
-              <activity 
+        <activity 
             android:name="com.kaist.crescendo.activity.AvataEditorActivity"
             android:label="@string/str_input_register_information">            
         </activity>
+        <service
+            android:name="com.kaist.crescendo.alarm.AlarmService"
+            android:process=":remote"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.com.kaist.crescendo.START_SERVICE" />
+                <action android:name="android.intent.action.com.kaist.crescendo.ALARM_EXPIRED" />
+                <action android:name="android.intent.action.com.kaist.crescendo.ON_BIND" />
+            </intent-filter>
+        </service>
+        <receiver android:name="com.kaist.crescendo.alarm.AlarmReceiver" 
+            android:label="@string/str_app_name" >
+            <intent-filter >
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </receiver>
         <activity
             android:name="com.kaist.crescendo.activity.IntroActivity"
             android:label="@string/str_app_name" >

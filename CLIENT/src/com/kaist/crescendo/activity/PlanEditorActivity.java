@@ -1,19 +1,19 @@
 package com.kaist.crescendo.activity;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.zip.DataFormatException;
+import java.util.SimpleTimeZone;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.Time;
+import android.os.RemoteException;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -28,6 +28,8 @@ public class PlanEditorActivity extends UpdateActivity {
 	private int index;
 	Calendar startCalendar = Calendar.getInstance();
 	Calendar endCalendar = Calendar.getInstance();
+	Calendar alarmTime = Calendar.getInstance();
+	
 	PlanData plan;
 	
 	EditText startDay;
@@ -35,8 +37,6 @@ public class PlanEditorActivity extends UpdateActivity {
 	
 	EditText initValue;
 	EditText targetValue;
-	
-	Calendar alarmTime = Calendar.getInstance();
 	
 	EditText alarmTimeValue;
 	
@@ -58,6 +58,16 @@ public class PlanEditorActivity extends UpdateActivity {
 			SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
 			endCalendar.set(year, monthOfYear, dayOfMonth);
 			endDay.setText(Formatter.format(endCalendar.getTime()));
+		}
+	};
+	
+	TimePickerDialog.OnTimeSetListener alarmTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
+		
+		@Override
+		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+			alarmTime.set(alarmTime.get(Calendar.YEAR), alarmTime.get(Calendar.MONTH), alarmTime.get(Calendar.DAY_OF_MONTH), hourOfDay, minute);
+			alarmTimeValue.setText(alarmTime.get(Calendar.HOUR_OF_DAY) + ":" + alarmTime.get(Calendar.MINUTE));
+			
 		}
 	};
 
@@ -95,6 +105,15 @@ public class PlanEditorActivity extends UpdateActivity {
 		}
 	};
 	
+	OnClickListener mAlarmTimeListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			new TimePickerDialog(PlanEditorActivity.this, alarmTimeSetListener, alarmTime.get(Calendar.HOUR_OF_DAY), alarmTime.get(Calendar.MINUTE), false).show();
+			
+		}
+	};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -123,9 +142,11 @@ public class PlanEditorActivity extends UpdateActivity {
 			startDay.setText(plan.start);
 			endDay.setText(plan.end);
 			initValue.setText(Double.toString(plan.initValue) + "kg");
-			targetValue.setText(Double.toString(plan.targetValue));
+			targetValue.setText(Double.toString(plan.targetValue) + "kg");
 			((EditText) findViewById(R.id.editTile)).setText(plan.title);
 			setAlarmDayOfWeek(plan.dayOfWeek);
+			/* alarm time */
+			alarmTimeValue.setText(plan.alarm);
 			
 		}
 		else {  /* Add new plan */
@@ -147,6 +168,7 @@ public class PlanEditorActivity extends UpdateActivity {
 				
 		findViewById(R.id.editStartDate).setOnClickListener(mStartDayListener);
 		findViewById(R.id.editEndDate).setOnClickListener(mEndDayListener);
+		findViewById(R.id.editAlarmTime).setOnClickListener(mAlarmTimeListener);
 		
 		findViewById(R.id.planeditor_save).setOnClickListener(mClickListener);
 		
@@ -220,6 +242,7 @@ public class PlanEditorActivity extends UpdateActivity {
 		EditText end = (EditText)this.findViewById(R.id.editEndDate);
 		EditText initV = (EditText)this.findViewById(R.id.editInitValue);
 		EditText targetV = (EditText)this.findViewById(R.id.editTargetValue);
+		EditText alarmV = (EditText)this.findViewById(R.id.editAlarmTime);
 		
 		if(title.getText().length() < 3)
 		{
@@ -243,10 +266,17 @@ public class PlanEditorActivity extends UpdateActivity {
 		{
 			if(mode == MyStaticValue.MODE_NEW)
 			{
-				PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, title.getText().toString(), start.getText().toString(), end.getText().toString(), dayOfWeek,
+				PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, title.getText().toString(), start.getText().toString(), end.getText().toString(), alarmV.getText().toString(), dayOfWeek,
 										Float.parseFloat(initV.getText().toString().replace("kg", "")), Float.parseFloat(targetV.getText().toString().replace("kg", "")));
 				String ret = addNewPlan(plan);
 				if(ret.equals("good")) {
+					//add new alarm to alarmService
+					try {
+						getServiceInterface().addAlarm(plan.uId, plan.dayOfWeek, plan.alarm);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					complete();
 				}
 			}
@@ -260,6 +290,13 @@ public class PlanEditorActivity extends UpdateActivity {
 				
 				boolean ret = updatePlan(plan);
 				if(ret == true) {
+					//update alarm to alarmService
+					try {
+						getServiceInterface().updateAlarm(plan.uId, plan.dayOfWeek, plan.alarm);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					complete();
 				}
 			}

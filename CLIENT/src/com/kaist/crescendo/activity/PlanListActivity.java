@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -63,6 +64,13 @@ public class PlanListActivity extends UpdateActivity {
 			result = deletePlan(((PlanData) adapter.getItem(index)).uId);
 			if(result == true)
 			{
+				//delete alarm info from alarmSerivce
+				try {
+					getServiceInterface().delAlarm(((PlanData)adapter.getItem(index)).uId);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				adapter.clearAllItems();
 				String ret = getPlanList(planArrayList);
 				if(ret.equals("good")) {
@@ -198,7 +206,7 @@ public class PlanListActivity extends UpdateActivity {
 				if(resultCode == RESULT_OK){ 
 					boolean result = data.getExtras().getBoolean("success");
 					if(result == true) /* user add new plan sucessfully */
-					{
+					{						
 						adapter.clearAllItems();
 						String ret = getPlanList(planArrayList);
 						if(ret.equals("good")) {
