@@ -272,8 +272,8 @@ public class AvataEditorActivity extends UpdateActivity {
 	    		int eye_distance = (int) detectedFace[0].eyesDistance();
 	    		detectedFace[0].getMidPoint(point);
 	    		int x = (int) (point.x - eye_distance);
-	    		int y = (int) (point.y - (float)eye_distance * 1.3f);
-	    		int width = (int)((float)eye_distance * 2.2f);
+	    		int y = (int) (point.y - (float)eye_distance * 2.0f);
+	    		int width = (int)((float)eye_distance * 2.3f);
 	    		int height = eye_distance * 3;
 	    		if(x < 0) x = 0;
 	    		if(y < 0) y = 0;
@@ -297,7 +297,7 @@ public class AvataEditorActivity extends UpdateActivity {
 	    		canvas.drawBitmap(cropImg, rect, rect, paint);
 	    		*/
 	    		
-	    		BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.face2);
+	    		BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.face3);
 	    		Bitmap faceImg = drawable.getBitmap();
 	    		Bitmap output = Bitmap.createScaledBitmap(faceImg, cropImg.getWidth(), cropImg.getHeight(), true);
 	    		Canvas canvas = new Canvas(output);

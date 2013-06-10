@@ -122,8 +122,8 @@ public class PlanEditorActivity extends UpdateActivity {
 			plan = (PlanData) adapter.getItem(index);
 			startDay.setText(plan.start);
 			endDay.setText(plan.end);
-			initValue.setText(Float.toString(plan.initValue) + "kg");
-			targetValue.setText(Float.toString(plan.targetValue));
+			initValue.setText(Double.toString(plan.initValue) + "kg");
+			targetValue.setText(Double.toString(plan.targetValue));
 			((EditText) findViewById(R.id.editTile)).setText(plan.title);
 			setAlarmDayOfWeek(plan.dayOfWeek);
 			

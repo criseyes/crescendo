@@ -9,8 +9,8 @@ public class PlanData {
 	public int uId; /* unique ID, from server */
 	public int type; 
 	public int dayOfWeek;
-	public float targetValue;
-	public float initValue;
+	public double targetValue;
+	public double initValue;
 	public boolean isSelected = false;
 	public String title;
 	public String start; /* should be YYYY-MM-DD */
@@ -32,7 +32,7 @@ public class PlanData {
 		this.hItem = new ArrayList<HistoryData>();
 	}	
 	
-	public PlanData(int type, String title, String start, String end, int dayOfWeek, float initV, float targetV) {
+	public PlanData(int type, String title, String start, String end, int dayOfWeek, double initV, double targetV) {
 		super();
 		this.type = type;
 		this.title = title;

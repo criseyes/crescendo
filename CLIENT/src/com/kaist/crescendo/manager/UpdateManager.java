@@ -27,56 +27,12 @@ public class UpdateManager implements UpdateManagerInterface {
 	private String asyncTaskResult;
 	private int asyncTaskState;
 	private Context mContext;
-	private ArrayList<FriendData> mFriendArrayList;
-	private ArrayList<PlanData> mPlanArrayList;
-	private ArrayList<HistoryData> mHistoryArrayList;
-	private int planUid;
 	private final String TAG = "UpdateManger";
-	
-	public UpdateManager() {
-		mFriendArrayList = new ArrayList<FriendData>();
-		mPlanArrayList = new ArrayList<PlanData>();
-		mHistoryArrayList = new ArrayList<HistoryData>(); 
 		
-		SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar calendar = Calendar.getInstance();
-
-		String startDate = Formatter.format(calendar.getTime());
-		calendar.add(Calendar.DAY_OF_MONTH, 20);
-		String endDate = Formatter.format(calendar.getTime());
-		
-		Calendar hisCalendar = Calendar.getInstance();
-		
-		planUid = 0;
-		
-		for(int i = 0 ; i < 10 ; i++) {
-			hisCalendar.add(Calendar.DAY_OF_MONTH, 1);
-			mHistoryArrayList.add(new HistoryData(Formatter.format(hisCalendar.getTime()), 90 - i));
-		}
-		
-		PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan1", startDate, endDate, 0, 90, 60 );
-		plan.isSelected = true;
-		plan.uId = planUid++;
-		plan.hItem.addAll(mHistoryArrayList);
-		PlanData plan1 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan2", startDate, endDate,0,  11, 10 );
-		plan1.uId = planUid++;
-		PlanData plan2 = new PlanData(MyStaticValue.PLANTYPE_DIET, "Test plan3", startDate, endDate,MyStaticValue.FRIDAY,11, 10 );
-
-		plan2.uId = planUid++;
-		
-		mFriendArrayList.add(new FriendData("ehyewony@gamil.com", "01022563409", plan, false, false));
-		mFriendArrayList.add(new FriendData("hui.seo@gamil.com", "01012345678", plan1, false, false));
-		mFriendArrayList.add(new FriendData("crisyseye@gmail.com", "01098765432", plan2, false, false));
-		
-		mPlanArrayList.add(plan);
-		mPlanArrayList.add(plan1);
-		mPlanArrayList.add(plan2);
-	}
-	
 	private void showToastPopup(int result) {
 		switch(result) {
 		case MsgInfo.STATUS_OK:
-			Toast.makeText(mContext, mContext.getString(R.string.str_success), Toast.LENGTH_LONG).show();
+			//Toast.makeText(mContext, mContext.getString(R.string.str_success), Toast.LENGTH_LONG).show();
 			break;
 		case MsgInfo.STATUS_DUPLICATED_USERID:
 			Toast.makeText(mContext, mContext.getString(R.string.str_duplicated_user), Toast.LENGTH_LONG).show();
@@ -160,10 +116,11 @@ public class UpdateManager implements UpdateManagerInterface {
 				temp_body.put(MsgInfo.PLAN_DAYOFWEEK_LABEL, pData.dayOfWeek);
 				temp_body.put(MsgInfo.PLAN_SDATE_LABEL, pData.start);
 				temp_body.put(MsgInfo.PLAN_EDATE_LABEL, pData.end);
+				temp_body.put(MsgInfo.PLAN_INIT_VAL_LABEL, pData.initValue);
+				temp_body.put(MsgInfo.PLAN_TARGET_VAL_LABEL, pData.targetValue);
+				temp_body.put(MsgInfo.PLAN_IS_SELECTED_LABEL, pData.isSelected);
 				
-				if(pData.hItem.size() != 0) {
-					HisArray = new JSONArray();
-				}
+				HisArray = new JSONArray();
 				
 				for(int i = 0 ; i < pData.hItem.size() ; i++) {
 					//add plan history data using JSONArray
@@ -182,6 +139,11 @@ public class UpdateManager implements UpdateManagerInterface {
 				// TODO: handle exception
 			}			
 			break;
+			
+		case MsgInfo.GET_FRIEND_CNT:
+		case MsgInfo.GET_PLAN_CNT:
+			break;
+			
 		default:
 			break;
 		}
@@ -274,6 +236,97 @@ public class UpdateManager implements UpdateManagerInterface {
 		}
 	}
 	
+	private void makeRetMessage(Object retMsg, JSONObject receivedObj) {
+		//convert receivedObj to retMsg
+		int msgId = 0;
+		int itemCnt = 0;
+		JSONObject jsonObjcect = null;
+		JSONArray jsonArray = null;
+		JSONArray jsonArray2 = null;
+		
+		try {
+			msgId = receivedObj.getInt(MsgInfo.MSGID_LABEL);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		if(msgId == MsgInfo.GET_PLAN) {
+			ArrayList<PlanData> planArrayList = (ArrayList<PlanData>) retMsg;
+			
+			try {
+				jsonArray = receivedObj.getJSONArray(MsgInfo.MSGBODY_LABEL);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if(jsonArray != null) {
+			
+				for(int i = 0; i < jsonArray.length() ; i++) {
+					String startDay = null;
+					String endDay = null;
+					String title = null;
+					int type = 0;
+					boolean isSel = false;
+					double initVal = 0.0f;
+					double tarVal = 0.0f;
+					int dayOfWeek = 0;
+					int uId = 0;
+					JSONObject obj = null;
+									
+					try {
+						obj = jsonArray.getJSONObject(i);
+						
+						uId = obj.getInt(MsgInfo.PLAN_UID_LABEL);
+						title = obj.getString(MsgInfo.PLAN_TITLE_LABEL);
+						type = obj.getInt(MsgInfo.PLAN_TYPE_LABEL);
+						startDay = obj.getString(MsgInfo.PLAN_SDATE_LABEL);
+						endDay = obj.getString(MsgInfo.PLAN_EDATE_LABEL);
+						initVal = obj.getDouble(MsgInfo.PLAN_INIT_VAL_LABEL);
+						tarVal = obj.getDouble(MsgInfo.PLAN_TARGET_VAL_LABEL);
+						isSel = obj.getBoolean(MsgInfo.PLAN_IS_SELECTED_LABEL);
+						dayOfWeek = obj.getInt(MsgInfo.PLAN_DAYOFWEEK_LABEL);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}				
+					
+					PlanData plan = new PlanData(type, title, startDay, endDay, dayOfWeek, initVal, tarVal);
+					plan.uId = uId;
+					plan.isSelected = isSel;
+					
+					try {
+						jsonArray2 = obj.getJSONArray(MsgInfo.PLAN_HISTORY_LABEL);
+					} catch (JSONException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					if(jsonArray2 != null) {
+						
+						for(int j = 0 ; j < jsonArray2.length() ; j++) {
+							JSONObject obj2;
+							String date = null;
+							int value = 0;
+							try {
+								obj2 = jsonArray2.getJSONObject(j);
+								date = obj2.getString(MsgInfo.PLAN_HISDATE_LABEL);
+								value = obj2.getInt(MsgInfo.PLAN_HISVAL_LABEL);
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							HistoryData hisData = new HistoryData(date, value);
+							plan.hItem.add(hisData);
+						}
+					}
+					planArrayList.add(plan);		
+				}
+			}
+		}
+	}
+	
 	public int register(Context context, UserData uData) {
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
@@ -345,14 +398,7 @@ public class UpdateManager implements UpdateManagerInterface {
 	
 	@Override
 	public int addNewPlan(Context context, PlanData plan) {
-		//make temporal test code
-		
-		plan.uId = planUid++;
-		mPlanArrayList.add(plan);
-		
-		return 0;
-		
-		/*
+	
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		JSONObject revMsg = null;
@@ -385,12 +431,12 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;
-		*/
 	}
 	
 	@Override
 	public int updatePlan(Context context, PlanData plan) {
 		
+		/*
 		for(int i = 0; i < mPlanArrayList.size(); i++) {
 			if(mPlanArrayList.get(i).uId == plan.uId) {
 				mPlanArrayList.set(i, plan);
@@ -399,7 +445,8 @@ public class UpdateManager implements UpdateManagerInterface {
 		}
 		
 		return 0;
-		/*
+		*/
+		
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		JSONObject revMsg = null;
@@ -432,12 +479,11 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;
-		*/
 	}
 
 	@Override
 	public int deletePlan(Context context, int plan_uId) {
-		
+		/*
 		for(int i = 0 ; i < mPlanArrayList.size(); i++) {
 			if(mPlanArrayList.get(i).uId == plan_uId) {
 				mPlanArrayList.remove(i);
@@ -446,7 +492,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		}
 		
 		return 0;
-		/*
+		*/
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		JSONObject revMsg = null;
@@ -479,33 +525,50 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;
-		*/
 	}
 
 	@Override
 	public int getPlanList(Context context, ArrayList<PlanData> planArrayList) {
-		// TODO Auto-generated method stub
+			
+		int result = MsgInfo.STATUS_OK;
+		JSONObject msg = new JSONObject();
+		JSONObject revMsg = null;
 		
-		//make temporal code for testing
-		for(int i = 0; i < mPlanArrayList.size() ; i++) {
-			PlanData plan = mPlanArrayList.get(i);
-			planArrayList.add(plan);
+		mContext = context;
+		
+		makeMsgHeader(msg, MsgInfo.GET_PLAN);
+		
+		makeMsgBody(msg, planArrayList);
+		
+		new SendAsyncTask().execute(msg);
+		
+		while(asyncTaskState == -1) {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
 		}
-				
-		return 0;
+		
+		try {
+			revMsg = new JSONObject(asyncTaskResult);
+			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
+			makeRetMessage(planArrayList, revMsg);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		showToastPopup(result);
+		
+		return result;
 	}
 
 	@Override
 	public int getFriend(Context context, ArrayList<FriendData> friendArrayList) {
 		// TODO Auto-generated method stub
-		
-		//make temporal code for testing
-		for(int i = 0; i < mFriendArrayList.size() ; i++) {
-			FriendData friend = mFriendArrayList.get(i);
-			if(friend.getisSelected()) {
-				friendArrayList.add(friend);
-			}
-		}
+	
 		
 		return 0;
 	}
@@ -514,13 +577,6 @@ public class UpdateManager implements UpdateManagerInterface {
 	public int getCandidate(Context context, ArrayList<FriendData> candidateArrayList) {
 		// TODO Auto-generated method stub
 		
-		//make temporal code for testing
-		for(int i = 0; i < mFriendArrayList.size() ; i++) {
-			FriendData friend = mFriendArrayList.get(i);
-			if(friend.getisSelected() == false) {
-				candidateArrayList.add(friend);
-			}
-		}
 		
 		return 0;
 	}
@@ -529,28 +585,13 @@ public class UpdateManager implements UpdateManagerInterface {
 	public int addNewFriend(Context context, ArrayList<FriendData> friendArrayList) {
 		// TODO Auto-generated method stub
 		//make temporal code for testing
-		for(int i = 0; i < friendArrayList.size() ; i++) {
-			for(int j = 0; j < mFriendArrayList.size(); j++) {
-				if(friendArrayList.get(i).id.equals(mFriendArrayList.get(j).id)) {
-					mFriendArrayList.get(j).setselected(true);
-				}
-			}
-		}
+		
 		return 0;
 	}
 
 	@Override
 	public int delFriend(Context context, String friendUserId) {
-		//make temporal code for testing
-		for(int i = 0; i < mFriendArrayList.size() ; i++) {
-			if(mFriendArrayList.get(i).id.equals(friendUserId)) {
-				mFriendArrayList.get(i).setselected(false);
-				break;
-			}
-		}
-		return 0;
-		
-		/*
+	
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		JSONObject revMsg = null;
@@ -583,7 +624,6 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;
-		*/
 	}
 
 	@Override
@@ -691,7 +731,7 @@ public class UpdateManager implements UpdateManagerInterface {
 			
 			asyncTaskResult = manager.processMsg(params[0]);
 			
-			//Log.v(TAG, asyncTaskResult);
+			Log.v(TAG, asyncTaskResult);
 			
 			dialog.dismiss();
 			

@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,6 +23,21 @@ public class FileEmulator implements CommunicationInterface{
 	private String passWord;
 	private String jsonString;
 	private JSONObject oriMsg;
+	
+	static private JSONArray mFriendJSONArray;
+	static private JSONArray mPlanJSONArray;
+	static int planUid;
+	
+	public FileEmulator() {
+		
+		if(mFriendJSONArray == null) {
+			// TODO Auto-generated constructor stub
+			mFriendJSONArray = new JSONArray();
+			mPlanJSONArray = new JSONArray(); 
+			
+			planUid = 0;			
+		}
+	}
 	
 	private boolean checkFileExist(String fileName){
 		boolean result = false;
@@ -107,7 +124,7 @@ public class FileEmulator implements CommunicationInterface{
 			} else {
 				parseJONtoString(userId, msg);
 			}			
-		} 
+		}
 		
 		return result;
 	}
@@ -167,6 +184,81 @@ public class FileEmulator implements CommunicationInterface{
 			}
 			
 			jsonString = RevData.toString();			
+		} else if(msgId == MsgInfo.ADD_NEW_PLAN) {
+			try {
+				oriMsg.put(MsgInfo.MSGRET_LABEL, MsgInfo.STATUS_OK);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			JSONObject obj = null;
+			try {
+				obj = oriMsg.getJSONObject(MsgInfo.MSGBODY_LABEL);
+				obj.put(MsgInfo.PLAN_UID_LABEL, planUid++);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			mPlanJSONArray.put(obj);
+			
+			jsonString = oriMsg.toString();
+			
+		} else if(msgId == MsgInfo.UPDATE_PLAN) {
+			for(int i = 0; i < mPlanJSONArray.length(); i++) {
+				int planId = -1;
+				int compareId = -2;
+				JSONObject obj = null;
+				try {
+					planId = oriMsg.getInt(MsgInfo.PLAN_UID_LABEL);
+					obj = mPlanJSONArray.getJSONObject(i);
+					compareId = obj.getInt(MsgInfo.PLAN_UID_LABEL);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(planId == compareId) {
+					try {
+						mPlanJSONArray.put(i, oriMsg);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
+				}
+			}			
+			
+			try {
+				oriMsg.put(MsgInfo.MSGRET_LABEL, MsgInfo.STATUS_OK);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			jsonString = oriMsg.toString();
+			
+		} else if(msgId == MsgInfo.DEL_PLAN) {
+			
+			
+		} else if(msgId == MsgInfo.GET_PLAN) {
+			
+			try {
+				oriMsg.put(MsgInfo.MSGBODY_LABEL, mPlanJSONArray);
+				oriMsg.put(MsgInfo.MSGRET_LABEL, MsgInfo.STATUS_OK);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			jsonString = oriMsg.toString();
+			
+		} else if(msgId == MsgInfo.ADD_FRIEND) {
+			
+		} else if(msgId == MsgInfo.DEL_FRIEND) {
+			
+		} else if(msgId == MsgInfo.CHANGE_PASSWORD) {
+			
 		}
 		
 		return jsonString;

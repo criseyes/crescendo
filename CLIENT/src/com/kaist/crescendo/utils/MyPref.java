@@ -23,4 +23,7 @@ public class MyPref {
 	
 	/* ALARM NOTIFICATION */
 	public static final String ALARM_NOTI = "Alarm";
+	
+	/* ALARM SERVICE */
+	public static final String ALARM_ID = "AlarmId";
 }
