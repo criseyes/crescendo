@@ -15,11 +15,12 @@ public class PlanData {
 	public String title;
 	public String start; /* should be YYYY-MM-DD */
 	public String end; /* should be YYYY-MM-DD */
+	public String alarm; /* should be HH:MM (HH in 24hours format) */
 	public ArrayList<HistoryData> hItem;
 	
 	private static final int not_registerd_uId = -1;
 	
-	public PlanData(int type, String title, String start, String end, int dayOfWeek, float initV, float targetV, int uId) {
+	public PlanData(int type, String title, String start, String end, String alarm, int dayOfWeek, float initV, float targetV, int uId) {
 		super();
 		this.type = type;
 		this.title = title;
@@ -29,10 +30,11 @@ public class PlanData {
 		this.dayOfWeek = dayOfWeek;
 		this.initValue = initV;
 		this.targetValue = targetV;
+		this.alarm = alarm;
 		this.hItem = new ArrayList<HistoryData>();
 	}	
 	
-	public PlanData(int type, String title, String start, String end, int dayOfWeek, double initV, double targetV) {
+	public PlanData(int type, String title, String start, String end, String alarm, int dayOfWeek, double initV, double targetV) {
 		super();
 		this.type = type;
 		this.title = title;
@@ -41,6 +43,7 @@ public class PlanData {
 		this.uId = not_registerd_uId;
 		this.dayOfWeek = dayOfWeek;
 		this.initValue = initV;
+		this.alarm = alarm;
 		this.targetValue = targetV;
 		
 		this.hItem = new ArrayList<HistoryData>();

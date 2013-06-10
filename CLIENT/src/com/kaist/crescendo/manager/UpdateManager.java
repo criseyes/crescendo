@@ -276,6 +276,7 @@ public class UpdateManager implements UpdateManagerInterface {
 					String startDay = null;
 					String endDay = null;
 					String title = null;
+					String alarm = null;
 					int type = 0;
 					boolean isSel = false;
 					double initVal = 0.0f;
@@ -291,6 +292,7 @@ public class UpdateManager implements UpdateManagerInterface {
 						title = obj.getString(MsgInfo.PLAN_TITLE_LABEL);
 						type = obj.getInt(MsgInfo.PLAN_TYPE_LABEL);
 						startDay = obj.getString(MsgInfo.PLAN_SDATE_LABEL);
+						alarm = obj.getString(MsgInfo.PLAN_ALARMTIME_LABEL);
 						endDay = obj.getString(MsgInfo.PLAN_EDATE_LABEL);
 						initVal = obj.getDouble(MsgInfo.PLAN_INIT_VAL_LABEL);
 						tarVal = obj.getDouble(MsgInfo.PLAN_TARGET_VAL_LABEL);
@@ -301,7 +303,7 @@ public class UpdateManager implements UpdateManagerInterface {
 						e.printStackTrace();
 					}				
 					
-					PlanData plan = new PlanData(type, title, startDay, endDay, dayOfWeek, initVal, tarVal);
+					PlanData plan = new PlanData(type, title, startDay, endDay, alarm, dayOfWeek, initVal, tarVal);
 					plan.uId = uId;
 					plan.isSelected = isSel;
 					

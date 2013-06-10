@@ -50,6 +50,7 @@ public class MsgInfo {
 	final static String PLAN_TYPE_LABEL = "planType";
 	final static String PLAN_SDATE_LABEL = "planStartDate";
 	final static String PLAN_EDATE_LABEL = "planEndDate";
+	final static String PLAN_ALARMTIME_LABEL = "planAlarmTime";
 	final static String PLAN_TITLE_LABEL = "planTitle";
 	final static String PLAN_DAYOFWEEK_LABEL = "planDayofWeek";
 	final static String PLAN_INIT_VAL_LABEL = "planInitVal";
