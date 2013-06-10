@@ -173,6 +173,7 @@ public class UpdateManager implements UpdateManagerInterface {
 			try {
 				temp_body.put(MsgInfo.PASSWORD_LABEL, curPassword);
 				temp_body.put(MsgInfo.NEWPASSWORD_LABEL, newPassword);
+				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -201,6 +202,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		if(msgId == MsgInfo.DEL_PLAN) {
 			try {
 				temp_body.put(MsgInfo.PLAN_UID_LABEL, planId);
+				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -229,6 +231,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		if(msgId == MsgInfo.DEL_FRIEND || msgId == MsgInfo.SEL_AVATA_FRIEND) {
 			try {
 				temp_body.put(MsgInfo.USERID_LABEL, userId);
+				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -435,18 +438,6 @@ public class UpdateManager implements UpdateManagerInterface {
 	
 	@Override
 	public int updatePlan(Context context, PlanData plan) {
-		
-		/*
-		for(int i = 0; i < mPlanArrayList.size(); i++) {
-			if(mPlanArrayList.get(i).uId == plan.uId) {
-				mPlanArrayList.set(i, plan);
-				break;
-			}
-		}
-		
-		return 0;
-		*/
-		
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		JSONObject revMsg = null;
@@ -483,23 +474,13 @@ public class UpdateManager implements UpdateManagerInterface {
 
 	@Override
 	public int deletePlan(Context context, int plan_uId) {
-		/*
-		for(int i = 0 ; i < mPlanArrayList.size(); i++) {
-			if(mPlanArrayList.get(i).uId == plan_uId) {
-				mPlanArrayList.remove(i);
-				break;
-			}
-		}
-		
-		return 0;
-		*/
 		int result = MsgInfo.STATUS_OK;
 		JSONObject msg = new JSONObject();
 		JSONObject revMsg = null;
 		
 		mContext = context;
 		
-		makeMsgHeader(msg, MsgInfo.SYS_LOGIN);
+		makeMsgHeader(msg, MsgInfo.DEL_PLAN);
 		
 		makeMsgBody(msg, plan_uId);
 		

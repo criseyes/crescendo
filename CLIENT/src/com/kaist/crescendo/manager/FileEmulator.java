@@ -211,7 +211,7 @@ public class FileEmulator implements CommunicationInterface{
 				int compareId = -2;
 				JSONObject obj = null;
 				try {
-					planId = oriMsg.getInt(MsgInfo.PLAN_UID_LABEL);
+					planId = oriMsg.getJSONObject(MsgInfo.MSGBODY_LABEL).getInt(MsgInfo.PLAN_UID_LABEL);
 					obj = mPlanJSONArray.getJSONObject(i);
 					compareId = obj.getInt(MsgInfo.PLAN_UID_LABEL);
 				} catch (JSONException e) {
@@ -221,7 +221,8 @@ public class FileEmulator implements CommunicationInterface{
 				
 				if(planId == compareId) {
 					try {
-						mPlanJSONArray.put(i, oriMsg);
+						JSONObject msgBody = oriMsg.getJSONObject(MsgInfo.MSGBODY_LABEL);
+						mPlanJSONArray.put(i, msgBody);
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -240,6 +241,38 @@ public class FileEmulator implements CommunicationInterface{
 			jsonString = oriMsg.toString();
 			
 		} else if(msgId == MsgInfo.DEL_PLAN) {
+			for(int i = 0; i < mPlanJSONArray.length(); i++) {
+				int planId = -1;
+				int compareId = -2;
+				JSONObject obj = null;
+				try {
+					planId = oriMsg.getJSONObject(MsgInfo.MSGBODY_LABEL).getInt(MsgInfo.PLAN_UID_LABEL);
+					obj = mPlanJSONArray.getJSONObject(i);
+					compareId = obj.getInt(MsgInfo.PLAN_UID_LABEL);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				if(planId == compareId) {
+					try {
+						mPlanJSONArray.put(i, null);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					break;
+				}
+			}			
+			
+			try {
+				oriMsg.put(MsgInfo.MSGRET_LABEL, MsgInfo.STATUS_OK);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			jsonString = oriMsg.toString();
 			
 			
 		} else if(msgId == MsgInfo.GET_PLAN) {
