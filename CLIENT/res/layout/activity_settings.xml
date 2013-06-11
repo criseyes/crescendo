@@ -16,7 +16,7 @@
 	       android:layout_height="wrap_content"
 	       android:layout_margin="@dimen/activity_vertical_margin"
 	       android:text="@string/str_settings_widget"
-	       android:textAppearance="?android:attr/textAppearanceLarge"
+	       android:textAppearance="?android:attr/textAppearance"
 	       android:textColor="#000000"
 	       tools:targetApi="14" />
 	   
@@ -26,7 +26,7 @@
 	       android:layout_height="wrap_content"
 	       android:layout_margin="@dimen/activity_vertical_margin"
 	       android:text="@string/str_settings_friendwidget"
-	       android:textAppearance="?android:attr/textAppearanceLarge"
+	       android:textAppearance="?android:attr/textAppearance"
 	       android:textColor="#000000"
 	       tools:targetApi="14" />
 	
@@ -36,7 +36,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_margin="@dimen/activity_vertical_margin"
 	        android:text="@string/str_settings_alarm"
-	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        android:textAppearance="?android:attr/textAppearance"
 	        android:textColor="#000000"
 	        tools:targetApi="14" />
 	
@@ -51,7 +51,7 @@
 	    android:background="@android:color/transparent"
 	    android:text="@string/str_settings_change_pw"
 	    android:gravity="start"
-	    android:textAppearance="?android:attr/textAppearanceLarge" />
+	    android:textAppearance="?android:attr/textAppearance" />
 	
 	<Button
 	    android:id="@+id/settings_help"
@@ -61,7 +61,7 @@
 	    android:background="@android:color/transparent"
 	    android:text="@string/str_settings_help"
 	    android:gravity="start"
-	    android:textAppearance="?android:attr/textAppearanceLarge" />
+	    android:textAppearance="?android:attr/textAppearance" />
 
 
 
