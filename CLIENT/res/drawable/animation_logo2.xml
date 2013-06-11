@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<animation-list android:oneshot="false" xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:drawable="@drawable/crescendo10" android:duration="200"/>
-    <item android:drawable="@drawable/crescendo11" android:duration="200"/>
-    <item android:drawable="@drawable/crescendo12" android:duration="200"/>
-    <item android:drawable="@drawable/crescendo13" android:duration="200"/>
-    <item android:drawable="@drawable/crescendo14" android:duration="200"/>
-</animation-list>
