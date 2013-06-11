@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import com.kaist.crescendo.activity.InputActivity;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -73,13 +75,14 @@ public class AlarmService extends Service {
     private void setNextAlarm(int planId) {
     	AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
     	
-    	Intent intent = new Intent(this, AlarmReceiver.class);
+    	Intent intent = new Intent(EXPIRED_ACTION);
+    	intent.putExtra("planId", planId);
     	PendingIntent sender = PendingIntent.getBroadcast(this, planId, intent, 0);
     	    	
     	Calendar calendar = Calendar.getInstance();
     	
     	//calendar.add(Calendar.DAY_OF_YEAR, 1);
-    	calendar.add(Calendar.MINUTE, 1);
+    	calendar.add(Calendar.MINUTE, 5);
     	//calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY), calendar.get(Calendar.DAY_OF_MONTH),
     	//		calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), 0);
     	
@@ -88,6 +91,12 @@ public class AlarmService extends Service {
  
     	am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
     	Log.v(TAG, "setNextAlarm is started : " + planId);
+    	
+    	//start InputActivity
+    	Intent i = new Intent(this, InputActivity.class);
+    	i.putExtra("planId", planId);
+    	i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    	startActivity(i);
     }
     
     private boolean checkAlarmIsToday(int alarmHour, int alarmMin, int curHour, int curMin) {
@@ -104,7 +113,8 @@ public class AlarmService extends Service {
     private void cancelAlarm(int planId) {
     	AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
     	
-    	Intent intent = new Intent(this, AlarmReceiver.class);
+    	Intent intent = new Intent(EXPIRED_ACTION);
+    	intent.putExtra("planId", planId);
     	PendingIntent sender = PendingIntent.getBroadcast(this, planId, intent, 0);
     	
     	am.cancel(sender);

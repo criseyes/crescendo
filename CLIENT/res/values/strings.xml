@@ -44,6 +44,7 @@
     <string name="str_modify_plan">목표를 수정합니다.</string>
     <string name="str_add_newfriend">관심 목록에 추가할 친구를 선택합니다.</string>
     <string name="str_managing_friend">관심 친구 목록을 관리합니다.</string>
+    <string name="str_input_value">현재 측정값을 입력합니다.</string>
     <string name="str_changing_password">비밀 번호를 변경합니다.</string>
     <string name="str_settings_widget">내 위젯 표시</string>
     <string name="str_settings_friendwidget">친구 위젯 표시</string>
@@ -63,6 +64,7 @@
     <string name="str_enter_pw">비밀번호를 입력해주세요.</string>
     <string name="str_password_lenght">7자리 이상 입력해주세요.</string>
     <string name="str_finish_app">뒤로 버튼을 한번 더 누르시면 종료됩니다.</string>
+    <string name="str_current_val">현재 측정값</string>
     
     <string name="str_success">정상적으로 처리되었습니다.</string>
     <string name="str_duplicated_user">이미 등록된 아이디 입니다. 다른 아이디로 등록하세요</string>
