@@ -1,8 +1,10 @@
 package com.kaist.crescendo.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -86,6 +88,23 @@ public class EntranceActivity extends UpdateActivity {
 				editor.commit();
 				
 				Intent intent = new Intent();
+				
+				/* phone status checking */
+				String saved_phone = prefs.getString(MyPref.KEY_PHONE, "0");
+				if(saved_phone.equals("0"))
+				{
+					/* update phone number info */
+					TelephonyManager systemService = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+			        String PhoneNumber = systemService.getLine1Number(); 
+			        
+			        if(PhoneNumber.length() > 10) {
+				        PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
+				        PhoneNumber="0"+PhoneNumber;
+			        }
+					editor.putString(MyPref.KEY_PHONE, PhoneNumber);
+					editor.commit();
+				}
+				
 				startActivity(intent.setClass(getApplicationContext(), MainActivity.class));
 				finish();
 			}

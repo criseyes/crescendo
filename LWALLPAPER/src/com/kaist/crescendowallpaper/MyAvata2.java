@@ -10,6 +10,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.view.MotionEvent;
 
 public class MyAvata2 {
@@ -21,6 +26,7 @@ public class MyAvata2 {
 	private static final int HEAD_SX = 90;
 	private static final int HEAD_SXOFFSET = (BODY_SX - HEAD_SY)/2;
 	private static final int INDICATOR_SY = 20;
+	private static final int WORDBALLON_WIDTH = 40;
 	
 	private static final Random rand = new Random();
 	private static final long DOUBLE_TAP_INTV = 600;
@@ -41,6 +47,10 @@ public class MyAvata2 {
 	private long lastTapEventTime;
 	private boolean isNeedDrawDirecty;
 	private Context mContext;
+	private boolean isShowBalloon = true;
+	private Paint	paint;
+	private int wordLineNumber;
+	private String word;
 	
 	public static final String AVATA_FILNENAME = "myAvata.png";
 	
@@ -75,6 +85,18 @@ public class MyAvata2 {
         
         mContext = context;
 
+        paint = new Paint();
+        paint.setColor(Color.YELLOW); 
+        paint.setStyle(Style.FILL); 
+        
+
+        paint.setColor(Color.BLACK); 
+        paint.setTextSize(20); 
+        
+        /* test
+         * TODO remove this code.
+         */
+        setText("바보야 바보야.. 너는 살을 언제나 뺄려고 그러니.. 밥 좀 그만 먹어 ");
    }
 	
 	public void moveBySelf() {
@@ -137,10 +159,26 @@ public class MyAvata2 {
 		isNeedDrawDirecty = true;
 	}
 	
+	private void setText(String text) {
+		StringBuilder sb = new StringBuilder(); 
+		wordLineNumber = breakText(sb, paint, text, WORDBALLON_WIDTH);
+		this.word = sb.toString();
+	}
 	
 	public void draw(Canvas canvas) {
-		canvas.drawBitmap(getHeadBitmap(), startX + HEAD_SXOFFSET, startY, null);
+		
 		canvas.drawBitmap(getBodyBitmap(), startX, startY + HEAD_SY , null);
+		
+		
+		if(isShowBalloon)
+		{
+			RectF rect = new RectF(startX + HEAD_SXOFFSET + HEAD_SX, startY + HEAD_SY, WORDBALLON_WIDTH + 5, 100);
+			canvas.drawRoundRect(rect, 1, 1, paint);
+			//canvas.drawPaint(paint); 
+			canvas.drawText(word, startX + HEAD_SXOFFSET + HEAD_SX + 5, startY + HEAD_SY - 5, paint);
+		}
+		
+		canvas.drawBitmap(getHeadBitmap(), startX + HEAD_SXOFFSET + 4 /* overlap */, startY, null);
 	}
 
 	public boolean onTouch(MotionEvent event) {
@@ -229,4 +267,54 @@ public class MyAvata2 {
 		
 		return false;
 	}
+	
+	/** 
+     * 줄바꿈 
+     * @param textPaint        TextView의 Paint 객체 
+     * @param strText        문자열 
+     * @param breakWidth    줄바꿈 하고 싶은 width값 지정     
+     * @return 
+     */ 
+    public int breakText(StringBuilder sb, Paint textPaint, String strText, int breakWidth) { 
+        //StringBuilder sb = new StringBuilder(); 
+        int endValue = 0; 
+        int totalLine = 0;
+        do{ 
+        	totalLine ++;
+            endValue = textPaint.breakText(strText, true, breakWidth, null); 
+            if(endValue > 0) { 
+                sb.append(strText.substring(0, endValue)).append("\n"); 
+                strText = strText.substring(endValue); 
+            } 
+        }while(endValue > 0);
+        sb.toString().substring(0, sb.length()-1);  // 마지막 "\n"를 제거
+        return totalLine;
+        		 
+    } 
+     
+    /** 
+     * 줄바꿈 
+     * @param textPaint        TextView의 Paint 객체 
+     * @param id            xml의 id(R.string.id) 
+     * @param breakWidth    줄바꿈 하고 싶은 width값 지정 
+     * @return 
+     */ 
+    public int breakText(StringBuilder sb, Paint textPaint, int id, int breakWidth) { 
+        String strText = mContext.getResources().getString(id); 
+        //StringBuilder sb = new StringBuilder(); 
+        int endValue = 0; 
+        int totalLine = 0;
+        do{ 
+        	totalLine ++;
+            endValue = textPaint.breakText(strText, true, breakWidth, null); 
+            if(endValue > 0) { 
+                sb.append(strText.substring(0, endValue)).append("\n"); 
+                strText = strText.substring(endValue); 
+            } 
+        }while(endValue > 0); 
+        sb.toString().substring(0, sb.length()-1);  // 마지막 "\n"를 제거 
+        return totalLine;
+    } 
+
+
 }
