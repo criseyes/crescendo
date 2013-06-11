@@ -141,8 +141,8 @@ public class PlanEditorActivity extends UpdateActivity {
 			plan = (PlanData) adapter.getItem(index);
 			startDay.setText(plan.start);
 			endDay.setText(plan.end);
-			initValue.setText(Double.toString(plan.initValue) + "kg");
-			targetValue.setText(Double.toString(plan.targetValue) + "kg");
+			initValue.setText(Double.toString(plan.initValue));
+			targetValue.setText(Double.toString(plan.targetValue));
 			((EditText) findViewById(R.id.editTile)).setText(plan.title);
 			setAlarmDayOfWeek(plan.dayOfWeek);
 			/* alarm time */
@@ -160,8 +160,8 @@ public class PlanEditorActivity extends UpdateActivity {
 			endCalendar.set(endCalendar.get(Calendar.YEAR)+1,endCalendar.get(Calendar.MONTH), endCalendar.get(Calendar.DAY_OF_MONTH));
 			endDay.setText(Formatter.format(endCalendar.getTime()));
 			
-			initValue.setText("80" + "kg");
-			targetValue.setText("70" + "kg");
+			initValue.setText("80");
+			targetValue.setText("70");
 			/* alarm time */
 			alarmTimeValue.setText(alarmTime.get(Calendar.HOUR_OF_DAY) + ":" + alarmTime.get(Calendar.MINUTE));
 		}
@@ -244,6 +244,8 @@ public class PlanEditorActivity extends UpdateActivity {
 		EditText targetV = (EditText)this.findViewById(R.id.editTargetValue);
 		EditText alarmV = (EditText)this.findViewById(R.id.editAlarmTime);
 		
+		int dayOfWeek = getAlarmDayOfWeek();
+		
 		if(title.getText().length() < 3)
 		{
 			isOK = false;
@@ -260,7 +262,11 @@ public class PlanEditorActivity extends UpdateActivity {
 			Toast.makeText(this, "Please Input valid start date", Toast.LENGTH_LONG).show();
 		}
 		
-		int dayOfWeek = getAlarmDayOfWeek();
+		if(dayOfWeek == 0) {
+			isOK = false;
+			Toast.makeText(this, "Please Set Alarm day of week", Toast.LENGTH_LONG).show();
+		}
+			
 			
 		if(isOK == true)
 		{

@@ -20,6 +20,7 @@ public class MyAvata2 {
 	private static final int HEAD_SY = 90;
 	private static final int HEAD_SX = 90;
 	private static final int HEAD_SXOFFSET = (BODY_SX - HEAD_SY)/2;
+	private static final int INDICATOR_SY = 20;
 	
 	private static final Random rand = new Random();
 	private static final long DOUBLE_TAP_INTV = 600;
@@ -97,13 +98,13 @@ public class MyAvata2 {
 		
 		
 		
-		if(startX < 0 || startX > StarWallpaper.Width) /* it's dangerous, don't cross the line */ 
+		if(startX  < 0 || startX > StarWallpaper.Width - BODY_SX) /* it's dangerous, don't cross the line */ 
 		{
 			directX *= -1;
 			countX = MAX_COUNT; /* I'll give you the POWER to escape */
 		}
 		
-		if(startY < 0 || startY > StarWallpaper.Height)
+		if(startY < INDICATOR_SY || startY > StarWallpaper.Height - (HEAD_SY+BODY_SY+20))
 		{
 			directY *= -1;
 			countY = MAX_COUNT;

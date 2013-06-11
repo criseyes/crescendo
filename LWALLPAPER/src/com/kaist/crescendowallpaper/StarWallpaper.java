@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -32,6 +33,9 @@ public class StarWallpaper extends WallpaperService {
 	private static String myAvataName;
 	private static String friendAvataName;
 	
+	public static final int PLANTYPE_DIET = 10001;
+	public static final int PLANTYPE_READING_BOOK = 10002;
+	
 	Engine myEngine; 
 	
 	
@@ -44,7 +48,7 @@ public class StarWallpaper extends WallpaperService {
           super.onCreate();
           /* just for debugging wait to sync*/
           /* TODO should remove before commercial release */
-          //android.os.Debug.waitForDebugger();
+          android.os.Debug.waitForDebugger();
           
           try {
 			mCrescendo = createPackageContext("com.kaist.crescendo", Context.MODE_PRIVATE);
@@ -282,8 +286,13 @@ public class StarWallpaper extends WallpaperService {
        
        //imgBack = Bitmap.createScaledBitmap(imgBack, (int) (Height * 1.2), (int) (Height * 1.2), true);
        
-       imgBack = ((BitmapDrawable) getWallpaper()).getBitmap();
-       imgBack = Bitmap.createScaledBitmap(imgBack, (int) Height, (int) Height, true);
+       if(myAvataType == PLANTYPE_DIET || /* test */ myAvataType == 0)
+    	   imgBack = BitmapFactory.decodeResource(context.getResources(), R.drawable.diet_col);
+       else if(myAvataType == PLANTYPE_READING_BOOK)
+    	   imgBack = BitmapFactory.decodeResource(context.getResources(), R.drawable.reading_col);
+       else
+    	   imgBack = ((BitmapDrawable) getWallpaper()).getBitmap();
+       imgBack = Bitmap.createScaledBitmap(imgBack, (int) Width, (int) Height, true);
       
        //bx = by = (int) (Height * 0.6);      // 이미지 중심
    
