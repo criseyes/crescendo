@@ -26,7 +26,8 @@ public class MyAvata2 {
 	private static final int HEAD_SX = 90;
 	private static final int HEAD_SXOFFSET = (BODY_SX - HEAD_SY)/2;
 	private static final int INDICATOR_SY = 20;
-	private static final int WORDBALLON_WIDTH = 40;
+	private static final int WORDBALLON_WIDTH = 150;
+	private static final int MAX_LINENUMBER = 10;
 	
 	private static final Random rand = new Random();
 	private static final long DOUBLE_TAP_INTV = 600;
@@ -49,8 +50,8 @@ public class MyAvata2 {
 	private Context mContext;
 	private boolean isShowBalloon = true;
 	private Paint	paint;
-	private int wordLineNumber;
-	private String word;
+	private ArrayList<String> words = new ArrayList<String>();
+	private int lineHeight;
 	
 	public static final String AVATA_FILNENAME = "myAvata.png";
 	
@@ -86,12 +87,12 @@ public class MyAvata2 {
         mContext = context;
 
         paint = new Paint();
-        paint.setColor(Color.YELLOW); 
+        //paint.setColor(Color.YELLOW); 
         paint.setStyle(Style.FILL); 
         
 
-        paint.setColor(Color.BLACK); 
-        paint.setTextSize(20); 
+        
+        paint.setTextSize(30); 
         
         /* test
          * TODO remove this code.
@@ -160,9 +161,15 @@ public class MyAvata2 {
 	}
 	
 	private void setText(String text) {
-		StringBuilder sb = new StringBuilder(); 
-		wordLineNumber = breakText(sb, paint, text, WORDBALLON_WIDTH);
-		this.word = sb.toString();
+		
+		breakText(paint, text, WORDBALLON_WIDTH);
+		Rect bounds = new Rect();
+		
+		if(words.size() > 1 && words.get(0) != null)
+		{
+			paint.getTextBounds(words.get(0), 0, words.get(0).length(), bounds);
+			lineHeight = bounds.height() + 5;
+		}
 	}
 	
 	public void draw(Canvas canvas) {
@@ -172,13 +179,27 @@ public class MyAvata2 {
 		
 		if(isShowBalloon)
 		{
-			RectF rect = new RectF(startX + HEAD_SXOFFSET + HEAD_SX, startY + HEAD_SY, WORDBALLON_WIDTH + 5, 100);
-			canvas.drawRoundRect(rect, 1, 1, paint);
-			//canvas.drawPaint(paint); 
-			canvas.drawText(word, startX + HEAD_SXOFFSET + HEAD_SX + 5, startY + HEAD_SY - 5, paint);
+			Rect rect = new Rect(startX + HEAD_SXOFFSET + HEAD_SX, 
+					startY + HEAD_SY -10 - lineHeight , 
+					startX + HEAD_SXOFFSET + HEAD_SX+WORDBALLON_WIDTH + 3, 
+					startY + HEAD_SY + lineHeight*words.size() -10);
+			//canvas.drawRoundRect(rect, 1, 1, paint);
+			paint.setColor(Color.YELLOW); 
+			canvas.drawRect(rect, paint);
+
+			//canvas.drawPaint(paint);
+
+			paint.setColor(Color.BLACK);
+			for(int i = 0 ; i < words.size() ; i++) {
+				
+				canvas.drawText(words.get(i), 
+						startX + HEAD_SXOFFSET + HEAD_SX + 5, 
+						startY + HEAD_SY  + (i*lineHeight) - 7 , 
+						paint);
+			}
 		}
 		
-		canvas.drawBitmap(getHeadBitmap(), startX + HEAD_SXOFFSET + 4 /* overlap */, startY, null);
+		canvas.drawBitmap(getHeadBitmap(), startX + HEAD_SXOFFSET  , startY+ 4 /* overlap */, null);
 	}
 
 	public boolean onTouch(MotionEvent event) {
@@ -275,46 +296,27 @@ public class MyAvata2 {
      * @param breakWidth    줄바꿈 하고 싶은 width값 지정     
      * @return 
      */ 
-    public int breakText(StringBuilder sb, Paint textPaint, String strText, int breakWidth) { 
+    public int breakText(Paint textPaint, String strText, int breakWidth) { 
         //StringBuilder sb = new StringBuilder(); 
         int endValue = 0; 
         int totalLine = 0;
         do{ 
-        	totalLine ++;
+        	
             endValue = textPaint.breakText(strText, true, breakWidth, null); 
-            if(endValue > 0) { 
-                sb.append(strText.substring(0, endValue)).append("\n"); 
+            if(endValue > 0) {
+            	
+            	words.add(strText.substring(0, endValue));
+            	
+            	
+                //sb.append(strText.substring(0, endValue)).append("\n"); 
                 strText = strText.substring(endValue); 
             } 
-        }while(endValue > 0);
-        sb.toString().substring(0, sb.length()-1);  // 마지막 "\n"를 제거
+            totalLine ++;
+        }while(endValue > 0 && totalLine < MAX_LINENUMBER);
+       // sb.toString().substring(0, sb.length()-1);  // 마지막 "\n"를 제거
         return totalLine;
         		 
     } 
      
-    /** 
-     * 줄바꿈 
-     * @param textPaint        TextView의 Paint 객체 
-     * @param id            xml의 id(R.string.id) 
-     * @param breakWidth    줄바꿈 하고 싶은 width값 지정 
-     * @return 
-     */ 
-    public int breakText(StringBuilder sb, Paint textPaint, int id, int breakWidth) { 
-        String strText = mContext.getResources().getString(id); 
-        //StringBuilder sb = new StringBuilder(); 
-        int endValue = 0; 
-        int totalLine = 0;
-        do{ 
-        	totalLine ++;
-            endValue = textPaint.breakText(strText, true, breakWidth, null); 
-            if(endValue > 0) { 
-                sb.append(strText.substring(0, endValue)).append("\n"); 
-                strText = strText.substring(endValue); 
-            } 
-        }while(endValue > 0); 
-        sb.toString().substring(0, sb.length()-1);  // 마지막 "\n"를 제거 
-        return totalLine;
-    } 
-
 
 }
