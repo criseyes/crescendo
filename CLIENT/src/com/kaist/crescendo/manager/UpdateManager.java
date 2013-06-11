@@ -59,7 +59,9 @@ public class UpdateManager implements UpdateManagerInterface {
 		int msgId = 0;
 		UserData uData = null;
 		PlanData pData = null;
+		ArrayList<FriendData> friendArrayList = null;
 		JSONArray HisArray = null;
+		JSONArray friendArray = null;
 		
 		JSONObject temp_body = new JSONObject();
 		
@@ -140,6 +142,23 @@ public class UpdateManager implements UpdateManagerInterface {
 		case MsgInfo.GET_FRIEND:
 		case MsgInfo.GET_MYFRIEND:
 			try {
+				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+			
+		case MsgInfo.ADD_MYFRIEND:
+			friendArrayList = (ArrayList<FriendData>)body;
+			friendArray = new JSONArray();
+			try {
+				for(int i = 0; i < friendArrayList.size() ; i++) {
+					JSONObject friend = new JSONObject();
+					friend.put(MsgInfo.DEF_USERID_LABEL, friendArrayList.get(i).id);
+					friendArray.put(friend);
+				}
+				temp_body.put(MsgInfo.FRIEND_LIST_LABEL, friendArray);
 				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -245,8 +264,6 @@ public class UpdateManager implements UpdateManagerInterface {
 	private void makeRetMessage(Object retMsg, JSONObject receivedObj) {
 		//convert receivedObj to retMsg
 		int msgId = 0;
-		int itemCnt = 0;
-		JSONObject jsonObjcect = null;
 		JSONArray jsonArray = null;
 		JSONArray jsonArray2 = null;
 		
@@ -344,7 +361,9 @@ public class UpdateManager implements UpdateManagerInterface {
 			
 			if(jsonArray != null) {
 			
+				//get friend number
 				for(int i = 0; i < jsonArray.length() ; i++) {
+					String uId = null;
 					String startDay = null;
 					String endDay = null;
 					String title = null;
@@ -354,13 +373,16 @@ public class UpdateManager implements UpdateManagerInterface {
 					double initVal = 0.0f;
 					double tarVal = 0.0f;
 					int dayOfWeek = 0;
-					int uId = 0;
+					int planID = 0;
+					boolean isAvata = false;
 					JSONObject obj = null;
 									
 					try {
 						obj = jsonArray.getJSONObject(i);
 						
-						uId = obj.getInt(MsgInfo.PLAN_UID_LABEL);
+						uId = obj.getString(MsgInfo.DEF_USERID_LABEL);
+						isAvata = obj.getBoolean(MsgInfo.FRIEND_IS_AVATA_LABEL);
+						planID = obj.getInt(MsgInfo.PLAN_UID_LABEL);
 						title = obj.getString(MsgInfo.PLAN_TITLE_LABEL);
 						type = obj.getInt(MsgInfo.PLAN_TYPE_LABEL);
 						startDay = obj.getString(MsgInfo.PLAN_SDATE_LABEL);
@@ -376,7 +398,7 @@ public class UpdateManager implements UpdateManagerInterface {
 					}				
 					
 					PlanData plan = new PlanData(type, title, startDay, endDay, alarm, dayOfWeek, initVal, tarVal);
-					plan.uId = uId;
+					plan.uId = planID;
 					plan.isSelected = isSel;
 					
 					try {
@@ -404,7 +426,9 @@ public class UpdateManager implements UpdateManagerInterface {
 							plan.hItem.add(hisData);
 						}
 					}
-					//friendArrayListArrayList.add(plan);		
+					
+					FriendData friend = new FriendData(uId, "01012345678", plan, (msgId == MsgInfo.GET_FRIEND?false:true), isAvata);
+					friendArrayList.add(friend);
 				}
 			}
 		}
@@ -703,10 +727,38 @@ public class UpdateManager implements UpdateManagerInterface {
 
 	@Override
 	public int addNewFriend(Context context, ArrayList<FriendData> friendArrayList) {
-		// TODO Auto-generated method stub
-		//make temporal code for testing
+		int result = MsgInfo.STATUS_OK;
+		JSONObject msg = new JSONObject();
+		JSONObject revMsg = null;
 		
-		return 0;
+		mContext = context;
+		
+		makeMsgHeader(msg, MsgInfo.ADD_MYFRIEND);
+		
+		makeMsgBody(msg, friendArrayList);
+		
+		new SendAsyncTask().execute(msg);
+		
+		while(asyncTaskState == -1) {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
+		}
+		
+		try {
+			revMsg = new JSONObject(asyncTaskResult);
+			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		showToastPopup(result);
+		
+		return result;
 	}
 
 	@Override
