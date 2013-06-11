@@ -285,9 +285,9 @@ public class FileEmulator implements CommunicationInterface{
 			}
 			jsonString = oriMsg.toString();
 			
-		} else if(msgId == MsgInfo.ADD_FRIEND) {
+		} else if(msgId == MsgInfo.ADD_MYFRIEND) {
 			
-		} else if(msgId == MsgInfo.DEL_FRIEND) {
+		} else if(msgId == MsgInfo.DEL_MYFRIEND) {
 			
 		} else if(msgId == MsgInfo.CHANGE_PASSWORD) {
 			

@@ -9,14 +9,13 @@ public class MsgInfo {
 	final static int ADD_NEW_PLAN = 0x3000; //add new plan to server
 	final static int UPDATE_PLAN = 0x3001; //edit registered plan
 	final static int DEL_PLAN = 0x3002; //delete registered plan
-	final static int GET_PLAN_CNT = 0x3003; //get the count of the plan data from server
-	final static int GET_PLAN = 0x3004; //get plan data from server
+	final static int GET_PLAN = 0x3003; //get plan data from server
 	
-	final static int GET_FRIEND_CNT = 0x4000; //get the count of the friend list from server
-	final static int GET_FRIEND = 0x4001; //get friend data from server
-	final static int ADD_FRIEND = 0x4002;
-	final static int DEL_FRIEND = 0x4003; //delete friend which selected before
-	final static int SEL_AVATA_FRIEND = 0x4004;
+	final static int GET_FRIEND = 0x4000; //get friend data from server
+	final static int GET_MYFRIEND = 0x4001;
+	final static int ADD_MYFRIEND = 0x4002;
+	final static int DEL_MYFRIEND = 0x4003; //delete friend which selected before
+	final static int SET_AVATA_FRIEND = 0x4004;
 	
 	final static int CHANGE_PASSWORD = 5000;
 	

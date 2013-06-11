@@ -1,16 +1,11 @@
 package com.kaist.crescendo.manager;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.kaist.crescendo.R;
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -143,6 +138,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		case MsgInfo.GET_PLAN:
 		case MsgInfo.GET_FRIEND:
+		case MsgInfo.GET_MYFRIEND:
 			try {
 				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
 			} catch (JSONException e) {
@@ -235,7 +231,7 @@ public class UpdateManager implements UpdateManagerInterface {
 			e1.printStackTrace();
 		}
 		
-		if(msgId == MsgInfo.DEL_FRIEND || msgId == MsgInfo.SEL_AVATA_FRIEND) {
+		if(msgId == MsgInfo.DEL_MYFRIEND || msgId == MsgInfo.SET_AVATA_FRIEND) {
 			try {
 				temp_body.put(MsgInfo.USERID_LABEL, userId);
 				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
@@ -336,7 +332,7 @@ public class UpdateManager implements UpdateManagerInterface {
 					planArrayList.add(plan);		
 				}
 			}
-		} else if(msgId == MsgInfo.GET_FRIEND) {
+		} else if(msgId == MsgInfo.GET_FRIEND || msgId == MsgInfo.GET_MYFRIEND) {
 			ArrayList<FriendData> friendArrayList = (ArrayList<FriendData>) retMsg;
 			
 			try {
@@ -639,7 +635,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		mContext = context;
 		
-		makeMsgHeader(msg, MsgInfo.GET_FRIEND);
+		makeMsgHeader(msg, MsgInfo.GET_MYFRIEND);
 		
 		makeMsgBody(msg, friendArrayList);
 		
@@ -670,10 +666,39 @@ public class UpdateManager implements UpdateManagerInterface {
 	
 	@Override
 	public int getCandidate(Context context, ArrayList<FriendData> candidateArrayList) {
-		// TODO Auto-generated method stub
+		int result = MsgInfo.STATUS_OK;
+		JSONObject msg = new JSONObject();
+		JSONObject revMsg = null;
 		
+		mContext = context;
 		
-		return 0;
+		makeMsgHeader(msg, MsgInfo.GET_FRIEND);
+		
+		makeMsgBody(msg, candidateArrayList);
+		
+		new SendAsyncTask().execute(msg);
+		
+		while(asyncTaskState == -1) {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
+		}
+		
+		try {
+			revMsg = new JSONObject(asyncTaskResult);
+			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
+			makeRetMessage(candidateArrayList, revMsg);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		showToastPopup(result);
+		
+		return result;
 	}
 
 	@Override
@@ -693,7 +718,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		mContext = context;
 		
-		makeMsgHeader(msg, MsgInfo.DEL_FRIEND);
+		makeMsgHeader(msg, MsgInfo.DEL_MYFRIEND);
 		
 		makeMsgBody(msg, friendUserId);
 		
@@ -729,7 +754,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		mContext = context;
 		
-		makeMsgHeader(msg, MsgInfo.SEL_AVATA_FRIEND);
+		makeMsgHeader(msg, MsgInfo.SET_AVATA_FRIEND);
 		
 		makeMsgBody(msg, friendUserId);
 		
