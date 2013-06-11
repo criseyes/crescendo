@@ -80,14 +80,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-             android:gravity="right"
-            android:ems="10" />
+            android:ems="10"
+            android:gravity="right"
+            android:inputType="numberDecimal" />
 
         <TextView
             android:id="@+id/textViewTargetValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/planeditor_common_margin"
+            android:inputType="number"
             android:text="@string/str_planEditor_targetValue"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -96,8 +98,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-             android:gravity="right"
-            android:ems="10" />
+            android:ems="10"
+            android:gravity="right"
+            android:inputType="numberDecimal" />
+
         <TextView
             android:id="@+id/textViewAlarmTime"
             android:layout_width="wrap_content"

@@ -3,15 +3,21 @@ __author__ = 'heeseo'
 import logging
 import sys
 import SocketServer
-import json, MySQLdb 
+import json, MySQLdb, datetime  
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(name)s: %(message)s',
                     )
 
 handler_tbl = {}
+mysql_err_tbl = {1062:0x0001}
 msg_type_file = '../../CLIENT/src/com/kaist/crescendo/manager/MsgInfo.java'
 msg_header = {"msgId":0,"msgLen":0,"msgDir":0,"msgRet":0,"msgBody":{}} 
+plan_header = ["defUserId","planType","planInitVal", "planStartDate", \
+		"planIsSelected", "planTitle", "planTargetVal", "planEndDate",\
+		"planDayofWeek", "planUId", "planHistory"] 
+
+ 
 
 class CrecendoRequestHandler(SocketServer.BaseRequestHandler):
 
@@ -38,30 +44,183 @@ class CrecendoRequestHandler(SocketServer.BaseRequestHandler):
         msgData = json.loads(data)
 	msgCmd = msgData['msgId']
 
-	# Call hander function based on msgId 
-	retVal = getattr(self,handler_tbl[msgCmd])(json.loads(data)['msgBody'])
+	try: 
+		# Call hander function based on msgId 
+		(retVal, ret_msgBody) = getattr(self,handler_tbl[msgCmd])(json.loads(data)['msgBody'])
+	except KeyError:
+		msgData['msgBody'] = { "defUserId": 'zziniart@gmail.com' } 
+		(retVal, ret_msgBody) = getattr(self,handler_tbl[msgCmd])(msgData['msgBody'])
+
 
 	# Create Message data to reply to client 
 	msgData["msgDir"] = 0
 	msgData["msgRet"] = retVal
-	
+	msgData["msgBody"] = ret_msgBody 
+
 	reply_data = json.dumps(msgData)
        	
 	self.logger.debug('recv()->"%s"', reply_data)
         self.request.send(reply_data)
+	
+
         return
+
+    def handle_add_new_plan(self, msgBody):
+	print 'haha handle_add_new_plan'
+	print msgBody
+
+	db = MySQLdb.connect(db='crecendo', user='root', passwd='test1234')
+	cur = db.cursor()
+	retval = cur.execute("select * from user_plan_table where userid = '%s';"%(\
+                msgBody["defUserId"].strip()))
+
+	if retval != 0:  
+		query_string = "insert into user_plan_table (userid, planType, planInitVal, planStartDate, planIsSelected, planTitle, planTargetVal,planEndDate, planDayofWeek) values ('%s', %s, %s, '%s', %s, '%s', %s, '%s', %s );"%(\
+			msgBody[plan_header[0]].strip(),str(msgBody[plan_header[1]]).strip(),str(msgBody[plan_header[2]]).strip(),\
+			msgBody[plan_header[3]].strip(),str(msgBody[plan_header[4]]).strip(),msgBody[plan_header[5]].strip(),\
+			str(msgBody[plan_header[6]]).strip(),msgBody[plan_header[7]].strip(),str(msgBody[plan_header[8]]).strip())	
+		print query_string
+	else:
+		query_string = "insert into user_plan_table (userid, planType, planInitVal, planStartDate, planIsSelected, planTitle, planTargetVal,planEndDate, planDayofWeek) values ('%s', %s, %s, '%s', %s, '%s', %s, '%s', %s );"%(\
+			msgBody[plan_header[0]].strip(),str(msgBody[plan_header[1]]).strip(),str(msgBody[plan_header[2]]).strip(),\
+			msgBody[plan_header[3]].strip(),'1',msgBody[plan_header[5]].strip(),\
+			str(msgBody[plan_header[6]]).strip(),msgBody[plan_header[7]].strip(),str(msgBody[plan_header[8]]).strip())	
+		print query_string
+ 
+	try:
+		db = MySQLdb.connect(db='crecendo', user='root', passwd='test1234')
+		cur = db.cursor()
+		retval = cur.execute(query_string)
+		print cur.fetchone()
+		return (0,msgBody) 
+	except MySQLdb.Error, e:
+		print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+		return (int(mysql_err_tbl[e.args[0]]),msgBody)
+
+    def handle_update_plan(self,msgBody):
+	print "handl_update_plan"
+	query_string = "update user_plan_table set planType=%s, planInitVal=%s, planStartDate='%s', planIsSelected =%s, planTitle='%s', planTargetVal=%s, planEndDate='%s', planDayofWeek=%s where plandId=%s;"%(\
+		str(msgBody[plan_header[1]]).strip(),str(msgBody[plan_header[2]]).strip(),\
+		msgBody[plan_header[3]].strip(),str(msgBody[plan_header[4]]).strip(),msgBody[plan_header[5]].strip(),\
+		str(msgBody[plan_header[6]]).strip(),msgBody[plan_header[7]].strip(),str(msgBody[plan_header[8]]).strip(),\
+		str(msgBody[plan_header[9]]))	
+	print query_string
+
+	try:
+		db = MySQLdb.connect(db='crecendo', user='root', passwd='test1234')
+		cur = db.cursor()
+		retval = cur.execute(query_string)
+		return (0,msgBody) 
+	except MySQLdb.Error, e:
+		print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+		return (int(mysql_err_tbl[e.args[0]]),msgBody)
+
+
+    def handle_del_plan(self,msgBody):
+	print "handl_del_plan"
+	query_string = "delete from user_plan_table where plandId=%s;"%(\
+		msgBody["planUId"].strip())	
+	print query_string
+
+	try:
+		db = MySQLdb.connect(db='crecendo', user='root', passwd='test1234')
+		cur = db.cursor()
+		retval = cur.execute(query_string)
+		print cur.fetchone()
+		return (0,msgBody) 
+	except MySQLdb.Error, e:
+		print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+		return (int(mysql_err_tbl[e.args[0]]),msgBody)
+
+    def handle_get_plan(self,msgBody):
+
+	query_string = "select * from user_plan_table where userid = '%s';"%(\
+		msgBody["defUserId"].strip())	
+	print query_string
+
+	try:
+		db = MySQLdb.connect(db='crecendo', user='root', passwd='test1234')
+		cur = db.cursor()
+		retval = cur.execute(query_string)
+	
+		if retval == 0:
+			return (0, [])	
+		idx = 0
+		plan_row = { }
+		receive_msgBody = [] 
+		print type(idx)
+		for rec in cur.fetchall():
+			print "-------------------------"
+			print rec 
+			for row in rec:
+				if type(row) is datetime.date: 
+					plan_row[plan_header[idx]]  = str(row)
+				else:
+					plan_row[plan_header[idx]]  = row
+				print type(row)
+				idx += 1  
+			plan_row["planHistory"] = []
+			idx = 0
+			print plan_row
+			print '==================================='
+			receive_msgBody.append(plan_row) 
+			plan_row = {} 
+			print receive_msgBody 
+		return (0, receive_msgBody)
+	except MySQLdb.Error, e:
+		print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+
+	return (0,{}) # no plan  
 
     def handle_register_user(self, msgBody):
         print 'haha handle_register_user'
 	print msgBody 
 	print type(msgBody)
 	query_string = "insert into user_table (userid, birthday, phoneno, passwd) values ('%s', '%s', '%s', '%s');"%(\
-		msgBody["userId"],msgBody["birthDay"],msgBody["phoneNum"],msgBody["passWord"])	
+		msgBody["userId"].strip(),msgBody["birthDay"].strip(),msgBody["phoneNum"].strip(),msgBody["passWord"].strip())	
 	print query_string
  
-	db = MySQLdb.connect(db='crecendo', user='root', passwd='test1234')
-	cur = db.cursor()
-	return cur.execute(query_string)
+	try:
+		db = MySQLdb.connect(db='crecendo', user='root', passwd='test1234')
+		cur = db.cursor()
+		retval = cur.execute(query_string)
+		print cur.fetchone()
+		return (0, msgBody) 
+	except MySQLdb.Error, e:
+		print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+		return (int(mysql_err_tbl[e.args[0]]), msgBody)
+
+	
+    def handle_sys_login(self, msgBody):
+	print 'haha sys login'
+	print msgBody
+
+	query_string = "select passwd from user_table where userid = '%s';"%(\
+		msgBody["userId"].strip())	
+	print query_string
+
+	try:
+		db = MySQLdb.connect(db='crecendo', user='root', passwd='test1234')
+		cur = db.cursor()
+		retval = cur.execute(query_string)
+		row = cur.fetchone()
+	except MySQLdb.Error, e:
+		print "MySQL Error [%d]: %s" % (e.args[0], e.args[1])
+
+	if row == None:
+		print 'unregister user'
+		return (0x0002,msgBody) # unregister user 
+	
+	print type(str(row[0]))
+	print row[0] 
+	if row[0] in str(msgBody["passWord"]).strip():
+		return (0, msgBody)
+	else:
+		print row[0] 
+		print 'mismatched passwd'
+		print type(str(msgBody["passWord"]).strip())
+		print str(msgBody["passWord"]).strip()	
+		return (0x0004, msgBody) # unmatched passwd 
 
     def finish(self):
         self.logger.debug('finish')
