@@ -76,8 +76,10 @@
         </activity>
         <service
             android:name="com.kaist.crescendo.alarm.AlarmService"
+            android:enabled="true"
             android:process=":remote"
-            android:exported="false" >
+            android:exported="false"
+            android:label="AlarmService" >
             <intent-filter>
                 <action android:name="android.intent.action.com.kaist.crescendo.START_SERVICE" />
                 <action android:name="android.intent.action.com.kaist.crescendo.ALARM_EXPIRED" />
@@ -85,10 +87,9 @@
             </intent-filter>
         </service>
         <receiver android:name="com.kaist.crescendo.alarm.AlarmReceiver" 
-            android:label="@string/str_app_name" >
+            android:label="AlarmReceiver" >
             <intent-filter >
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <activity

@@ -336,6 +336,81 @@ public class UpdateManager implements UpdateManagerInterface {
 					planArrayList.add(plan);		
 				}
 			}
+		} else if(msgId == MsgInfo.GET_FRIEND) {
+			ArrayList<FriendData> friendArrayList = (ArrayList<FriendData>) retMsg;
+			
+			try {
+				jsonArray = receivedObj.getJSONArray(MsgInfo.MSGBODY_LABEL);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if(jsonArray != null) {
+			
+				for(int i = 0; i < jsonArray.length() ; i++) {
+					String startDay = null;
+					String endDay = null;
+					String title = null;
+					String alarm = null;
+					int type = 0;
+					boolean isSel = false;
+					double initVal = 0.0f;
+					double tarVal = 0.0f;
+					int dayOfWeek = 0;
+					int uId = 0;
+					JSONObject obj = null;
+									
+					try {
+						obj = jsonArray.getJSONObject(i);
+						
+						uId = obj.getInt(MsgInfo.PLAN_UID_LABEL);
+						title = obj.getString(MsgInfo.PLAN_TITLE_LABEL);
+						type = obj.getInt(MsgInfo.PLAN_TYPE_LABEL);
+						startDay = obj.getString(MsgInfo.PLAN_SDATE_LABEL);
+						alarm = obj.getString(MsgInfo.PLAN_ALARMTIME_LABEL);
+						endDay = obj.getString(MsgInfo.PLAN_EDATE_LABEL);
+						initVal = obj.getDouble(MsgInfo.PLAN_INIT_VAL_LABEL);
+						tarVal = obj.getDouble(MsgInfo.PLAN_TARGET_VAL_LABEL);
+						isSel = obj.getBoolean(MsgInfo.PLAN_IS_SELECTED_LABEL);
+						dayOfWeek = obj.getInt(MsgInfo.PLAN_DAYOFWEEK_LABEL);
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}				
+					
+					PlanData plan = new PlanData(type, title, startDay, endDay, alarm, dayOfWeek, initVal, tarVal);
+					plan.uId = uId;
+					plan.isSelected = isSel;
+					
+					try {
+						jsonArray2 = obj.getJSONArray(MsgInfo.PLAN_HISTORY_LABEL);
+					} catch (JSONException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					if(jsonArray2 != null) {
+						
+						for(int j = 0 ; j < jsonArray2.length() ; j++) {
+							JSONObject obj2;
+							String date = null;
+							int value = 0;
+							try {
+								obj2 = jsonArray2.getJSONObject(j);
+								date = obj2.getString(MsgInfo.PLAN_HISDATE_LABEL);
+								value = obj2.getInt(MsgInfo.PLAN_HISVAL_LABEL);
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							HistoryData hisData = new HistoryData(date, value);
+							plan.hItem.add(hisData);
+						}
+					}
+					//friendArrayListArrayList.add(plan);		
+				}
+			}
 		}
 	}
 	
@@ -558,10 +633,39 @@ public class UpdateManager implements UpdateManagerInterface {
 
 	@Override
 	public int getFriend(Context context, ArrayList<FriendData> friendArrayList) {
-		// TODO Auto-generated method stub
-	
+		int result = MsgInfo.STATUS_OK;
+		JSONObject msg = new JSONObject();
+		JSONObject revMsg = null;
 		
-		return 0;
+		mContext = context;
+		
+		makeMsgHeader(msg, MsgInfo.GET_FRIEND);
+		
+		makeMsgBody(msg, friendArrayList);
+		
+		new SendAsyncTask().execute(msg);
+		
+		while(asyncTaskState == -1) {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
+		}
+		
+		try {
+			revMsg = new JSONObject(asyncTaskResult);
+			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
+			makeRetMessage(friendArrayList, revMsg);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		showToastPopup(result);
+		
+		return result;
 	}
 	
 	@Override
