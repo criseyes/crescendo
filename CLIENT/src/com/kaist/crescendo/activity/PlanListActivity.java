@@ -1,11 +1,11 @@
 package com.kaist.crescendo.activity;
 
 import java.util.ArrayList;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.support.v4.content.LocalBroadcastManager;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.data.PlanData;
@@ -100,25 +99,31 @@ public class PlanListActivity extends UpdateActivity {
 				
 			}
 			
-			/* save info. to preference */
-				
-			SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
-			SharedPreferences.Editor editor = prefs.edit();
+			updateDefaultPlan(plan);
 			
-			editor.putInt(MyPref.MY_AVATA_UID, plan.uId);
-			editor.commit();
-			
-			editor.putInt(MyPref.MY_AVATA_TYPE, plan.type);
-			editor.commit();
-			
-			editor.putString(MyPref.MY_AVATA_TITLE, plan.title);
-			editor.commit();
-			
-			sendBroadCasetIntent();
-			adapter.notifyDataSetChanged();
 			return true;
 		}
 		return super.onContextItemSelected(item);
+	}
+	
+	private void updateDefaultPlan(PlanData plan)
+	{
+		/* save info. to preference */
+		
+		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
+		SharedPreferences.Editor editor = prefs.edit();
+		
+		editor.putInt(MyPref.MY_AVATA_UID, plan.uId);
+		editor.commit();
+		
+		editor.putInt(MyPref.MY_AVATA_TYPE, plan.type);
+		editor.commit();
+		
+		editor.putString(MyPref.MY_AVATA_TITLE, plan.title);
+		editor.commit();
+		
+		sendBroadCasetIntent();
+		adapter.notifyDataSetChanged();
 	}
 	
 	private void sendBroadCasetIntent()
@@ -188,6 +193,9 @@ public class PlanListActivity extends UpdateActivity {
 			for(int i = 0; i < planArrayList.size(); i++) {
 				adapter.addItem(planArrayList.get(i));
 			}
+			PlanData defaultP =  adapter.getDefaultPlan();
+			if(defaultP != null)
+				updateDefaultPlan(defaultP); /* set widget */
 		}
 	
 		/* TODO ÀÌ°Å Áö±Ý ÇÏ¸é Á×À» ÅÙµ¥.. */
@@ -214,6 +222,9 @@ public class PlanListActivity extends UpdateActivity {
 								adapter.addItem(planArrayList.get(i));
 							}
 							adapter.notifyDataSetChanged();
+							PlanData defaultP =  adapter.getDefaultPlan();
+							if(defaultP != null)
+								updateDefaultPlan(defaultP);
 						}
 					}
 				}
@@ -231,7 +242,9 @@ public class PlanListActivity extends UpdateActivity {
 							}
 						
 							adapter.notifyDataSetChanged();
-							sendBroadCasetIntent();
+							PlanData defaultP =  adapter.getDefaultPlan();
+							if(defaultP != null)
+								updateDefaultPlan(defaultP);
 						}
 					}
 				}
