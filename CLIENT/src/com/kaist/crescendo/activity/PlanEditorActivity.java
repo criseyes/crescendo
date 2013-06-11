@@ -2,18 +2,20 @@ package com.kaist.crescendo.activity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.SimpleTimeZone;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.util.Log;
+import android.provider.MediaStore.Audio.PlaylistsColumns;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.PopupMenu;
+import android.widget.PopupMenu.OnMenuItemClickListener;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -40,6 +42,7 @@ public class PlanEditorActivity extends UpdateActivity {
 	EditText targetValue;
 	
 	EditText alarmTimeValue;
+	EditText planType;
 	
 	DatePickerDialog.OnDateSetListener startDateSetListener = new DatePickerDialog.OnDateSetListener() {
 		
@@ -115,6 +118,15 @@ public class PlanEditorActivity extends UpdateActivity {
 		}
 	};
 	
+	OnClickListener mPlanTypeListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			onPopupButtonClick(v);
+		}
+	};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -129,7 +141,8 @@ public class PlanEditorActivity extends UpdateActivity {
 		targetValue = (EditText) findViewById(R.id.editTargetValue);
 		
 		alarmTimeValue = (EditText) findViewById(R.id.editAlarmTime);
-		
+		planType = (EditText) findViewById(R.id.editPlanType);
+				
 		mode = getIntent().getExtras().getInt(MyStaticValue.MODE);
 		
 		if(mode != MyStaticValue.MODE_NEW) /* user want to update existing plan */
@@ -149,6 +162,12 @@ public class PlanEditorActivity extends UpdateActivity {
 			/* alarm time */
 			alarmTimeValue.setText(plan.alarm);
 			
+			if(plan.type == MyStaticValue.PLANTYPE_DIET)
+				planType.setText(R.string.str_plantype_diet);
+			else if(plan.type == MyStaticValue.PLANTYPE_READING_BOOK)
+				planType.setText(R.string.str_plantype_reading);
+			else
+				planType.setText(R.string.str_plantype_diet);
 		}
 		else {  /* Add new plan */
 			setTitle(R.string.str_addnewplan);
@@ -165,6 +184,8 @@ public class PlanEditorActivity extends UpdateActivity {
 			targetValue.setText("70");
 			/* alarm time */
 			alarmTimeValue.setText(alarmTime.get(Calendar.HOUR_OF_DAY) + ":" + alarmTime.get(Calendar.MINUTE));
+			
+			planType.setText(R.string.str_plantype_diet);
 		}
 				
 		findViewById(R.id.editStartDate).setOnClickListener(mStartDayListener);
@@ -180,6 +201,7 @@ public class PlanEditorActivity extends UpdateActivity {
 		findViewById(R.id.button_fri).setOnClickListener(mSelectDayOfWeek);
 		findViewById(R.id.button_sat).setOnClickListener(mSelectDayOfWeek);
 		findViewById(R.id.button_sun).setOnClickListener(mSelectDayOfWeek);
+		findViewById(R.id.editPlanType).setOnClickListener(mPlanTypeListener);
 
 	}
 	
@@ -268,12 +290,18 @@ public class PlanEditorActivity extends UpdateActivity {
 			Toast.makeText(this, "Please Set Alarm day of week", Toast.LENGTH_LONG).show();
 		}
 			
-			
+		int plantype ;
+		
+		if(planType.getText().equals(getResources().getString(R.string.str_plantype_diet)))
+			plantype = MyStaticValue.PLANTYPE_DIET;
+		else if(planType.getText().equals(getResources().getString(R.string.str_plantype_reading)))
+			plantype = MyStaticValue.PLANTYPE_READING_BOOK;
+		else plantype = MyStaticValue.PLANTYPE_DIET;
 		if(isOK == true)
 		{
 			if(mode == MyStaticValue.MODE_NEW)
 			{
-				PlanData plan = new PlanData(MyStaticValue.PLANTYPE_DIET, title.getText().toString(), start.getText().toString(), end.getText().toString(), alarmV.getText().toString(), dayOfWeek,
+				PlanData plan = new PlanData(plantype, title.getText().toString(), start.getText().toString(), end.getText().toString(), alarmV.getText().toString(), dayOfWeek,
 										Float.parseFloat(initV.getText().toString().replace("kg", "")), Float.parseFloat(targetV.getText().toString().replace("kg", "")));
 				String ret = addNewPlan(plan);
 				if(ret.equals("good")) {
@@ -288,6 +316,7 @@ public class PlanEditorActivity extends UpdateActivity {
 				}
 			}
 			else {
+				plan.type = plantype;
 				plan.title = title.getText().toString();
 				plan.start = start.getText().toString();
 				plan.end = end.getText().toString();
@@ -309,5 +338,36 @@ public class PlanEditorActivity extends UpdateActivity {
 			}
 		}
 	}
+	
+	private void onPopupButtonClick(View view)
+	{
+		PopupMenu menu = new PopupMenu(this, view);
+		
+		menu.getMenuInflater().inflate(R.menu.plans_list, menu.getMenu());
+		
+		menu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			
+			@Override
+			public boolean onMenuItemClick(MenuItem item) {
+				// TODO Auto-generated method stub
+				switch(item.getItemId())
+				{
+				case R.id.action_plantype_diet:
+					planType.setText(R.string.str_plantype_diet);
+					return true;
+				case R.id.action_plantype_reading:
+					planType.setText(R.string.str_plantype_reading);
+					return true;
+				default:
+					planType.setText(R.string.str_plantype_diet);
+				}
+				return false;
+			}
+		});
+		
+		menu.show();
+	}
+	
+	
 	
 }

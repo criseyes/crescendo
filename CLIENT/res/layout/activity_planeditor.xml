@@ -33,6 +33,24 @@
             <requestFocus />
         </EditText>
 
+       <TextView
+            android:id="@+id/textViewPlanType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/planeditor_common_margin"
+            android:text="@string/str_plantype"
+            android:textAppearance="?android:attr/textAppearance" />
+
+        <EditText
+            android:id="@+id/editPlanType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:editable="false"
+            android:focusable="false"
+            android:ems="10"
+            android:gravity="right" />
+        
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
