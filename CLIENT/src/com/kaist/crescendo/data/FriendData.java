@@ -6,7 +6,6 @@ public class FriendData {
 	public PlanData plan;
 	boolean isSelected;
 	boolean isAvata;
-	
 
 	public FriendData(String id, String phoneNumber, PlanData plan, boolean isSelected, boolean isAvata) {
 		super();
