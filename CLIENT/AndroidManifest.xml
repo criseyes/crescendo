@@ -78,11 +78,10 @@
             android:name="com.kaist.crescendo.alarm.AlarmService"
             android:enabled="true"
             android:process=":remote"
-            android:exported="false"
+            android:exported="true"
             android:label="AlarmService" >
             <intent-filter>
                 <action android:name="android.intent.action.com.kaist.crescendo.START_SERVICE" />
-                <action android:name="android.intent.action.com.kaist.crescendo.ALARM_EXPIRED" />
                 <action android:name="android.intent.action.com.kaist.crescendo.ON_BIND" />
             </intent-filter>
         </service>
