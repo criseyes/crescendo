@@ -267,7 +267,7 @@ public class AvataEditorActivity extends UpdateActivity {
 	    		int x = (int) (point.x - eye_distance);
 	    		int y = (int) (point.y - (float)eye_distance * 2.0f);
 	    		int width = (int)((float)eye_distance * 2.3f);
-	    		int height = eye_distance * 3;
+	    		int height = eye_distance * 4;
 	    		if(x < 0) x = 0;
 	    		if(y < 0) y = 0;
 	    		if((x + width) >= RESIZE_WIDTH) width = RESIZE_WIDTH - x;

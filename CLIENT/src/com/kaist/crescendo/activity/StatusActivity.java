@@ -19,7 +19,7 @@ public class StatusActivity extends UpdateActivity {
 		
 		setContentView(R.layout.activity_status);
 		setTitle(R.string.str_show_status);
-		
+
 		mChart = (Chart)findViewById(R.id.chart01);
 		
 		planArrayList = new ArrayList<PlanData>();

@@ -82,7 +82,7 @@
             android:name="com.kaist.crescendo.alarm.AlarmService"
             android:enabled="true"
             android:process=":remote"
-            android:exported="false"
+            android:exported="true"
             android:label="AlarmService" >
             <intent-filter>
                 <action android:name="android.intent.action.com.kaist.crescendo.START_SERVICE" />
