@@ -1,9 +1,12 @@
 package com.kaist.crescendo.activity;
 
+import java.util.ArrayList;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -17,10 +20,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.kaist.crescendo.R;
-import com.kaist.crescendo.activity.UpdateActivity;
 import com.kaist.crescendo.alarm.AlarmService;
 import com.kaist.crescendo.alarm.IAlarmService;
 import com.kaist.crescendo.alarm.IAlarmServiceCallback;
+import com.kaist.crescendo.data.PlanData;
+import com.kaist.crescendo.utils.MyPref;
 import com.kaist.crescendo.utils.MyStaticValue;
 
 public class MainActivity extends UpdateActivity {
@@ -70,6 +74,7 @@ public class MainActivity extends UpdateActivity {
 			}			
 		}
 	};
+	private ArrayList<PlanData> planArrayList;
 	
 	private void bindService() {
 		bindService(new Intent(AlarmService.INTENT_ACTION), mConnection, Context.BIND_AUTO_CREATE);
@@ -108,6 +113,7 @@ public class MainActivity extends UpdateActivity {
 				}
 			}
 		};
+		
 	}
 	
 	@Override
@@ -139,6 +145,8 @@ public class MainActivity extends UpdateActivity {
 	      public void onClick(View v)
 	      {
 	    	  Intent intent = new Intent();
+	    	  SharedPreferences prefs;
+	    	  int planUid;
 	           switch (v.getId())
 	           {
 	           		case R.id.main_plans_list:
@@ -150,10 +158,24 @@ public class MainActivity extends UpdateActivity {
 	           		case R.id.main_manage_settings:
 	           			intent.setClass(getApplicationContext(), SettingsActivity.class);
 	           			break;
-	           		case R.id.main_manage_widget:
+	           		case R.id.main_manage_widget:	
+	           			prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
+	           			planUid = prefs.getInt(MyPref.MY_AVATA_UID, 0);
+	           			if(planUid == 0)
+	           			{
+	           				Toast.makeText(getApplicationContext(), "Set default plan first", Toast.LENGTH_LONG).show();
+	           				return;
+	           			}
 	           			intent.setClass(getApplicationContext(), AvataEditorActivity.class);
 	           			break;
 	           		case R.id.main_view_status:
+	           			prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
+	           			planUid = prefs.getInt(MyPref.MY_AVATA_UID, 0);
+	           			if(planUid == 0)
+	           			{
+	           				Toast.makeText(getApplicationContext(), "Set default plan first", Toast.LENGTH_LONG).show();
+	           				return;
+	           			}
 	           			intent.setClass(getApplicationContext(), StatusActivity.class);
 	           			break;
 	           		default:

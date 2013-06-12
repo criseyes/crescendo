@@ -70,6 +70,7 @@ public class AvataEditorActivity extends UpdateActivity {
 		
 		loadSettings(); /* load saved values */
 		
+				
 		imgView = (ImageView) findViewById(R.id.avataImage);
 		imgView.setOnClickListener(mClickListener);
 		
@@ -77,7 +78,6 @@ public class AvataEditorActivity extends UpdateActivity {
 		
 		if(planType == MyStaticValue.PLANTYPE_DIET) /* avata type */
 		{
-			
 			((ImageView) findViewById(R.id.avataIcon)).setImageDrawable(this.getResources().getDrawable(R.drawable.icon_diet));
 		}
 		else if(planType == MyStaticValue.PLANTYPE_READING_BOOK)

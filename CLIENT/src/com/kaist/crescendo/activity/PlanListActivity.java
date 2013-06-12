@@ -90,6 +90,8 @@ public class PlanListActivity extends UpdateActivity {
 						adapter.addItem(planArrayList.get(i));
 					}
 					adapter.notifyDataSetChanged();
+					PlanData defaultP =  adapter.getDefaultPlan();
+					updateDefaultPlan(defaultP);
 				}
 			}
 			return true;
@@ -125,13 +127,22 @@ public class PlanListActivity extends UpdateActivity {
 		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
 		SharedPreferences.Editor editor = prefs.edit();
 		
-		editor.putInt(MyPref.MY_AVATA_UID, plan.uId);
+		if(plan == null)
+			editor.putInt(MyPref.MY_AVATA_UID, 0);
+		else
+			editor.putInt(MyPref.MY_AVATA_UID, plan.uId);
 		editor.commit();
 		
-		editor.putInt(MyPref.MY_AVATA_TYPE, plan.type);
+		if(plan == null)
+			editor.putInt(MyPref.MY_AVATA_TYPE, 0);
+		else
+			editor.putInt(MyPref.MY_AVATA_TYPE, plan.type);
 		editor.commit();
 		
-		editor.putString(MyPref.MY_AVATA_TITLE, plan.title);
+		if(plan == null)
+			editor.putString(MyPref.MY_AVATA_TITLE, "");
+		else
+			editor.putString(MyPref.MY_AVATA_TITLE, plan.title);
 		editor.commit();
 		
 		sendBroadCasetIntent();
@@ -223,8 +234,7 @@ public class PlanListActivity extends UpdateActivity {
 				adapter.addItem(planArrayList.get(i));
 			}
 			PlanData defaultP =  adapter.getDefaultPlan();
-			if(defaultP != null)
-				updateDefaultPlan(defaultP); /* set widget */
+			updateDefaultPlan(defaultP); /* set widget */
 		}
 	
 		/* TODO ÀÌ°Å Áö±Ý ÇÏ¸é Á×À» ÅÙµ¥.. */
@@ -252,8 +262,7 @@ public class PlanListActivity extends UpdateActivity {
 							}
 							adapter.notifyDataSetChanged();
 							PlanData defaultP =  adapter.getDefaultPlan();
-							if(defaultP != null)
-								updateDefaultPlan(defaultP);
+							updateDefaultPlan(defaultP);
 						}
 					}
 				}
@@ -311,6 +320,8 @@ public class PlanListActivity extends UpdateActivity {
 										adapter.addItem(planArrayList.get(i));
 									}
 									adapter.notifyDataSetChanged();
+									PlanData defaultP =  adapter.getDefaultPlan();
+									updateDefaultPlan(defaultP);
 								}
 							}
 						}
