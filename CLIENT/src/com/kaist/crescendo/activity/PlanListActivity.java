@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
@@ -56,11 +57,22 @@ public class PlanListActivity extends UpdateActivity {
 		int index = 0;
 		boolean result = false;
 		
+		index = menuInfo.position;
+		PlanData plan = (PlanData) adapter.getItem(index);
+		
 		switch(item.getItemId())
 		{
 		case DELETE_ID:
 			
-			index = menuInfo.position;
+			
+			
+			
+			if(adapter.getCount() < 2 && plan.isSelected == true)
+			{
+				Toast.makeText(this, "Can't delete default plan. please set another plan as default", Toast.LENGTH_LONG).show();
+				return true;
+			}
+				
 			result = deletePlan(((PlanData) adapter.getItem(index)).uId);
 			if(result == true)
 			{
@@ -92,7 +104,6 @@ public class PlanListActivity extends UpdateActivity {
 			startActivityForResult(intent.setClass(getApplicationContext(), PlanEditorActivity.class), MyStaticValue.REQUESTCODE_UPDATEPLAN);
 			return true;
 		case SETDEFAULT_ID:
-			PlanData plan = (PlanData) adapter.getItem(menuInfo.position);
 			adapter.clearSelectedPlan();
 			plan.isSelected = true;
 			
@@ -276,6 +287,13 @@ public class PlanListActivity extends UpdateActivity {
 						if(data.getExtras().getInt(MyStaticValue.MODE)== MyStaticValue.MODE_DELETE)
 						{
 							int index = data.getExtras().getInt(MyStaticValue.NUMBER);
+							
+							if(adapter.getCount() < 2 && ((PlanData) adapter.getItem(index)).isSelected == true)
+							{
+								Toast.makeText(this, "Can't delete default plan. please set another plan as default", Toast.LENGTH_LONG).show();
+								return;
+							}
+							
 							result = deletePlan(((PlanData) adapter.getItem(index)).uId);
 							if(result == true)
 							{
