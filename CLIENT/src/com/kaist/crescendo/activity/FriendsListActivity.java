@@ -10,21 +10,30 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.data.FriendData;
 import com.kaist.crescendo.data.FriendListAdapter;
+import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.utils.MyStaticValue;
 
 public class FriendsListActivity extends UpdateActivity {
 	
 	private FriendListAdapter adapter;
 	private ListView listView;
-	private ArrayList<FriendData> friendArrayList;
+	static private ArrayList<FriendData> friendArrayList;
 	
 	private final int MENU_ID_DELETE = Menu.FIRST;
 	private final int MENU_ID_CANCEL = Menu.FIRST + 1;
+	
+	public static PlanData getFriendsPlan(int friendIndex)
+	{
+		if(friendIndex < friendArrayList.size())
+			return friendArrayList.get(friendIndex).plan;
+		return null;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +45,8 @@ public class FriendsListActivity extends UpdateActivity {
 		
 		
 		listView = (ListView) findViewById(R.id.plans_list);
+		listView.setOnItemClickListener(mListClickListener);
+		
 		friendArrayList = new ArrayList<FriendData>();
 		
 		OnClickListener mClickListener = new OnClickListener() {
@@ -111,6 +122,19 @@ public class FriendsListActivity extends UpdateActivity {
 		}
 		return true;
 	}
+	
+	OnItemClickListener mListClickListener = new OnItemClickListener() {
+		
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			Intent intent = new Intent();
+			intent.putExtra(MyStaticValue.MODE, MyStaticValue.MODE_FRIEND_VIEW);
+			intent.putExtra(MyStaticValue.NUMBER, position);
+			
+			startActivityForResult(intent.setClass(getApplicationContext(), PlanViewActivity.class), MyStaticValue.REQUESTCODE_VIEWPLAN);
+			
+		}
+	};
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

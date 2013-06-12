@@ -53,36 +53,54 @@ public class PlanViewActivity extends UpdateActivity {
 		
 		if(mode == MyStaticValue.MODE_VIEW) /* user want to update existing plan */
 		{
-			setTitle(R.string.str_planview);
-			// TODO Fill data for each field.
-			
-			index = getIntent().getExtras().getInt(MyStaticValue.NUMBER);
 			PlanListAdapter adapter = PlanListActivity.getAdapterInstance();
+			index = getIntent().getExtras().getInt(MyStaticValue.NUMBER);
 			plan = (PlanData) adapter.getItem(index);
-			startDay.setText(plan.start);
-			endDay.setText(plan.end);
-			initValue.setText(Double.toString(plan.initValue));
-			targetValue.setText(Double.toString(plan.targetValue));
-			((TextView) findViewById(R.id.editTile)).setText(plan.title);
-			setAlarmDayOfWeek(plan.dayOfWeek);
-			/* alarm time */
-			alarmTimeValue.setText(plan.alarm);
-			
-			if(plan.type == MyStaticValue.PLANTYPE_DIET)
-				planType.setText(R.string.str_plantype_diet);
-			else if(plan.type == MyStaticValue.PLANTYPE_READING_BOOK)
-				planType.setText(R.string.str_plantype_reading);
-			else
-				planType.setText(R.string.str_plantype_diet);
 		}
+		else if(mode == MyStaticValue.MODE_FRIEND_VIEW)
+		{
+			index = getIntent().getExtras().getInt(MyStaticValue.NUMBER);
+			plan = (PlanData) FriendsListActivity.getFriendsPlan(index);
+			if(plan == null)
+				finish();
+		}
+		
+
+		setTitle(R.string.str_planview);
+
+		startDay.setText(plan.start);
+		endDay.setText(plan.end);
+		initValue.setText(Double.toString(plan.initValue));
+		targetValue.setText(Double.toString(plan.targetValue));
+		((TextView) findViewById(R.id.editTile)).setText(plan.title);
+		setAlarmDayOfWeek(plan.dayOfWeek);
+		/* alarm time */
+		alarmTimeValue.setText(plan.alarm);
+		
+		if(plan.type == MyStaticValue.PLANTYPE_DIET)
+			planType.setText(R.string.str_plantype_diet);
+		else if(plan.type == MyStaticValue.PLANTYPE_READING_BOOK)
+			planType.setText(R.string.str_plantype_reading);
+		else
+			planType.setText(R.string.str_plantype_diet);
+	
+		
 				
 	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-				
-		getMenuInflater().inflate(R.menu.plan_view, menu);    
-		return true;
+
+		if(mode == MyStaticValue.MODE_VIEW) /* user want to update existing plan */
+		{
+			getMenuInflater().inflate(R.menu.plan_view, menu);
+			return true;
+		}
+		else if(mode == MyStaticValue.MODE_FRIEND_VIEW)
+		{
+			return super.onCreateOptionsMenu(menu);
+		}
+		return super.onCreateOptionsMenu(menu);
 	}
 	
 	
