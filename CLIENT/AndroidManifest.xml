@@ -95,17 +95,7 @@
             <intent-filter >
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver>
-        <receiver android:name="com.kaist.crescendo.alarm.PackageReceiver" 
-            android:label="PackageReceiver" >
-            <intent-filter >
-                <action android:name="android.intent.action.PACKAGE_INSTALL" />
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.PACKAGE_REPLACED" />
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-                <data android:scheme="package"/>
-            </intent-filter>
-        </receiver>
+        </receiver>      
         <activity
             android:name="com.kaist.crescendo.activity.IntroActivity"
             android:label="@string/str_app_name" >

@@ -1,7 +1,11 @@
 package com.kaist.crescendo.activity;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
+import android.app.ActivityManager;
+import android.app.ActivityManager.RunningServiceInfo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +25,7 @@ import android.widget.Toast;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.alarm.AlarmService;
+import com.kaist.crescendo.alarm.BootReceiver;
 import com.kaist.crescendo.alarm.IAlarmService;
 import com.kaist.crescendo.alarm.IAlarmServiceCallback;
 import com.kaist.crescendo.data.PlanData;
@@ -78,6 +83,11 @@ public class MainActivity extends UpdateActivity {
 	};
 	//private ArrayList<PlanData> planArrayList;
 	
+	private void startService() {
+		startService(new Intent(BootReceiver.START_ACTION));
+		Log.v(TAG, "startService");
+	}
+	
 	private void bindService() {
 		bindService(new Intent(AlarmService.INTENT_ACTION), mConnection, Context.BIND_AUTO_CREATE);
 		Log.v(TAG, "bindService");
@@ -88,6 +98,25 @@ public class MainActivity extends UpdateActivity {
 		unbindService(mConnection);
 		Log.v(TAG, "unBindService");
 		//unregister mService
+	}
+	
+	private boolean getServiceTaskName() {
+		boolean checked = false;
+		ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+		List<ActivityManager.RunningServiceInfo> info;
+		info = am.getRunningServices(Integer.MAX_VALUE);
+		
+		for(Iterator iterator = info.iterator(); iterator.hasNext(); ) {
+			RunningServiceInfo runningTaskInfo = (RunningServiceInfo) iterator.next();
+			Log.i(TAG, "Service name : " + runningTaskInfo.service.getClassName());
+			if(runningTaskInfo.service.getClassName().equals("com.kaist.crescendo.alarm.AlarmService")) {
+				checked = true;
+				Log.i(TAG, "Service is..." + checked);
+				break;
+			}
+		}
+		
+		return checked;
 	}
 	
 	private void syncAlarmService() {
@@ -130,6 +159,12 @@ public class MainActivity extends UpdateActivity {
 		findViewById(R.id.main_manage_widget).setOnClickListener(mClickListener);
 		
 		MyStaticValue.myId = getMyID();
+		
+		login = getIntent().getExtras().getBoolean("login");
+		
+		if(getServiceTaskName() == false) {
+			startService();
+		}
 		
 		bindService();
 	}

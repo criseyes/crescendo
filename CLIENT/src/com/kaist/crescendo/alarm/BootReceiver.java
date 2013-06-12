@@ -6,13 +6,13 @@ import android.content.Intent;
 import android.util.Log;
 
 public class BootReceiver extends BroadcastReceiver {
-	static final String BOOT_ACTION = "android.intent.action.BOOT_COMPLETED";
-	static final String INSTALL_ACTION = "android.intent.action.PACKAGE_INSTALL";
-	static final String ADDED_ACTION = "android.intent.action.PACKAGE_ADDED";
-	static final String REPLACED_ACTION = "android.intent.action.PACKAGE_REPLACED";
-	static final String REMOVED_ACTION = "android.intent.action.PACKAGE_REMOVED";
-	static final String START_ACTION = "android.intent.action.com.kaist.crescendo.START_SERVICE";
-	static final String STOP_ACTION = "android.intent.action.com.kaist.crescendo.STOP_SERVICE";
+	public static final String BOOT_ACTION = "android.intent.action.BOOT_COMPLETED";
+	public static final String INSTALL_ACTION = "android.intent.action.PACKAGE_INSTALL";
+	public static final String ADDED_ACTION = "android.intent.action.PACKAGE_ADDED";
+	public static final String REPLACED_ACTION = "android.intent.action.PACKAGE_REPLACED";
+	public static final String REMOVED_ACTION = "android.intent.action.PACKAGE_REMOVED";
+	public static final String START_ACTION = "android.intent.action.com.kaist.crescendo.START_SERVICE";
+	public static final String STOP_ACTION = "android.intent.action.com.kaist.crescendo.STOP_SERVICE";
 	
 	private final String TAG = "BootReceiver";
 
