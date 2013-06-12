@@ -8,5 +8,10 @@
         android:id="@+id/action_deletePlan"
         
         android:title="@string/str_delete_plan"/>
+    
+        <item
+        android:id="@+id/action_inputPlan"
+        android:icon="@drawable/ic_launcher"
+        android:title="@string/str_input_currentvalue"/>
 
 </menu>

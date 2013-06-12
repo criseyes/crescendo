@@ -83,5 +83,6 @@
     <string name="str_change_password_relogin">비밀번호가 변경되어 재 실행시 다시 로그인해야합니다.</string>
     
     <string name="str_plantype">목표 종류</string>
+    <string name="str_input_currentvalue">현재값 입력</string>
 
 </resources>
