@@ -9,7 +9,8 @@ public class MyStaticValue {
 	public static final int MODE_UPDATE = 0;
 	public static final int MODE_NEW = 1;
 	public static final int MODE_VIEW = 2;
-	public static final int MODE_DELETE = 3;
+	public static final int MODE_FRIEND_VIEW = 3;
+	public static final int MODE_DELETE = 4;
 	
 	/* Avata */
 	public static final String AVATA_FILNENAME = "myAvata.png";
