@@ -80,6 +80,9 @@ public class CandidateListAdapter extends BaseAdapter {
 		//isSelected.setChecked(((ListView)parent).isItemChecked(position));
 		if(mItems.get(position).plan.type == MyStaticValue.PLANTYPE_DIET)
 			icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_diet));
+		else if(mItems.get(position).plan.type == MyStaticValue.PLANTYPE_READING_BOOK)
+			icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icono_reading));
+		
 		return v;
 	}
 

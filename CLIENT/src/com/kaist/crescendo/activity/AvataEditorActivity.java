@@ -353,7 +353,7 @@ public class AvataEditorActivity extends UpdateActivity {
 		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			if(result == false) {
-				Toast.makeText(mContext, "얼굴을 찾지 못하였습니다.", Toast.LENGTH_LONG).show();
+				Toast.makeText(mContext, R.string.str_err_cantfindface, Toast.LENGTH_LONG).show();
 			}
 			imgView.setImageBitmap(img);
 			super.onPostExecute(result);

@@ -272,22 +272,22 @@ public class PlanEditorActivity extends UpdateActivity {
 		if(title.getText().length() < 3)
 		{
 			isOK = false;
-			Toast.makeText(this, "Please Input valid Tile..", Toast.LENGTH_LONG).show();
+			Toast.makeText(this,R.string.str_err_invalidtitle, Toast.LENGTH_LONG).show();
 		}
 					
 		if(isOK == true && start.getText().length() < 5) {
 			isOK = false;
-			Toast.makeText(this, "Please Input valid start date", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.str_err_invaliddate, Toast.LENGTH_LONG).show();
 		}
 		
 		if(isOK == true && end.getText().length() < 5) {
 			isOK = false;
-			Toast.makeText(this, "Please Input valid start date", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.str_err_invaliddate, Toast.LENGTH_LONG).show();
 		}
 		
 		if(dayOfWeek == 0) {
 			isOK = false;
-			Toast.makeText(this, "Please Set Alarm day of week", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.str_err_invaliddayofweek, Toast.LENGTH_LONG).show();
 		}
 			
 		int plantype ;

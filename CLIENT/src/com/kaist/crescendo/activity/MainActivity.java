@@ -126,7 +126,7 @@ public class MainActivity extends UpdateActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK) {
 			if(!mFlag) {
-				Toast.makeText(this, getResources().getText(R.string.str_finish_app), Toast.LENGTH_LONG).show();
+				Toast.makeText(this, R.string.str_finish_app, Toast.LENGTH_LONG).show();
 				mFlag = true;
 				mHandler.sendEmptyMessageDelayed(0, 2000);
 				return false;

@@ -64,12 +64,12 @@ public class EntranceActivity extends UpdateActivity {
 		if(id.getText().length() < 5 || id.getText().toString().contains("@") == false)
 		{
 			isOK = false;
-			Toast.makeText(this, "Please Input valid ID format (Email address)", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.str_err_invalidid, Toast.LENGTH_LONG).show();
 		}
 					
-		if(isOK == true && pw.getText().length() < 5) {
+		if(isOK == true && pw.getText().length() < 7) {
 			isOK = false;
-			Toast.makeText(this, "Please Input Password more than 5 characters", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.str_err_shortpw, Toast.LENGTH_LONG).show();
 		}
 			
 		if(isOK == true)

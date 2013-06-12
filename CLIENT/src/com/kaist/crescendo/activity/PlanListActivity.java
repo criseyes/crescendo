@@ -69,7 +69,7 @@ public class PlanListActivity extends UpdateActivity {
 			
 			if(adapter.getCount() < 2 && plan.isSelected == true)
 			{
-				Toast.makeText(this, "Can't delete default plan. please set another plan as default", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, R.string.str_err_defaultplan, Toast.LENGTH_LONG).show();
 				return true;
 			}
 				
@@ -299,7 +299,7 @@ public class PlanListActivity extends UpdateActivity {
 							
 							if(adapter.getCount() < 2 && ((PlanData) adapter.getItem(index)).isSelected == true)
 							{
-								Toast.makeText(this, "Can't delete default plan. please set another plan as default", Toast.LENGTH_LONG).show();
+								Toast.makeText(this, R.string.str_err_defaultplan, Toast.LENGTH_LONG).show();
 								return;
 							}
 							
