@@ -291,6 +291,24 @@ public class FileEmulator implements CommunicationInterface{
 			
 		} else if(msgId == MsgInfo.CHANGE_PASSWORD) {
 			
+		} else if(msgId == MsgInfo.GET_FRIEND) {
+						
+		} else if(msgId == MsgInfo.SET_HISDATA) {
+			try {
+				oriMsg.put(MsgInfo.MSGRET_LABEL, MsgInfo.STATUS_OK);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			jsonString = oriMsg.toString();
+		} else {
+			try {
+				oriMsg.put(MsgInfo.MSGRET_LABEL, MsgInfo.STATUS_OK);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			jsonString = oriMsg.toString();
 		}
 		
 		return jsonString;

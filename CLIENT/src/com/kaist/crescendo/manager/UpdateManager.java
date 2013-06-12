@@ -909,7 +909,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		mContext = context;
 		
-		makeMsgHeader(msg, MsgInfo.CHANGE_PASSWORD);
+		makeMsgHeader(msg, MsgInfo.SET_HISDATA);
 		
 		makeMsgBody(msg, date, value);
 		
