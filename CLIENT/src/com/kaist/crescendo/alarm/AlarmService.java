@@ -230,13 +230,16 @@ public class AlarmService extends Service {
 	public void onDestroy() {
 		Log.i(TAG,"-----------> AlarmService: onDestroy()...");
 		unregisterReceiver(alarmServiceReceiver);
+		db.close();
 		super.onDestroy();
 	}
 	
 	private void setAllAlarm() {
 		String[] columns = {"planId", "dayOfWeek", "alarmTime"};
+		int db_count;
 		Cursor c = db.query(DBManager.DB_NAME, columns, null, null, null, null, null);
-		if(c.getCount() > 0) {
+		if((db_count = c.getCount()) > 0) {
+			Log.v(TAG, "db count : " + db_count);			
 			c.moveToFirst();
 			
 			while(!c.isAfterLast()) {
@@ -248,7 +251,9 @@ public class AlarmService extends Service {
 				
 				alarmList.add(Integer.parseInt(planId));
 				
-				Log.v(TAG, "set new alarm" + planId);
+				Log.v(TAG, "set new alarm - planId : " + planId);
+				
+				c.moveToNext();
 			}
 		}
 		
