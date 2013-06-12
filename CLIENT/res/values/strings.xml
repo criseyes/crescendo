@@ -81,5 +81,7 @@
 
     <string name="str_tooshort_password">비밀번호가 너무 짧습니다. 7자리 이상 입력해주세요.</string>
     <string name="str_change_password_relogin">비밀번호가 변경되어 재 실행시 다시 로그인해야합니다.</string>
+    
+    <string name="str_plantype">목표 종류</string>
 
 </resources>
