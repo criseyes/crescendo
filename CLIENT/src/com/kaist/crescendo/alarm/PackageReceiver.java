@@ -23,7 +23,8 @@ public class PackageReceiver extends BroadcastReceiver {
 			context.stopService(new Intent(BootReceiver.STOP_ACTION));
 			
 		} else if(intent.getAction().equals(BootReceiver.ADDED_ACTION)) {
-			Log.v(TAG, "onReceive invoked AlarmService when app is added");			
+			Log.v(TAG, "onReceive invoked AlarmService when app is added");
+			context.startService(new Intent(BootReceiver.START_ACTION));
 		}		
 	}
 }
