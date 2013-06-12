@@ -1,17 +1,14 @@
 package com.kaist.crescendo.activity;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import javax.xml.transform.stream.StreamResult;
-
-import com.kaist.crescendo.R;
-
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.kaist.crescendo.R;
 
 public class HelpsActivity extends UpdateActivity {
 	

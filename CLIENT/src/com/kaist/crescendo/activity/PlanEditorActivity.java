@@ -8,7 +8,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.RemoteException;
-import android.provider.MediaStore.Audio.PlaylistsColumns;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -290,18 +289,18 @@ public class PlanEditorActivity extends UpdateActivity {
 			Toast.makeText(this, R.string.str_err_invaliddayofweek, Toast.LENGTH_LONG).show();
 		}
 			
-		int plantype ;
+		int plantype_int ;
 		
-		if(planType.getText().equals(getResources().getString(R.string.str_plantype_diet)))
-			plantype = MyStaticValue.PLANTYPE_DIET;
-		else if(planType.getText().equals(getResources().getString(R.string.str_plantype_reading)))
-			plantype = MyStaticValue.PLANTYPE_READING_BOOK;
-		else plantype = MyStaticValue.PLANTYPE_DIET;
+		if(this.planType.getText().toString().equals(getResources().getString(R.string.str_plantype_diet)))
+			plantype_int = MyStaticValue.PLANTYPE_DIET;
+		else if(this.planType.getText().toString().equals(getResources().getString(R.string.str_plantype_reading)))
+			plantype_int = MyStaticValue.PLANTYPE_READING_BOOK;
+		else plantype_int = MyStaticValue.PLANTYPE_DIET;
 		if(isOK == true)
 		{
 			if(mode == MyStaticValue.MODE_NEW)
 			{
-				PlanData plan = new PlanData(plantype, title.getText().toString(), start.getText().toString(), end.getText().toString(), alarmV.getText().toString(), dayOfWeek,
+				PlanData plan = new PlanData(plantype_int, title.getText().toString(), start.getText().toString(), end.getText().toString(), alarmV.getText().toString(), dayOfWeek,
 										Float.parseFloat(initV.getText().toString().replace("kg", "")), Float.parseFloat(targetV.getText().toString().replace("kg", "")));
 				String ret = addNewPlan(plan);
 				if(ret.equals("good")) {
@@ -316,7 +315,7 @@ public class PlanEditorActivity extends UpdateActivity {
 				}
 			}
 			else {
-				plan.type = plantype;
+				plan.type = plantype_int;
 				plan.title = title.getText().toString();
 				plan.start = start.getText().toString();
 				plan.end = end.getText().toString();

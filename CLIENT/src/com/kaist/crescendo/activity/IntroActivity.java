@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.view.Window;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.utils.MyPref;

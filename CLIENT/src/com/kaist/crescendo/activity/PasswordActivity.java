@@ -1,16 +1,13 @@
 package com.kaist.crescendo.activity;
 
-import com.kaist.crescendo.R;
-import com.kaist.crescendo.utils.MyPref;
-import com.kaist.crescendo.utils.MyStaticValue;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.sax.TextElementListener;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.kaist.crescendo.R;
+import com.kaist.crescendo.utils.MyPref;
 
 public class PasswordActivity extends UpdateActivity {	
 	

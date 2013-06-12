@@ -50,7 +50,7 @@ public class RegisterEditorActivity extends UpdateActivity {
 		
 		findViewById(R.id.button_ToRegister).setOnClickListener(mClickListener);
 		
-		calendar.set(1994, 12, 25); 
+		calendar.set(1994, 11, 25); 
 		
 		birthDay = (EditText) findViewById(R.id.editBirthday);
 		birthDay.setOnClickListener(mBirthDayListener);
