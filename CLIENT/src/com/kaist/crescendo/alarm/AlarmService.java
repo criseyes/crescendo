@@ -59,6 +59,14 @@ public class AlarmService extends Service {
 			deleteAlarmService(planId);
 			return 0;
 		}
+		
+		@Override
+		public int resetAlarm() throws RemoteException {
+			//delete all items from db
+			Log.v(TAG, "[resetAlarm]");
+			deleteAllAlarmService();
+			return 0;
+		}
 
 		@Override
 		public boolean registerCallback(IAlarmServiceCallback callback)
@@ -242,6 +250,29 @@ public class AlarmService extends Service {
     	cancelAlarm(planId);
     	
     	return result;
+    }
+    
+    private int deleteAllAlarmService() {
+    	String[] columns = {"planId", "dayOfWeek", "alarmTime"};
+		int db_count;
+		Cursor c = db.query(DBManager.DB_NAME, columns, null, null, null, null, null);
+		if((db_count = c.getCount()) > 0) {
+			Log.v(TAG, "db count : " + db_count);			
+			c.moveToFirst();
+			
+			while(!c.isAfterLast()) {
+				String planId = c.getString(0);
+				
+				cancelAlarm(Integer.parseInt(planId));
+				c.moveToNext();
+			}
+		}
+		
+		alarmList.clear();
+    		
+    	db.delete(DBManager.DB_NAME, null, null);
+    	
+    	return 0;
     }
     
 	@Override

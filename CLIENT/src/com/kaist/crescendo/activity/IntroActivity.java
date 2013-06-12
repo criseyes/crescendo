@@ -57,6 +57,7 @@ public class IntroActivity extends Activity {
 			}
 			else {
 				Intent intent = new Intent();
+				intent.putExtra("login", false);
 				startActivity(intent.setClass(getApplicationContext(), MainActivity.class));
 			}
 			finish();

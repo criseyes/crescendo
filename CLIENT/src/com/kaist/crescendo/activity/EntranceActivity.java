@@ -88,6 +88,7 @@ public class EntranceActivity extends UpdateActivity {
 				editor.commit();
 				
 				Intent intent = new Intent();
+				intent.putExtra("login", true);
 				
 				/* phone status checking */
 				String saved_phone = prefs.getString(MyPref.KEY_PHONE, "0");

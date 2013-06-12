@@ -31,6 +31,7 @@ public class MainActivity extends UpdateActivity {
 	private Handler mHandler;
 	private boolean mFlag = false;
 	private final String TAG = "MainActivity";
+	private boolean login = false;
 	
 	IAlarmServiceCallback mCallback = new IAlarmServiceCallback.Stub() {
 		
@@ -65,6 +66,7 @@ public class MainActivity extends UpdateActivity {
 				mService = IAlarmService.Stub.asInterface(service);
 				Log.v(TAG, "mService : " + mService);
 				setServiceInterface(mService);
+				syncAlarmService();
 				try {
 					mService.registerCallback(mCallback);
 				} catch (RemoteException e) {
@@ -87,6 +89,32 @@ public class MainActivity extends UpdateActivity {
 		Log.v(TAG, "unBindService");
 		//unregister mService
 	}
+	
+	private void syncAlarmService() {
+		//when install application again we have to sync server information with alarmDB
+		if(login) {
+			ArrayList<PlanData> planList = new ArrayList<PlanData>();
+			if(getPlanList(planList).equals("good")) {
+				try {
+					//delete all items and cancel registered alarm from AlarmManager
+					mService.resetAlarm();
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				for(int i = 0; i < planList.size(); i++) {
+					PlanData plan = planList.get(i);
+					try {
+						mService.addAlarm(plan.uId, plan.dayOfWeek, plan.alarm);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +133,10 @@ public class MainActivity extends UpdateActivity {
 		
 		bindService();
 		
+		login = getIntent().getExtras().getBoolean("login", false);
+		
+		Log.v(TAG,"login : " + (login?"true":"false"));
+		
 		mHandler = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -112,8 +144,7 @@ public class MainActivity extends UpdateActivity {
 					mFlag = false;
 				}
 			}
-		};
-		
+		};	
 	}
 	
 	@Override
