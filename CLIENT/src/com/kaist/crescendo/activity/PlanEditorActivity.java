@@ -3,6 +3,7 @@ package com.kaist.crescendo.activity;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.data.PlanListAdapter;
 import com.kaist.crescendo.utils.MyStaticValue;
 
+@SuppressLint("SimpleDateFormat")
 public class PlanEditorActivity extends UpdateActivity {
 	
 	private int mode;

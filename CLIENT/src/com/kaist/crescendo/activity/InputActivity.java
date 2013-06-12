@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,6 +16,7 @@ import com.kaist.crescendo.R;
 import com.kaist.crescendo.data.PlanData;
 
 
+@SuppressLint("SimpleDateFormat")
 public class InputActivity extends UpdateActivity {
 	private ArrayList<PlanData> planArrayList;
 	private String title;

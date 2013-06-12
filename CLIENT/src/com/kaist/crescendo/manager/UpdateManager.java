@@ -55,6 +55,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		}		
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void makeMsgBody(JSONObject msg, Object body) {
 		int msgId = 0;
 		UserData uData = null;
@@ -291,6 +292,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void makeRetMessage(Object retMsg, JSONObject receivedObj) {
 		//convert receivedObj to retMsg
 		int msgId = 0;
@@ -352,7 +354,8 @@ public class UpdateManager implements UpdateManagerInterface {
 					plan.isSelected = isSel;
 					
 					try {
-						jsonArray2 = obj.getJSONArray(MsgInfo.PLAN_HISTORY_LABEL);
+						if(obj != null)
+							jsonArray2 = obj.getJSONArray(MsgInfo.PLAN_HISTORY_LABEL);
 					} catch (JSONException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -432,7 +435,8 @@ public class UpdateManager implements UpdateManagerInterface {
 					plan.isSelected = isSel;
 					
 					try {
-						jsonArray2 = obj.getJSONArray(MsgInfo.PLAN_HISTORY_LABEL);
+						if(obj!= null)
+							jsonArray2 = obj.getJSONArray(MsgInfo.PLAN_HISTORY_LABEL);
 					} catch (JSONException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

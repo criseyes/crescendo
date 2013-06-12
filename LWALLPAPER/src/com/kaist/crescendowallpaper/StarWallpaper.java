@@ -275,11 +275,12 @@ public class StarWallpaper extends WallpaperService {
 //------------------------------
   // Constructor
   //------------------------------
-  public MyThread(SurfaceHolder holder, Context context, Context appContext) {
+  @SuppressWarnings("deprecation")
+public MyThread(SurfaceHolder holder, Context context, Context appContext) {
        mHolder = holder;
        mContext = context;
    
-       Display display = ((WindowManager) mContext.getSystemService(mContext.WINDOW_SERVICE)).getDefaultDisplay();
+       Display display = ((WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
        Width  = display.getWidth();   // 화면의 폭
        Height = display.getHeight();   // 화면의 높이
        //imgBack = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.backgroud_black);

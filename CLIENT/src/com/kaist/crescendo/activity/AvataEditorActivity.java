@@ -88,7 +88,7 @@ public class AvataEditorActivity extends UpdateActivity {
 		else {
 			String x = file.getPath().toString();
 			Log.d("me", x + file.canRead() + file.canWrite() + file.length() + " " + file.isFile());
-			Bitmap y = BitmapFactory.decodeFile(file.getPath().toString());
+			//Bitmap y = BitmapFactory.decodeFile(file.getPath().toString());
 			img = BitmapFactory.decodeFile(file.getPath().toString());
 			((ImageView) findViewById(R.id.avataImage)).setImageBitmap(img);
 		}

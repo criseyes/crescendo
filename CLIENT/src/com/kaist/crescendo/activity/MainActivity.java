@@ -1,7 +1,5 @@
 package com.kaist.crescendo.activity;
 
-import java.util.ArrayList;
-
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -23,13 +21,12 @@ import com.kaist.crescendo.R;
 import com.kaist.crescendo.alarm.AlarmService;
 import com.kaist.crescendo.alarm.IAlarmService;
 import com.kaist.crescendo.alarm.IAlarmServiceCallback;
-import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.utils.MyPref;
 import com.kaist.crescendo.utils.MyStaticValue;
 
 public class MainActivity extends UpdateActivity {
-	private Handler mHandler;
-	private boolean mFlag = false;
+	
+	private static boolean mFlag = false;
 	private final String TAG = "MainActivity";
 	
 	IAlarmServiceCallback mCallback = new IAlarmServiceCallback.Stub() {
@@ -74,7 +71,7 @@ public class MainActivity extends UpdateActivity {
 			}			
 		}
 	};
-	private ArrayList<PlanData> planArrayList;
+	//private ArrayList<PlanData> planArrayList;
 	
 	private void bindService() {
 		bindService(new Intent(AlarmService.INTENT_ACTION), mConnection, Context.BIND_AUTO_CREATE);
@@ -105,16 +102,18 @@ public class MainActivity extends UpdateActivity {
 		
 		bindService();
 		
-		mHandler = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				if(msg.what == 0) {
-					mFlag = false;
-				}
-			}
-		};
+		
 		
 	}
+	
+	static private Handler mHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if(msg.what == 0) {
+				mFlag = false;
+			}
+		}
+	};
 	
 	@Override
 	protected void onDestroy() {

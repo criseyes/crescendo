@@ -53,7 +53,7 @@ public class PlanViewActivity extends UpdateActivity {
 		
 		if(mode == MyStaticValue.MODE_VIEW) /* user want to update existing plan */
 		{
-			setTitle(R.string.str_modify_plan);
+			setTitle(R.string.str_planview);
 			// TODO Fill data for each field.
 			
 			index = getIntent().getExtras().getInt(MyStaticValue.NUMBER);

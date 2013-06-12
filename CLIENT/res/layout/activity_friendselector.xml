@@ -22,7 +22,7 @@
         android:dividerHeight="1dp"
          android:focusable="false"
 	    android:clickable="false"
-        android:divider="#4169E1" 
+        android:divider="#ffffff" 
         android:showDividers="beginning|middle|end" >
 
     </ListView>

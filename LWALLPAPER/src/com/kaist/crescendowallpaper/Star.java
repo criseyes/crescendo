@@ -16,7 +16,7 @@ public class Star {
      //------------------------------
      public Star() {
           Random rnd = new Random();
-          int r = rnd.nextInt(100) + 30;     // 최초의 반지름
+
           th = (float)(rnd.nextInt(360) * Math.PI / 180); // 각도
 //          cx = (float) (StarWallpaper.cx + Math.cos(th) * r); // 중심점
 //          cy = (float) (StarWallpaper.cy - Math.sin(th) * r);    

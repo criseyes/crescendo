@@ -162,8 +162,9 @@ public class FileEmulator implements CommunicationInterface{
 				}
 				
 				try {
-					RevData = (JSONObject) revJsonObj.get(MsgInfo.MSGBODY_LABEL);
-					if(passWord.equals(RevData.get(MsgInfo.PASSWORD_LABEL)) == false) {
+					if(revJsonObj != null)
+						RevData = (JSONObject) revJsonObj.get(MsgInfo.MSGBODY_LABEL);
+					if(RevData != null && passWord.equals(RevData.get(MsgInfo.PASSWORD_LABEL)) == false) {
 						result = MsgInfo.STATUS_INVALID_PASSWORD;
 					}
 				} catch (JSONException e) {
@@ -176,13 +177,15 @@ public class FileEmulator implements CommunicationInterface{
 			}
 			
 			try {
-				RevData.put(MsgInfo.MSGRET_LABEL, result);
+				if(RevData != null)
+					RevData.put(MsgInfo.MSGRET_LABEL, result);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			jsonString = RevData.toString();			
+			if(RevData != null)
+				jsonString = RevData.toString();			
 		} else if(msgId == MsgInfo.ADD_NEW_PLAN) {
 			try {
 				oriMsg.put(MsgInfo.MSGRET_LABEL, MsgInfo.STATUS_OK);
