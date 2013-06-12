@@ -261,6 +261,36 @@ public class UpdateManager implements UpdateManagerInterface {
 		}
 	}
 	
+	private void makeMsgBody(JSONObject msg, String date, int value) {
+		int msgId = 0;
+		
+		JSONObject temp_body = new JSONObject();
+		
+		try {
+			msgId = msg.getInt(MsgInfo.MSGID_LABEL);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		try {
+			temp_body.put(MsgInfo.DEF_USERID_LABEL, MyStaticValue.myId);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		if(msgId == MsgInfo.SET_HISDATA) {
+			try {				
+				temp_body.put(MsgInfo.PLAN_HISDATE_LABEL, date);
+				temp_body.put(MsgInfo.PLAN_HISVAL_LABEL, value);				
+				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	private void makeRetMessage(Object retMsg, JSONObject receivedObj) {
 		//convert receivedObj to retMsg
 		int msgId = 0;
@@ -868,6 +898,43 @@ public class UpdateManager implements UpdateManagerInterface {
 		showToastPopup(result);
 		
 		return result;		
+	}
+	
+	@Override
+	public int setHisData(Context context, String date, int value) {
+		int result = MsgInfo.STATUS_OK;
+		
+		JSONObject msg = new JSONObject();
+		JSONObject revMsg = null;
+		
+		mContext = context;
+		
+		makeMsgHeader(msg, MsgInfo.CHANGE_PASSWORD);
+		
+		makeMsgBody(msg, date, value);
+		
+		new SendAsyncTask().execute(msg);
+		
+		while(asyncTaskState == -1) {
+			try {
+				Thread.sleep(200);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
+		}
+		
+		try {
+			revMsg = new JSONObject(asyncTaskResult);
+			result = revMsg.getInt(MsgInfo.MSGRET_LABEL);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		showToastPopup(result);
+		
+		return result;	
 	}
 	
 	public class SendAsyncTask extends AsyncTask<JSONObject, Integer, Integer>{

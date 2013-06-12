@@ -19,6 +19,8 @@ public class MsgInfo {
 	
 	final static int CHANGE_PASSWORD = 5000;
 	
+	final static int SET_HISDATA = 0x6000;
+	
 	//msgDir value
 	final static int MSG_SEND_VALUE = 1;
 	final static int MSG_RECEIVE_VALUE = 2;

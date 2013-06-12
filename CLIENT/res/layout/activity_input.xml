@@ -9,18 +9,18 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
         android:orientation="vertical" >
-
+        
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/str_current_val"
             android:textAppearance="?android:attr/textAppearance" />
 
         <EditText
             android:id="@+id/enterVal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="@string/str_current_val"
             android:ems="10" /> 
         
         <Button

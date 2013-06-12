@@ -32,4 +32,6 @@ public interface UpdateManagerInterface {
 	public int setAvataFriend(Context context, String friendUserId);
 	
 	public int changePassword(Context context, String curPassword, String newPassword);
+	
+	public int setHisData(Context context, String date, int value);
 }

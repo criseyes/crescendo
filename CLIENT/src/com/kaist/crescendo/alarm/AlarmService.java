@@ -11,9 +11,12 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
@@ -25,6 +28,8 @@ public class AlarmService extends Service {
 	
 	public static final String INTENT_ACTION = "android.intent.action.com.kaist.crescendo.ON_BIND";
 	public static final String EXPIRED_ACTION = "android.intent.action.com.kaist.crescendo.ALARM_EXPIRED";
+	
+	private SQLiteDatabase db;
 	
 	// IAlarmService interface ÀÌ´Ù. 
 	private IAlarmService.Stub serviceStub = new IAlarmService.Stub() {
@@ -156,7 +161,7 @@ public class AlarmService extends Service {
     private int addAlarmService(int planId, int dayOfWeek, String alarmTime) {
     	int result = 0;
     	// add new alarm to db
-    	
+    	insertItem(planId, dayOfWeek, alarmTime);
     	
     	alarmList.add(planId);
     	
@@ -169,7 +174,7 @@ public class AlarmService extends Service {
     private int updateAlarmService(int planId, int dayOfWeek, String alarmTime) {
     	int result = 0;
     	//update db
-    	
+    	updateItem(planId, dayOfWeek, alarmTime);
     	//cancel registered alarm
     	cancelAlarm(planId);
     	
@@ -182,6 +187,7 @@ public class AlarmService extends Service {
     private int deleteAlarmService(int planId) {
     	int result = 0;
     	//delete alarm info from db
+    	deleteItem(planId);
     	
     	alarmList.remove(planId);
     	
@@ -207,6 +213,10 @@ public class AlarmService extends Service {
 		
 		registerReceiver(alarmServiceReceiver, intentFilter);
 		
+		db = new DBManager(this, DBManager.DB_NAME, null, 1).getWritableDatabase();
+		
+		setAllAlarm();
+		
 		super.onCreate();
 	}
 	
@@ -221,6 +231,50 @@ public class AlarmService extends Service {
 		Log.i(TAG,"-----------> AlarmService: onDestroy()...");
 		unregisterReceiver(alarmServiceReceiver);
 		super.onDestroy();
+	}
+	
+	private void setAllAlarm() {
+		String[] columns = {"planId", "dayOfWeek", "alarmTime"};
+		Cursor c = db.query(DBManager.DB_NAME, columns, null, null, null, null, null);
+		if(c.getCount() > 0) {
+			c.moveToFirst();
+			
+			while(!c.isAfterLast()) {
+				String planId = c.getString(0);
+				int dayOfWeek = c.getInt(1);
+				String alarmTime = c.getString(2);
+				
+				setAlarm(Integer.parseInt(planId), dayOfWeek, alarmTime);
+				
+				alarmList.add(Integer.parseInt(planId));
+				
+				Log.v(TAG, "set new alarm" + planId);
+			}
+		}
+		
+		c.close();
+	}
+	
+	private void insertItem(int planId, int dayOfWeek, String alarmTime) {
+		ContentValues cv = new ContentValues();
+		cv.put("planId", Integer.toString(planId));
+		cv.put("dayOfWeek", dayOfWeek);
+		cv.put("alarmTime", alarmTime);
+		db.insert(DBManager.DB_NAME, "null", cv);
+	}
+	
+	private void updateItem(int planId, int dayOfWeek, String alarmTime) {
+		ContentValues cv = new ContentValues();
+		String[] args ={Integer.toString(planId)};
+		cv.put("planId", Integer.toString(planId));
+		cv.put("dayOfWeek", dayOfWeek);
+		cv.put("alarmTime", alarmTime);
+		db.update(DBManager.DB_NAME, cv, "planId=?", args);
+	}
+	
+	private void deleteItem(int planId) {
+		String[] args ={Integer.toString(planId)};
+		db.delete(DBManager.DB_NAME, "planId=?", args);
 	}
 	
 	private static BroadcastReceiver alarmServiceReceiver = new BroadcastReceiver() {

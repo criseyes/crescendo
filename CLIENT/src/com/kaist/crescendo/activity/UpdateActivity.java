@@ -207,6 +207,19 @@ public class UpdateActivity extends Activity {
 		
 		return result;
 	}
+	
+	protected boolean setHisData(String date, int value) {
+		boolean result = false;
+		int ret = -1;
+		
+		ret = mManager.setHisData(mContext, date, value);
+		
+		if(ret == 0) {
+			result = true;
+		}
+		
+		return result;
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
