@@ -290,7 +290,7 @@ public class AvataEditorActivity extends UpdateActivity {
 	    		canvas.drawBitmap(cropImg, rect, rect, paint);
 	    		*/
 	    		
-	    		BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.face3);
+	    		BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.face5);
 	    		Bitmap faceImg = drawable.getBitmap();
 	    		Bitmap output = Bitmap.createScaledBitmap(faceImg, cropImg.getWidth(), cropImg.getHeight(), true);
 	    		Canvas canvas = new Canvas(output);
@@ -305,6 +305,14 @@ public class AvataEditorActivity extends UpdateActivity {
 	    		//canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
 	    		paint.setXfermode(new PorterDuffXfermode(Mode.SRC_IN));
 	    		canvas.drawBitmap(cropImg, rect, rect, paint);
+	    		
+	    		//add hair image
+	    		BitmapDrawable drawable2 = (BitmapDrawable) getResources().getDrawable(R.drawable.hair2);
+	    		Bitmap hairImg = drawable2.getBitmap();
+	    		Bitmap hairImg2 = Bitmap.createScaledBitmap(hairImg, cropImg.getWidth(), cropImg.getHeight(), true);
+	    		Canvas canvas2 = new Canvas(output);
+	    		paint.setXfermode(new PorterDuffXfermode(Mode.SCREEN));
+	    		canvas2.drawBitmap(hairImg2, rect, rect, paint);
 	    		
 	    		img = Bitmap.createScaledBitmap(output, MyStaticValue.AVATA_WIDTH, MyStaticValue.AVATA_HIGHT, true);
 	    		isOK = true;

@@ -7,6 +7,7 @@ import java.util.StringTokenizer;
 
 import com.kaist.crescendo.activity.InputActivity;
 
+import android.R.integer;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -24,7 +25,7 @@ import android.util.Log;
 public class AlarmService extends Service {
 	static private String TAG = "AlarmService";
 	
-	private List<Integer> alarmList;
+	private ArrayList<Integer> alarmList;
 	
 	public static final String INTENT_ACTION = "android.intent.action.com.kaist.crescendo.ON_BIND";
 	public static final String EXPIRED_ACTION = "android.intent.action.com.kaist.crescendo.ALARM_EXPIRED";
@@ -93,10 +94,11 @@ public class AlarmService extends Service {
 		Calendar calendar = Calendar.getInstance();
 		
 		int day = calendar.get(Calendar.DAY_OF_WEEK);
+		Log.v(TAG, "today : " +  day);
 		boolean isOK = false;
 		
 		if((db_count = c.getCount()) > 0) {
-			Log.v(TAG, "db count : " + db_count);			
+			Log.v(TAG, "checkAlarmIsValid db count : " + db_count);			
 			c.moveToFirst();
 			
 			while(!c.isAfterLast()) {
@@ -105,9 +107,8 @@ public class AlarmService extends Service {
 				isOK = false;
 				
 				if(Integer.parseInt(planId2) == planId) {
-					
 					for(int i = 0; i < 7 ; i++) {
-						if((dayOfWeek & (0x01<< i)) == day) {
+						if((dayOfWeek & (0x01 << (i*4))) == (0x01 << ((day - 1) * 4))) {
 							isOK = true;
 							break;
 						}
@@ -128,6 +129,34 @@ public class AlarmService extends Service {
 		return result;
 	}
     
+    private void getAlarmTime(int planId, int[] val) {
+		String[] columns = {"planId", "dayOfWeek", "alarmTime"};
+		int db_count;
+		Cursor c = db.query(DBManager.DB_NAME, columns, null, null, null, null, null);
+		
+		if((db_count = c.getCount()) > 0) {
+			Log.v(TAG, "getAlarmTime db count : " + db_count);			
+			c.moveToFirst();
+			
+			while(!c.isAfterLast()) {
+				String planId2 = c.getString(0);
+				String alarmTime = c.getString(2);
+				
+				if(Integer.parseInt(planId2) == planId) {
+					StringTokenizer st = new StringTokenizer(alarmTime,":");
+					val[0] = Integer.parseInt(st.nextToken());
+					val[1] = Integer.parseInt(st.nextToken());
+					Log.v(TAG, "hour: minute" + val[0]+":"+ val[1]);
+					break;
+				}
+				
+				c.moveToNext();
+			}
+		}
+		
+		c.close();
+    }
+    
     private void setNextAlarm(int planId) {
     	AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
     	
@@ -137,17 +166,20 @@ public class AlarmService extends Service {
     	    	
     	Calendar calendar = Calendar.getInstance();
     	
+    	int[] val = {0, 0};
+    	getAlarmTime(planId, val);
+    	
     	calendar.add(Calendar.DAY_OF_YEAR, 1);
-    	calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY), calendar.get(Calendar.DAY_OF_MONTH),
-    			calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), 0);
+    	calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
+    			val[0], val[1], 0);
     	
     	//test code set alarm after 5 minutes
     	//calendar.add(Calendar.MINUTE, 5);
-    	//calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY), calendar.get(Calendar.DAY_OF_MONTH),
+    	//calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
     	//		calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
  
     	am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
-    	Log.v(TAG, "setNextAlarm is started : " + planId);
+    	Log.v(TAG, "setNextAlarm is started :" + planId + " Time :" + calendar.get(Calendar.YEAR)+"-"+ (calendar.get(Calendar.MONTH) + 1)+"-"+ calendar.get(Calendar.DAY_OF_MONTH)+"/"+ val[0]+":"+ val[1]);
     	
     	if(checkAlarmIsValid(planId)) {
 	    	//start InputActivity
@@ -159,11 +191,11 @@ public class AlarmService extends Service {
     }
     
     private boolean checkAlarmIsToday(int alarmHour, int alarmMin, int curHour, int curMin) {
-    	boolean isToday = true;
+    	boolean isToday = false;
     	if(alarmHour > curHour) {
-    		isToday = false;
+    		isToday = true;
     	} else if(alarmHour == curHour && alarmMin > curMin) {
-    		isToday = false;
+    		isToday = true;
     	}
     	
     	return isToday;
@@ -194,22 +226,23 @@ public class AlarmService extends Service {
     	
     	Calendar calendar = Calendar.getInstance();
     	
-    	boolean isTody = checkAlarmIsToday(alarmHour, alarmMin, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
+    	boolean isToday = checkAlarmIsToday(alarmHour, alarmMin, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
     	
+    	Log.v(TAG, "isToday : " + (isToday?"true":"false"));
     	//test code set alarm after 1 minute
     	//calendar.add(Calendar.MINUTE, 1);
-    	//calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY), calendar.get(Calendar.DAY_OF_MONTH),
+    	//calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH),
     	//		calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
 
-    	if(isTody) {
-    		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY), calendar.get(Calendar.DAY_OF_MONTH), alarmHour, alarmMin, 0);
+    	if(isToday) {
+    		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), alarmHour, alarmMin, 0);
     	} else {
     		calendar.add(Calendar.DAY_OF_YEAR, 1);
-    		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY), calendar.get(Calendar.DAY_OF_MONTH), alarmHour, alarmMin, 0);
+    		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), alarmHour, alarmMin, 0);
     	}
     	
     	am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
-    	Log.v(TAG, "setAlarm is started :" + planId);
+    	Log.v(TAG, "setAlarm is started :" + planId + " Time :" + calendar.get(Calendar.YEAR)+"-"+ (calendar.get(Calendar.MONTH) + 1)+"-"+ calendar.get(Calendar.DAY_OF_MONTH)+"/"+ alarmHour+":"+alarmMin);
     }
     
     private int addAlarmService(int planId, int dayOfWeek, String alarmTime) {
@@ -243,8 +276,13 @@ public class AlarmService extends Service {
     	int result = 0;
     	//delete alarm info from db
     	deleteItem(planId);
-    	
-    	alarmList.remove(planId);
+   	
+    	for(int i  = 0; i < alarmList.size(); i++) {
+    		if(alarmList.get(i) == planId) {
+    			alarmList.remove(i);
+    			break;
+    		}
+    	}
     	
     	//cancel registered alarm
     	cancelAlarm(planId);
@@ -257,7 +295,7 @@ public class AlarmService extends Service {
 		int db_count;
 		Cursor c = db.query(DBManager.DB_NAME, columns, null, null, null, null, null);
 		if((db_count = c.getCount()) > 0) {
-			Log.v(TAG, "db count : " + db_count);			
+			Log.v(TAG, "deleteAllAlarmService db count : " + db_count);			
 			c.moveToFirst();
 			
 			while(!c.isAfterLast()) {
