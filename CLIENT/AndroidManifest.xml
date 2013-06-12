@@ -86,14 +86,24 @@
             android:label="AlarmService" >
             <intent-filter>
                 <action android:name="android.intent.action.com.kaist.crescendo.START_SERVICE" />
+                <action android:name="android.intent.action.com.kaist.crescendo.STOP_SERVICE" />
                 <action android:name="android.intent.action.com.kaist.crescendo.ON_BIND" />
             </intent-filter>
         </service>
-        <receiver android:name="com.kaist.crescendo.alarm.AlarmReceiver" 
-            android:label="AlarmReceiver" >
+        <receiver android:name="com.kaist.crescendo.alarm.BootReceiver" 
+            android:label="BootReceiver" >
             <intent-filter >
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.kaist.crescendo.alarm.PackageReceiver" 
+            android:label="PackageReceiver" >
+            <intent-filter >
+                <action android:name="android.intent.action.PACKAGE_INSTALL" />
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package"/>
             </intent-filter>
         </receiver>
         <activity

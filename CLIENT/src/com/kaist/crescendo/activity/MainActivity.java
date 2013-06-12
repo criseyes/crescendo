@@ -1,5 +1,7 @@
 package com.kaist.crescendo.activity;
 
+import java.util.ArrayList;
+
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +23,7 @@ import com.kaist.crescendo.R;
 import com.kaist.crescendo.alarm.AlarmService;
 import com.kaist.crescendo.alarm.IAlarmService;
 import com.kaist.crescendo.alarm.IAlarmServiceCallback;
+import com.kaist.crescendo.data.PlanData;
 import com.kaist.crescendo.utils.MyPref;
 import com.kaist.crescendo.utils.MyStaticValue;
 
@@ -28,6 +31,7 @@ public class MainActivity extends UpdateActivity {
 	
 	private static boolean mFlag = false;
 	private final String TAG = "MainActivity";
+	private boolean login = false;
 	
 	IAlarmServiceCallback mCallback = new IAlarmServiceCallback.Stub() {
 		
@@ -62,6 +66,7 @@ public class MainActivity extends UpdateActivity {
 				mService = IAlarmService.Stub.asInterface(service);
 				Log.v(TAG, "mService : " + mService);
 				setServiceInterface(mService);
+				syncAlarmService();
 				try {
 					mService.registerCallback(mCallback);
 				} catch (RemoteException e) {
@@ -84,6 +89,32 @@ public class MainActivity extends UpdateActivity {
 		Log.v(TAG, "unBindService");
 		//unregister mService
 	}
+	
+	private void syncAlarmService() {
+		//when install application again we have to sync server information with alarmDB
+		if(login) {
+			ArrayList<PlanData> planList = new ArrayList<PlanData>();
+			if(getPlanList(planList).equals("good")) {
+				try {
+					//delete all items and cancel registered alarm from AlarmManager
+					mService.resetAlarm();
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				for(int i = 0; i < planList.size(); i++) {
+					PlanData plan = planList.get(i);
+					try {
+						mService.addAlarm(plan.uId, plan.dayOfWeek, plan.alarm);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,9 +132,6 @@ public class MainActivity extends UpdateActivity {
 		MyStaticValue.myId = getMyID();
 		
 		bindService();
-		
-		
-		
 	}
 	
 	static private Handler mHandler = new Handler() {
