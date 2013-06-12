@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Adapter;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -81,7 +82,18 @@ public class CandidateListActivity extends UpdateActivity {
 	
 	protected void VerifyAndSave() {
 		//send to server
+		ArrayList<FriendData> tmp = new ArrayList<FriendData>();
+		for(int i = 0 ; i <adapter.getCount() ; i++) {
+			FriendData friend = (FriendData) adapter.getItem(i);
+			if(friend.getisSelected() == true) {
+				tmp.add(friend);
+			}
+		}
 		
-		complete();
+		if(tmp.size() > 0) {
+			if(setFriend(tmp).equals("good")) {
+				complete();
+			}
+		}
 	}
 }

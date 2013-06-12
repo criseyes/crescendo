@@ -77,6 +77,49 @@ public class AlarmService extends Service {
 		}
     };
     
+    private boolean checkAlarmIsValid(int planId) {
+		boolean result = false;		
+		String[] columns = {"planId", "dayOfWeek", "alarmTime"};
+		int db_count;
+		Cursor c = db.query(DBManager.DB_NAME, columns, null, null, null, null, null);
+		Calendar calendar = Calendar.getInstance();
+		
+		int day = calendar.get(Calendar.DAY_OF_WEEK);
+		boolean isOK = false;
+		
+		if((db_count = c.getCount()) > 0) {
+			Log.v(TAG, "db count : " + db_count);			
+			c.moveToFirst();
+			
+			while(!c.isAfterLast()) {
+				String planId2 = c.getString(0);
+				int dayOfWeek = c.getInt(1);
+				isOK = false;
+				
+				if(Integer.parseInt(planId2) == planId) {
+					
+					for(int i = 0; i < 7 ; i++) {
+						if((dayOfWeek & (0x01<< i)) == day) {
+							isOK = true;
+							break;
+						}
+					}
+					
+					if(isOK == true) {
+						result = true;
+						break;
+					}
+				}
+				
+				c.moveToNext();
+			}
+		}
+		
+		c.close();
+		
+		return result;
+	}
+    
     private void setNextAlarm(int planId) {
     	AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
     	
@@ -86,22 +129,25 @@ public class AlarmService extends Service {
     	    	
     	Calendar calendar = Calendar.getInstance();
     	
-    	//calendar.add(Calendar.DAY_OF_YEAR, 1);
-    	calendar.add(Calendar.MINUTE, 5);
-    	//calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY), calendar.get(Calendar.DAY_OF_MONTH),
-    	//		calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), 0);
-    	
+    	calendar.add(Calendar.DAY_OF_YEAR, 1);
     	calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY), calendar.get(Calendar.DAY_OF_MONTH),
-    			calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
+    			calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), 0);
+    	
+    	//test code set alarm after 5 minutes
+    	//calendar.add(Calendar.MINUTE, 5);
+    	//calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY), calendar.get(Calendar.DAY_OF_MONTH),
+    	//		calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
  
     	am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
     	Log.v(TAG, "setNextAlarm is started : " + planId);
     	
-    	//start InputActivity
-    	Intent i = new Intent(this, InputActivity.class);
-    	i.putExtra("planId", planId);
-    	i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    	startActivity(i);
+    	if(checkAlarmIsValid(planId)) {
+	    	//start InputActivity
+	    	Intent i = new Intent(this, InputActivity.class);
+	    	i.putExtra("planId", planId);
+	    	i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	    	startActivity(i);
+    	}
     }
     
     private boolean checkAlarmIsToday(int alarmHour, int alarmMin, int curHour, int curMin) {
@@ -142,17 +188,17 @@ public class AlarmService extends Service {
     	
     	boolean isTody = checkAlarmIsToday(alarmHour, alarmMin, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE));
     	
-    	calendar.add(Calendar.MINUTE, 1);
-    	calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY), calendar.get(Calendar.DAY_OF_MONTH),
-    			calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
-    	/*
+    	//test code set alarm after 1 minute
+    	//calendar.add(Calendar.MINUTE, 1);
+    	//calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY), calendar.get(Calendar.DAY_OF_MONTH),
+    	//		calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), calendar.get(Calendar.SECOND));
+
     	if(isTody) {
     		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY), calendar.get(Calendar.DAY_OF_MONTH), alarmHour, alarmMin, 0);
     	} else {
     		calendar.add(Calendar.DAY_OF_YEAR, 1);
     		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONDAY), calendar.get(Calendar.DAY_OF_MONTH), alarmHour, alarmMin, 0);
     	}
-    	*/
     	
     	am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
     	Log.v(TAG, "setAlarm is started :" + planId);
@@ -175,6 +221,7 @@ public class AlarmService extends Service {
     	int result = 0;
     	//update db
     	updateItem(planId, dayOfWeek, alarmTime);
+    	
     	//cancel registered alarm
     	cancelAlarm(planId);
     	
@@ -285,9 +332,7 @@ public class AlarmService extends Service {
 	private static BroadcastReceiver alarmServiceReceiver = new BroadcastReceiver() {
 		
 		@Override
-		public void onReceive(Context context, Intent intent) {
-			// TODO Auto-generated method stub
-			
+		public void onReceive(Context context, Intent intent) {			
 			if(intent.getAction().equals(EXPIRED_ACTION)) {
 				int planId = intent.getExtras().getInt("planId");
 				((AlarmService) context).setNextAlarm(planId);
