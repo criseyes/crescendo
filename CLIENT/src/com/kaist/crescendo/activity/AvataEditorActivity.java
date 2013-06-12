@@ -5,25 +5,20 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.json.JSONObject;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
-import android.graphics.Bitmap.Config;
-import android.graphics.PorterDuff.Mode;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.FaceDetector;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -38,8 +33,6 @@ import android.widget.Toast;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.data.AvataData;
-import com.kaist.crescendo.manager.ComManager;
-import com.kaist.crescendo.manager.MsgInfo;
 import com.kaist.crescendo.utils.MyPref;
 import com.kaist.crescendo.utils.MyStaticValue;
 
@@ -54,8 +47,8 @@ public class AvataEditorActivity extends UpdateActivity {
 	private String title;
 	
 	private Context mContext;
-	private int asyncTaskState;
-	private boolean asynTaskResult;
+	//private int asyncTaskState;
+	//private boolean asynTaskResult;
 	
 	private static final int RESIZE_WIDTH = 640;
 	private static final int RESIZE_HEIGHT = 480;
@@ -95,7 +88,7 @@ public class AvataEditorActivity extends UpdateActivity {
 		else {
 			String x = file.getPath().toString();
 			Log.d("me", x + file.canRead() + file.canWrite() + file.length() + " " + file.isFile());
-			Bitmap y = BitmapFactory.decodeFile(file.getPath().toString());
+			//Bitmap y = BitmapFactory.decodeFile(file.getPath().toString());
 			img = BitmapFactory.decodeFile(file.getPath().toString());
 			((ImageView) findViewById(R.id.avataImage)).setImageBitmap(img);
 		}
@@ -334,7 +327,7 @@ public class AvataEditorActivity extends UpdateActivity {
 		
 		@Override
 		protected void onPreExecute() {
-			asyncTaskState = -1;
+			//asyncTaskState = -1;
 			dialog = new ProgressDialog(mContext);
 			dialog.setTitle("처리중");
 			dialog.setMessage("잠시만 기다려주세요.");
@@ -353,7 +346,7 @@ public class AvataEditorActivity extends UpdateActivity {
 		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			if(result == false) {
-				Toast.makeText(mContext, "얼굴을 찾지 못하였습니다.", Toast.LENGTH_LONG).show();
+				Toast.makeText(mContext, R.string.str_err_cantfindface, Toast.LENGTH_LONG).show();
 			}
 			imgView.setImageBitmap(img);
 			super.onPostExecute(result);
@@ -368,7 +361,7 @@ public class AvataEditorActivity extends UpdateActivity {
 			
 			dialog.dismiss();
 			
-			asyncTaskState = 0;
+			//asyncTaskState = 0;
 			
 			return result;
 		}

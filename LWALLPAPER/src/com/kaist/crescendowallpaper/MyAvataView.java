@@ -2,7 +2,6 @@ package com.kaist.crescendowallpaper;
 
 import java.util.Random;
 
-import android.app.WallpaperManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

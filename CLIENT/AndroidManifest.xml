@@ -26,10 +26,6 @@
             android:name="com.kaist.crescendo.activity.MainActivity"
             android:label="@string/str_app_name" >
         </activity>
-        <activity
-            android:name="com.kaist.crescendo.activity.PlansListActivity"
-            android:label="@string/str_title_activity_plans_list" >
-        </activity>
          <activity
             android:name="com.kaist.crescendo.activity.EntranceActivity"
             android:label="@string/str_title_welcome" >
@@ -86,7 +82,7 @@
             android:name="com.kaist.crescendo.alarm.AlarmService"
             android:enabled="true"
             android:process=":remote"
-            android:exported="true"
+            android:exported="false"
             android:label="AlarmService" >
             <intent-filter>
                 <action android:name="android.intent.action.com.kaist.crescendo.START_SERVICE" />

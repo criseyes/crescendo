@@ -14,7 +14,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.view.MotionEvent;
 
 public class MyAvata2 {

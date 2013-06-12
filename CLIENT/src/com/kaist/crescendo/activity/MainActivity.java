@@ -28,8 +28,8 @@ import com.kaist.crescendo.utils.MyPref;
 import com.kaist.crescendo.utils.MyStaticValue;
 
 public class MainActivity extends UpdateActivity {
-	private Handler mHandler;
-	private boolean mFlag = false;
+	
+	private static boolean mFlag = false;
 	private final String TAG = "MainActivity";
 	private boolean login = false;
 	
@@ -76,7 +76,7 @@ public class MainActivity extends UpdateActivity {
 			}			
 		}
 	};
-	private ArrayList<PlanData> planArrayList;
+	//private ArrayList<PlanData> planArrayList;
 	
 	private void bindService() {
 		bindService(new Intent(AlarmService.INTENT_ACTION), mConnection, Context.BIND_AUTO_CREATE);
@@ -132,20 +132,16 @@ public class MainActivity extends UpdateActivity {
 		MyStaticValue.myId = getMyID();
 		
 		bindService();
-		
-		login = getIntent().getExtras().getBoolean("login", false);
-		
-		Log.v(TAG,"login : " + (login?"true":"false"));
-		
-		mHandler = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				if(msg.what == 0) {
-					mFlag = false;
-				}
-			}
-		};	
 	}
+	
+	static private Handler mHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if(msg.what == 0) {
+				mFlag = false;
+			}
+		}
+	};
 	
 	@Override
 	protected void onDestroy() {
@@ -157,7 +153,7 @@ public class MainActivity extends UpdateActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(keyCode == KeyEvent.KEYCODE_BACK) {
 			if(!mFlag) {
-				Toast.makeText(this, getResources().getText(R.string.str_finish_app), Toast.LENGTH_LONG).show();
+				Toast.makeText(this, R.string.str_finish_app, Toast.LENGTH_LONG).show();
 				mFlag = true;
 				mHandler.sendEmptyMessageDelayed(0, 2000);
 				return false;

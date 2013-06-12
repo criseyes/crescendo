@@ -23,8 +23,8 @@ public class MyAvata {
 	private int directY;
 	
 	public MyAvata(Bitmap img) {
-        startX = rand.nextInt(StarWallpaper.Width - this.MAX_ICON_SIZE_X) + this.MAX_ICON_SIZE_X;
-        startY = rand.nextInt(StarWallpaper.Height - this.MAX_ICON_SIZE_Y) + this.MAX_ICON_SIZE_Y;
+        startX = rand.nextInt(StarWallpaper.Width - MyAvata.MAX_ICON_SIZE_X) + MyAvata.MAX_ICON_SIZE_X;
+        startY = rand.nextInt(StarWallpaper.Height - MyAvata.MAX_ICON_SIZE_Y) + MyAvata.MAX_ICON_SIZE_Y;
 
         paint = new Paint();
         me = Bitmap.createScaledBitmap(img, MAX_ICON_SIZE_X, MAX_ICON_SIZE_Y, true);

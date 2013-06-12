@@ -442,7 +442,7 @@ public class Chart extends View {
    			m_nChartHeight = DEFAULT_CHART_HEIGHT;
         }
         
-        if (m_nChartWidth < DEFAULT_CHART_WIDTH || m_nChartWidth < DEFAULT_CHART_HEIGHT)
+        if (m_nChartWidth < DEFAULT_CHART_WIDTH || m_nChartHeight < DEFAULT_CHART_HEIGHT)
 		{
 			m_nChartWidth = DEFAULT_CHART_WIDTH;
 			m_nChartHeight = DEFAULT_CHART_HEIGHT;

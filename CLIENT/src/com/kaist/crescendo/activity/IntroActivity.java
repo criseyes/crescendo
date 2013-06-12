@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.telephony.TelephonyManager;
 import android.view.Window;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.utils.MyPref;
@@ -42,13 +41,16 @@ public class IntroActivity extends Activity {
 			TelephonyManager systemService = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
 	        String PhoneNumber = systemService.getLine1Number(); 
 	        
-	        if(PhoneNumber.length() > 10) {
-		        PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
-		        PhoneNumber="0"+PhoneNumber;
+	        if(PhoneNumber != null)
+	        {
+		        if(PhoneNumber.length() > 10) {
+			        PhoneNumber = PhoneNumber.substring(PhoneNumber.length()-10,PhoneNumber.length());
+			        PhoneNumber="0"+PhoneNumber;
+		        }
+		        
+		        if(saved_phone.equals(PhoneNumber) == false) /* if SIM is changed, it'll be required new session */
+		        	saved = false;
 	        }
-	        
-	        if(saved_phone.equals(PhoneNumber) == false) /* if SIM is changed, it'll be required new session */
-	        	saved = false;
 			
 			if(saved == false)
 			{

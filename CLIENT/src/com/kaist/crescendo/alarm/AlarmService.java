@@ -153,7 +153,7 @@ public class AlarmService extends Service {
 	    	//start InputActivity
 	    	Intent i = new Intent(this, InputActivity.class);
 	    	i.putExtra("planId", planId);
-	    	i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	    	i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 	    	startActivity(i);
     	}
     }

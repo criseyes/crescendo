@@ -48,7 +48,10 @@ public class RealSocket implements CommunicationInterface {
 		try {
 			objIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			output = objIn.readLine();
-			Log.d(TAG, "read data from server :" + output.toString());
+			if(output != null)
+				Log.d(TAG, "read data from server :" + output.toString());
+			else
+				Log.e(TAG, "null poiter error");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

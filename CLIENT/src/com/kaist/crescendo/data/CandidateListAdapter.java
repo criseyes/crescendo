@@ -4,15 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.kaist.crescendo.R;
@@ -80,6 +77,9 @@ public class CandidateListAdapter extends BaseAdapter {
 		//isSelected.setChecked(((ListView)parent).isItemChecked(position));
 		if(mItems.get(position).plan.type == MyStaticValue.PLANTYPE_DIET)
 			icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icon_diet));
+		else if(mItems.get(position).plan.type == MyStaticValue.PLANTYPE_READING_BOOK)
+			icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.icono_reading));
+		
 		return v;
 	}
 

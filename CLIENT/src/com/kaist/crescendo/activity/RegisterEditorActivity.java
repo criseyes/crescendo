@@ -50,7 +50,7 @@ public class RegisterEditorActivity extends UpdateActivity {
 		
 		findViewById(R.id.button_ToRegister).setOnClickListener(mClickListener);
 		
-		calendar.set(1994, 12, 25); 
+		calendar.set(1994, 11, 25); 
 		
 		birthDay = (EditText) findViewById(R.id.editBirthday);
 		birthDay.setOnClickListener(mBirthDayListener);
@@ -97,17 +97,17 @@ public class RegisterEditorActivity extends UpdateActivity {
 		if(id.getText().length() < 5 || id.getText().toString().contains("@") == false)
 		{
 			isOK = false;
-			Toast.makeText(this, "Please Input valid ID format (Email address)", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.str_err_invalidid, Toast.LENGTH_LONG).show();
 		}
 					
 		if(isOK == true && pw.getText().length() < 7) {
 			isOK = false;
-			Toast.makeText(this, "Please Input Password more than 7 characters", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.str_err_shortpw, Toast.LENGTH_LONG).show();
 		}
 		
 		if(isOK == true && ph.getText().length() < 9) {
 			isOK = false;
-			Toast.makeText(this, "Please Input valid Phone number", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.str_err_invalidphonenumber, Toast.LENGTH_LONG).show();
 		}
 			
 		if(isOK == true)

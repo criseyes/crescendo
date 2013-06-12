@@ -2,11 +2,16 @@
 
     <item
         android:id="@+id/action_editPlan"
-        
+        android:icon="@drawable/icon_modify"
         android:title="@string/str_modify_plan2"/>
     <item
         android:id="@+id/action_deletePlan"
-        
+        android:icon="@drawable/icon_delete"
         android:title="@string/str_delete_plan"/>
+    
+        <item
+        android:id="@+id/action_inputPlan"
+        android:icon="@drawable/icon_input"
+        android:title="@string/str_input_currentvalue"/>
 
 </menu>
