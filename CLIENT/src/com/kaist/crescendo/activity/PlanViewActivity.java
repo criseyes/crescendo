@@ -96,7 +96,6 @@ public class PlanViewActivity extends UpdateActivity {
 			
 			intent.putExtra(MyStaticValue.MODE, MyStaticValue.MODE_UPDATE);
 			intent.putExtra(MyStaticValue.NUMBER, index);
-
 			break;
 		case R.id.action_deletePlan:
 			intent.putExtra(MyStaticValue.MODE, MyStaticValue.MODE_DELETE);

@@ -273,7 +273,7 @@ public class PlanListActivity extends UpdateActivity {
 					boolean result = data.getExtras().getBoolean("success");
 					if(result == true) /* user add new plan sucessfully */
 					{
-						if(data.getExtras().getString(MyStaticValue.MODE).equals(MyStaticValue.MODE_UPDATE))
+						if(data.getExtras().getInt(MyStaticValue.MODE)== MyStaticValue.MODE_DELETE)
 						{
 							int index = data.getExtras().getInt(MyStaticValue.NUMBER);
 							result = deletePlan(((PlanData) adapter.getItem(index)).uId);
@@ -296,7 +296,7 @@ public class PlanListActivity extends UpdateActivity {
 								}
 							}
 						}
-						else if(data.getExtras().getString(MyStaticValue.MODE).equals(MyStaticValue.MODE_DELETE)) 
+						else if(data.getExtras().getInt(MyStaticValue.MODE) == MyStaticValue.MODE_UPDATE) 
 						{
 							int index = data.getExtras().getInt(MyStaticValue.NUMBER);
 							//result = updatePlan(((PlanData) adapter.getItem(index)).uId);
