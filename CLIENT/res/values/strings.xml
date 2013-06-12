@@ -12,8 +12,8 @@
     <string name="str_planEditor_title">제목</string>
     <string name="str_planEditor_startdate">시작일</string>
     <string name="str_planEditor_endDate">완료일</string>
-    <string name="str_planEditor_initValue">현재값 (kg)</string>
-    <string name="str_planEditor_targetValue">목표값 (kg)</string>
+    <string name="str_planEditor_initValue">현재값</string>
+    <string name="str_planEditor_targetValue">목표값</string>
     <string name="str_planEditor_repeatPeriod">반복주기</string>
     <string name="str_monday">월</string>
     <string name="str_tuesday">화</string>
