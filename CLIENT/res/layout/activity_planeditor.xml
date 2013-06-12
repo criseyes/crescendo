@@ -145,16 +145,21 @@
             android:text="@string/str_planEditor_repeatPeriod"
             android:textAppearance="?android:attr/textAppearance" />
 
+        <HorizontalScrollView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+            
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center_vertical|center_horizontal" >
 
             <ToggleButton
                 android:id="@+id/button_mon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="35dip"
+                android:minWidth="10dp"
                 android:textOff="@string/str_monday"
                 android:textOn="@string/str_monday" />
 
@@ -162,7 +167,7 @@
                 android:id="@+id/button_tues"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="35dip"
+                android:minWidth="10dp"
                 android:textOff="@string/str_tuesday"
                 android:textOn="@string/str_tuesday" />
 
@@ -170,7 +175,7 @@
                 android:id="@+id/button_wed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="35dip"
+                android:minWidth="10dp"
                 android:textOff="@string/str_wednesday"
                 android:textOn="@string/str_wednesday" />
 
@@ -178,7 +183,7 @@
                 android:id="@+id/button_thur"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="35dip"
+                android:minWidth="10dp"
                 android:textOff="@string/str_thursday"
                 android:textOn="@string/str_thursday" />
 
@@ -186,7 +191,7 @@
                 android:id="@+id/button_fri"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="35dip"
+                android:minWidth="10dp"
                 android:textOff="@string/str_friday"
                 android:textOn="@string/str_friday" />
 
@@ -194,7 +199,7 @@
                 android:id="@+id/button_sat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="35dip"
+                android:minWidth="10dp"
                 android:textOff="@string/str_saturday"
                 android:textOn="@string/str_saturday" />
 
@@ -202,11 +207,11 @@
                 android:id="@+id/button_sun"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:minWidth="35dip"
+                android:minWidth="10dp"
                 android:textOff="@string/str_sunday"
                 android:textOn="@string/str_sunday" />
         </LinearLayout>
-        
+        </HorizontalScrollView>
 
 
         <Button

@@ -146,9 +146,14 @@
             android:text="@string/str_planEditor_repeatPeriod"
             android:textAppearance="?android:attr/textAppearance" />
 
+       <HorizontalScrollView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center_vertical|center_horizontal" >
 
             <ToggleButton
@@ -215,7 +220,7 @@
                 android:textOff="@string/str_sunday"
                 android:textOn="@string/str_sunday" />
         </LinearLayout>
-        
+        </HorizontalScrollView>
         
         <TextView
             android:id="@+id/dummy"
