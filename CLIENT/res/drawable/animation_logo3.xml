@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <animation-list android:oneshot="false" xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:drawable="@drawable/clogo001" android:duration="200"/>
-    <item android:drawable="@drawable/clogo002" android:duration="200"/>
-    <item android:drawable="@drawable/clogo003" android:duration="200"/>
-    <item android:drawable="@drawable/clogo005" android:duration="200"/>
-    <item android:drawable="@drawable/clogo006" android:duration="200"/>
-    <item android:drawable="@drawable/clogo007" android:duration="200"/>
-    <item android:drawable="@drawable/clogo009" android:duration="200"/>
-    <item android:drawable="@drawable/clogo010" android:duration="200"/> 
-    <item android:drawable="@drawable/clogo011" android:duration="200"/>
-    <item android:drawable="@drawable/clogo013" android:duration="200"/>
-    <item android:drawable="@drawable/clogo014" android:duration="200"/>
-    <item android:drawable="@drawable/clogo015" android:duration="200"/>
-    <item android:drawable="@drawable/clogo017" android:duration="200"/>
+    <item android:drawable="@drawable/clogo001" android:duration="210"/>
+    <item android:drawable="@drawable/clogo003" android:duration="210"/>
+    <item android:drawable="@drawable/clogo005" android:duration="210"/>
+    <item android:drawable="@drawable/clogo006" android:duration="210"/>
+    <item android:drawable="@drawable/clogo007" android:duration="210"/>
+    <item android:drawable="@drawable/clogo010" android:duration="210"/> 
+    <item android:drawable="@drawable/clogo011" android:duration="210"/>
+    <item android:drawable="@drawable/clogo013" android:duration="210"/>
+    <item android:drawable="@drawable/clogo015" android:duration="210"/>
+    <item android:drawable="@drawable/clogo017" android:duration="210"/>
 </animation-list>
