@@ -47,6 +47,10 @@
             android:label="@string/str_input_register_information" >
         </activity>
         <activity
+            android:name="com.kaist.crescendo.activity.PlanViewActivity"
+            android:label="@string/str_input_register_information" >
+        </activity>        
+        <activity
             android:name="com.kaist.crescendo.activity.FriendsListActivity"
             android:label="@string/str_input_register_information" >
         </activity>

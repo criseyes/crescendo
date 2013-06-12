@@ -8,6 +8,8 @@ public class MyStaticValue {
 	
 	public static final int MODE_UPDATE = 0;
 	public static final int MODE_NEW = 1;
+	public static final int MODE_VIEW = 2;
+	public static final int MODE_DELETE = 3;
 	
 	/* Avata */
 	public static final String AVATA_FILNENAME = "myAvata.png";
@@ -28,6 +30,7 @@ public class MyStaticValue {
 	public static final int REQUESTCODE_ADDNEWPLAN = 1001;
 	public static final int REQUESTCODE_UPDATEPLAN = 1002;
 	public static final int REQUESTCODE_ADDNEWFRIEND = 1003;
+	public static final int REQUESTCODE_VIEWPLAN = 1004;
 	
 	public static final int REQUESTCODE_GETAVATAIMAGE = 1050;
 	

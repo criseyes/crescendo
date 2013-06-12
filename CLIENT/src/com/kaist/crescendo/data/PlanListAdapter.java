@@ -4,15 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kaist.crescendo.R;
+import com.kaist.crescendo.activity.PlanViewActivity;
 import com.kaist.crescendo.utils.MyStaticValue;
 
 
@@ -67,6 +70,7 @@ public class PlanListAdapter extends BaseAdapter {
 		   }
 		return null;
 	}
+	
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {

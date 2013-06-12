@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.kaist.crescendo.R;
@@ -133,6 +134,19 @@ public class PlanListActivity extends UpdateActivity {
 		sendBroadcast(intent);
 	}
 	
+	OnItemClickListener mListClickListener = new OnItemClickListener() {
+		
+		@Override
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+			Intent intent = new Intent();
+			intent.putExtra(MyStaticValue.MODE, MyStaticValue.MODE_VIEW);
+			intent.putExtra(MyStaticValue.NUMBER, position);
+			
+			startActivityForResult(intent.setClass(getApplicationContext(), PlanViewActivity.class), MyStaticValue.REQUESTCODE_VIEWPLAN);
+			
+		}
+	};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -143,6 +157,8 @@ public class PlanListActivity extends UpdateActivity {
 		
 		
 		listView = (ListView) findViewById(R.id.plans_list);
+		listView.setOnItemClickListener(mListClickListener);
+		
 		planArrayList = new ArrayList<PlanData>();		
 		
 		OnClickListener mClickListener = new OnClickListener() {
@@ -156,6 +172,8 @@ public class PlanListActivity extends UpdateActivity {
 				startActivityForResult(intent.setClass(getApplicationContext(), PlanEditorActivity.class), MyStaticValue.REQUESTCODE_ADDNEWPLAN);
 			}
 		};
+		
+
 		
 		findViewById(R.id.button_add_new_plan).setOnClickListener(mClickListener);
 		//listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -246,6 +264,50 @@ public class PlanListActivity extends UpdateActivity {
 							if(defaultP != null)
 								updateDefaultPlan(defaultP);
 						}
+					}
+				}
+				break;
+			case MyStaticValue.REQUESTCODE_VIEWPLAN:
+				if(resultCode == RESULT_OK)
+				{ 
+					boolean result = data.getExtras().getBoolean("success");
+					if(result == true) /* user add new plan sucessfully */
+					{
+						if(data.getExtras().getString(MyStaticValue.MODE).equals(MyStaticValue.MODE_UPDATE))
+						{
+							int index = data.getExtras().getInt(MyStaticValue.NUMBER);
+							result = deletePlan(((PlanData) adapter.getItem(index)).uId);
+							if(result == true)
+							{
+								//delete alarm info from alarmSerivce
+								try {
+									getServiceInterface().delAlarm(((PlanData)adapter.getItem(index)).uId);
+								} catch (RemoteException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+								adapter.clearAllItems();
+								String ret = getPlanList(planArrayList);
+								if(ret.equals("good")) {
+									for(int i = 0 ; i < planArrayList.size() ; i++) {
+										adapter.addItem(planArrayList.get(i));
+									}
+									adapter.notifyDataSetChanged();
+								}
+							}
+						}
+						else if(data.getExtras().getString(MyStaticValue.MODE).equals(MyStaticValue.MODE_DELETE)) 
+						{
+							int index = data.getExtras().getInt(MyStaticValue.NUMBER);
+							//result = updatePlan(((PlanData) adapter.getItem(index)).uId);
+							// ADD NEW PLAN
+							Intent intent = new Intent();
+							intent.putExtra(MyStaticValue.MODE, MyStaticValue.MODE_UPDATE);
+							intent.putExtra(MyStaticValue.NUMBER, index);
+							
+							startActivityForResult(intent.setClass(getApplicationContext(), PlanEditorActivity.class), MyStaticValue.REQUESTCODE_UPDATEPLAN);
+						}
+
 					}
 				}
 				break;
