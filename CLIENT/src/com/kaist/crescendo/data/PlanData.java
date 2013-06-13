@@ -60,6 +60,13 @@ public class PlanData {
 		@Override
 		public int compare(HistoryData lhs, HistoryData rhs) {
 			// TODO Auto-generated method stub
+		    int left = Integer.parseInt(lhs.date.toString().replace("-", ""));
+		    int right = Integer.parseInt(rhs.date.toString().replace("-", ""));
+		    
+		    if(left < right)
+		        return 1;
+		    if(right > right)
+		        return -1;
 			return 0;
 		}
 	};
