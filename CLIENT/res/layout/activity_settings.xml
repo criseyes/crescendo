@@ -44,7 +44,7 @@
 	
 	
 	<Button
-	    android:id="@+id/setttings_changepw"
+	    android:id="@+id/settings_changepw"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_margin="@dimen/activity_vertical_margin"
@@ -62,7 +62,15 @@
 	    android:text="@string/str_settings_help"
 	    android:gravity="start"
 	    android:textAppearance="?android:attr/textAppearance" />
-
-
+	
+	<Button
+	    android:id="@+id/settings_logout"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_margin="@dimen/activity_vertical_margin"
+	    android:background="@android:color/transparent"
+	    android:text="@string/str_settings_logout"
+	    android:gravity="start"
+	    android:textAppearance="?android:attr/textAppearance" />
 
 </LinearLayout>
