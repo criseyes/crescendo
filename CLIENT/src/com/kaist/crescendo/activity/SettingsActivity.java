@@ -108,8 +108,15 @@ public class SettingsActivity extends UpdateActivity {
 			public void onClick(DialogInterface dialog, int which) {
 				// 'YES'
 				saveSessionStatus(false);
-				moveTaskToBack(true);
-			    finish();
+				//moveTaskToBack(true);
+				Intent intent = new Intent();
+				/*
+				 *  TODO if failed, you should insert "false" not "true"
+				 */
+				intent.putExtra("success", true);
+				setResult(RESULT_OK, intent); 
+				finish();
+				
 			    android.os.Process.killProcess(android.os.Process.myPid());		
 				} }).setNegativeButton("√Îº“",
 						new DialogInterface.OnClickListener() 

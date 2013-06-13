@@ -21,6 +21,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kaist.crescendo.R;
@@ -219,7 +220,9 @@ public class MainActivity extends UpdateActivity {
 	           			break;
 	           		case R.id.main_manage_settings:
 	           			intent.setClass(getApplicationContext(), SettingsActivity.class);
-	           			break;
+	           			startActivityForResult(intent, MyStaticValue.REQUESTCODE_LOGOUT);
+	           			return;
+	           			
 	           		case R.id.main_manage_widget:	
 	           			prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
 	           			planUid = prefs.getInt(MyPref.MY_AVATA_UID, 0);
@@ -246,6 +249,20 @@ public class MainActivity extends UpdateActivity {
 	           startActivity(intent);
 	      }
 	};
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		switch(requestCode){
+		case MyStaticValue.REQUESTCODE_LOGOUT: 
+			if(resultCode == RESULT_OK){ 
+				//moveTaskToBack(true);
+				finish();
+			}
+		}
+		
+	}
 	
 	
 

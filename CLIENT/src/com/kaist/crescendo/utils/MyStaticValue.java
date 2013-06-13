@@ -32,6 +32,7 @@ public class MyStaticValue {
 	public static final int REQUESTCODE_UPDATEPLAN = 1002;
 	public static final int REQUESTCODE_ADDNEWFRIEND = 1003;
 	public static final int REQUESTCODE_VIEWPLAN = 1004;
+	public static final int REQUESTCODE_LOGOUT = 1005;
 	
 	public static final int REQUESTCODE_GETAVATAIMAGE = 1050;
 	

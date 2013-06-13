@@ -137,7 +137,7 @@ public class EntranceActivity extends UpdateActivity {
 					((EditText) findViewById(R.id.editPW)).setText("");
 				}
 			}
-	}
+		}
 		
 	}
 }
