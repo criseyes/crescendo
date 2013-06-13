@@ -96,7 +96,7 @@ public class StarWallpaper extends WallpaperService {
  		myAvataName = prefs.getString(MyPref.MY_AVATA_NAME, "");
  		friendAvataName = prefs.getString(MyPref.FRIEND_AVATA_NAME, "");
  		
-ava 		Log.d("loadSettings", friendAvataName + myAvataName + myAvataType + friendAvataType + isFriendEnabled +  isAvataEnabled + "progress" + myAvataProgress);
+ 		Log.d("loadSettings", friendAvataName + myAvataName + myAvataType + friendAvataType + isFriendEnabled +  isAvataEnabled + "progress" + myAvataProgress);
  	
  	}
  	
