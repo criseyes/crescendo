@@ -21,7 +21,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.kaist.crescendo.R;
@@ -107,7 +106,7 @@ public class MainActivity extends UpdateActivity {
 		List<ActivityManager.RunningServiceInfo> info;
 		info = am.getRunningServices(Integer.MAX_VALUE);
 		
-		for(Iterator iterator = info.iterator(); iterator.hasNext(); ) {
+		for(Iterator<RunningServiceInfo> iterator = info.iterator(); iterator.hasNext(); ) {
 			RunningServiceInfo runningTaskInfo = (RunningServiceInfo) iterator.next();
 			Log.i(TAG, "Service name : " + runningTaskInfo.service.getClassName());
 			if(runningTaskInfo.service.getClassName().equals("com.kaist.crescendo.alarm.AlarmService")) {
