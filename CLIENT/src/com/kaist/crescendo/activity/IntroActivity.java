@@ -79,7 +79,7 @@ public class IntroActivity extends Activity {
 		ImageView img = (ImageView)findViewById(R.id.imageanimation);
 		AnimationDrawable frameAnimation =    (AnimationDrawable)img.getDrawable();
 		frameAnimation.setCallback(img);
-		frameAnimation.setVisible(true, true);
+		frameAnimation.setVisible(true, false);
 		frameAnimation.start();
 	}
 }
