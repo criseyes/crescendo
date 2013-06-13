@@ -79,7 +79,7 @@ public class SettingsActivity extends UpdateActivity {
            			break;
            }
 			//editor.commit();
-			editor.apply();
+			editor.commit();
 			sendBroadCasetIntent();
 		}
 		
