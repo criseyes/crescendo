@@ -96,7 +96,7 @@ public class StarWallpaper extends WallpaperService {
  		myAvataName = prefs.getString(MyPref.MY_AVATA_NAME, "");
  		friendAvataName = prefs.getString(MyPref.FRIEND_AVATA_NAME, "");
  		
- 		Log.d("loadSettings", friendAvataName + myAvataName + myAvataType + friendAvataType + isFriendEnabled +  isAvataEnabled + "progress" + myAvataProgress);
+ava 		Log.d("loadSettings", friendAvataName + myAvataName + myAvataType + friendAvataType + isFriendEnabled +  isAvataEnabled + "progress" + myAvataProgress);
  	
  	}
  	
@@ -304,12 +304,12 @@ public MyThread(SurfaceHolder holder, Context context, Context appContext) {
 //       for (int i = 1; i <= 50; i++)  //최초의 별의 갯수
 //            stars.add(new Star());
         
-       if(isFriendEnabled == true && myAvataType != 0 )
+       if(isFriendEnabled == true && friendAvataType != 0 )
        {
     	   avatas.add(new MyAvata3(mContext, appContext, friendAvataType, friendAvataName, false, myAvataProgress ));
        }
        
-       if(isAvataEnabled == true && friendAvataType != 0)
+       if(isAvataEnabled == true && myAvataType != 0)
        {
     	   avatas.add(new MyAvata3(mContext, appContext, myAvataType, myAvataName, true, myAvataProgress));
        }
