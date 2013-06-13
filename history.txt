@@ -1,0 +1,1180 @@
+commit a3fd54ce65628ea7067c886c5a453c836be08f79
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 20:57:35 2013 +0900
+
+    update
+
+commit f76069182f90abdb300cf18c8c386341c9301ea0
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 20:41:01 2013 +0900
+
+    update livewallpaper and icon
+
+commit 6a48053d99e2a93244e7fd948c903daf37054070
+Merge: 644097e c33f766
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 18:24:30 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 644097eb28437650eb0477791cf66e05153bed3c
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 18:23:23 2013 +0900
+
+    change seq
+
+commit c33f76651660dc9cf4ebff31df95ad7fb291340e
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu Jun 13 18:22:39 2013 +0900
+
+    chanage image again -hyewon.eum
+
+commit 6224e2ded55e0a2eb88b83dd6139c824312f8342
+Merge: 6006fc8 028ef46
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu Jun 13 18:22:18 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 6006fc8d23b9fb1e6e04fdaaed72391bfd4a6cb4
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu Jun 13 18:20:38 2013 +0900
+
+    change avatar image - hyewon.eum
+
+commit 028ef469c06fd4969b0b94d7137f747c1bd733d6
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 18:12:57 2013 +0900
+
+    change layout
+
+commit d984bd04126c81c8f8a6c024717eb5344b058837
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 17:57:11 2013 +0900
+
+    remove hard coding
+
+commit d54651292fe2c8f772a47eda4cb88c8dcbb282ad
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 17:54:41 2013 +0900
+
+    remove debug
+
+commit 36ab475555f2ef0304e8ba47e8a17e9420d8e444
+Merge: 4ce7e71 7e38ec8
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu Jun 13 17:52:34 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 4ce7e71e7cbd1529b6eb19bb6cede5133a43e91a
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu Jun 13 17:52:02 2013 +0900
+
+    change background images - hyewon.eum
+
+commit 7e38ec84d014a3cb4ab353f5fc0e5942c9f198f4
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 17:37:23 2013 +0900
+
+    update icon
+
+commit fcc120454327042bc7a731dc20105b27544e0e2e
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 16:52:48 2013 +0900
+
+    fix bug
+
+commit 45c090052b1267c80f8b5e007c144046f74d7d17
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 16:30:07 2013 +0900
+
+    change wallpaper
+
+commit afaf8a727f0c7c8a33decb1afe05f2e0bbb5ef53
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 13:51:55 2013 +0900
+
+    change icon
+
+commit 82e79f7b8374995f9c0fcd1c9f034e13ab3fac0a
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 13:45:42 2013 +0900
+
+    logout
+
+commit 41d42894376a726a2fc8d436bb2655e0dfd2a35e
+Merge: ef468dd 90cba1a
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 13:34:21 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 90cba1ab9f146ce645b47953edaed8a4f4e428ae
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu Jun 13 13:33:59 2013 +0900
+
+    fix avatar -hyewon.eum
+
+commit ef468ddf5532b396df65216ad55f3747a79b6c4a
+Merge: 80b0070 42cb749
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 13:22:56 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 80b007085c197e863c61d4c90c843b1a20a07dad
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 13 13:22:47 2013 +0900
+
+    test
+
+commit 42cb749c361ce68fe6b99beb012a0d040e21493c
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu Jun 13 02:50:54 2013 +0900
+
+    fix all bug about alarm service when re-install app again - hyewon.eum
+
+commit a20182f0689441e1d2b3553700f775fd8847bc90
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu Jun 13 01:35:42 2013 +0900
+
+    fix alarm bug - hyewon.eum
+
+commit 8521e62531911b959e201b54b1a4005cedd87bf9
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 12 21:54:49 2013 +0900
+
+    add network error message - hyewon.eum
+
+commit a78ca48407b8e5f4dfdd7163c547aa94b3c98119
+Merge: 9ffaab0 cb54a88
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 12 19:28:03 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 9ffaab054e4a056d3347f569dc7a9fbde3b7efcb
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 12 19:27:39 2013 +0900
+
+    change avatar image - hyewon.eum
+
+commit cb54a88f058cdaf69945050ec2087fb24147c61f
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 19:05:03 2013 +0900
+
+    change string
+
+commit 2f943a4a5b8df264588579f45d92ad6743608f25
+Merge: 6c9d524 5bd1056
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 19:01:39 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 6c9d5244e44d224a6281e117e6aba65f62521020
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 19:01:22 2013 +0900
+
+    update friend list
+
+commit 5bd1056cb2eef02b84609f58343bb0852ce949f5
+Merge: 12ce3a3 9bb6d21
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 12 18:55:57 2013 +0900
+
+    fix conflict file - hyewon.eum:
+
+commit 12ce3a36b8dfe4f6cf5f873cca2298ad46aaa2dc
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 12 18:53:55 2013 +0900
+
+    fix reciever - hyewon.eum
+
+commit 9bb6d2146a45282b40990721981b58cdd9eb16ba
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 18:09:42 2013 +0900
+
+    remove warning
+
+commit ec912d1678a8be55b62b094b3f1bf368c6e5bc3b
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 17:40:25 2013 +0900
+
+    remove warning
+
+commit 05e0876cd1bc8bbddaa3766056ec37f59abd7b32
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 17:08:21 2013 +0900
+
+    chage backg image
+
+commit 20fd58cb2897e9b150fffc393877df1a50c01b01
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 15:41:40 2013 +0900
+
+    update friends list
+
+commit e3daef72c8d707f7df60516e88092c09da5fefde
+Merge: fa9f879 f814988
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 12 14:45:41 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit fa9f879e4e5e4f8bc0ffa47479f4cefc2d7c7455
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 12 14:45:18 2013 +0900
+
+    add validation check for alarm - hyewon.eum
+
+commit f814988c9325fd70ac5e55daeead9db3c3fe7c0b
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 14:43:27 2013 +0900
+
+    update
+
+commit e6fbb317476815ec05e1f17135eb8e974daff5dc
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 13:51:59 2013 +0900
+
+    use real socket
+
+commit 7b97e19d8959010f4e276a1dececcef7fffec819
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 13:42:15 2013 +0900
+
+    orientation
+
+commit 0ab65be243051d28442a24fc9ca1f4eb0d650900
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 12:49:45 2013 +0900
+
+    add view plan
+
+commit 33b1620d6d3746c053ad1fbcdda51c61bd1abea7
+Merge: 29c0dc0 b6cbb70
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 12:41:19 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 29c0dc038ca398c098181d168f14e4f3dd08c985
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 12:41:10 2013 +0900
+
+    add view plan
+
+commit b6cbb7069b80f6e690bc79af997d749e476c71a2
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 12 12:26:03 2013 +0900
+
+    fix db while loop error - hyewon.eum
+
+commit 5a1b2a24bd16641700ac1345ed7b55463de38c6b
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 11:23:59 2013 +0900
+
+    remove
+
+commit 7742845e3cc2fcd9765d0857deebfe9749c60532
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 11:08:43 2013 +0900
+
+    change input type
+
+commit bb578999a6e15b03b282cc05cb0f8e542b4b6089
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 12 11:01:17 2013 +0900
+
+    remove resource
+
+commit ab3d85c3f60da46055c793faa16695f6122daef3
+Merge: 15e49b1 2ff669b
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 12 10:50:29 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 15e49b19900758c2c13c1a141123b7e2c90f1c29
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 12 10:40:22 2013 +0900
+
+    implement alarm DB - hyewon.eum
+
+commit 2ff669baed89faf7286a6341831ca588270a4a4b
+Merge: c7912df 1c3d596
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 11 22:23:33 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit c7912dff3ee6ef4b297d04c02a165be4ccc4f489
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 11 22:23:05 2013 +0900
+
+    add plan type
+
+commit 1c3d5963e4fdc1f268c7e2494a8e9b45f475e611
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 11 22:19:37 2013 +0900
+
+    implement all api for network - hyewon.eum
+
+commit b4b5b64045daa16736f73b863d6f158028645bcf
+Merge: fced920 26c9bca
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 11 21:48:39 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit fced92002b5d15259e594be53a2bf51e9b36dbd8
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 11 21:48:11 2013 +0900
+
+    change cmd - hyewon.eum
+
+commit 26c9bcaa14b0cab38ef47f35b5a450fb943687cb
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 11 21:32:23 2013 +0900
+
+    update wallpaper
+
+commit 484d94aca8bfa82465ee982e10700363e6404cfb
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 11 21:13:15 2013 +0900
+
+    add InputActivity - hyewon.eum
+
+commit ca9b892f102f1893068aeebca2e8ac8ff7154255
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 11 19:40:13 2013 +0900
+
+    implement alarm service - hyewon.eum
+
+commit 62fe1273497336d4a5941e12356652d13870f008
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 11 19:37:41 2013 +0900
+
+    remove useless resource
+
+commit c5790e3c5135b84141b557b6c01d3d92dd8b2571
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 11 19:29:01 2013 +0900
+
+    many
+
+commit ffd80705cd67520ed4d09506f4df391e1c01dbd1
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 11 16:23:34 2013 +0900
+
+    change font
+
+commit cc98a9ab72d26e5b51b01a944b0ac2d74cebbcdb
+Merge: 4097d86 6d0e66f
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 11 16:00:50 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 4097d867993f324ee83b6c827e2d770c4064e14c
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 11 15:59:27 2013 +0900
+
+    fix  alram service error -hyewon.eum
+
+commit 6d0e66fd88cf6ad2a9e28aef4eb6eebf8ee915ac
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 11 15:45:02 2013 +0900
+
+    change logo and plan edit
+
+commit 90622f9269d2e86cca303bb5eff6f5360be5fdc6
+Merge: 4c03578 14786c6
+Author: HeeSeo <heeseo@dogok-73-251.kaist.ac.kr>
+Date:   Tue Jun 11 05:52:20 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 4c03578f6c3cf45865c6eacf54b1bc4331d700d9
+Author: HeeSeo <heeseo@dogok-73-251.kaist.ac.kr>
+Date:   Tue Jun 11 05:51:59 2013 +0900
+
+    SERVER: Add features to add/delete/get/update plan
+
+commit 14786c6533dfd371e27fca7e41e3f328022d8989
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 11 01:39:39 2013 +0900
+
+    implement all interface about alarm service - hyewon.eum
+
+commit 02c8d2e77a02cf5364700e067608a0d08e9dc472
+Merge: 1fbaabe 79a7b6b
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 11 00:19:41 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 1fbaabefa462acbb4f5bf0d537dcf4426be83c4b
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 11 00:19:27 2013 +0900
+
+    fixed
+
+commit 79a7b6b5129238847691277495d322574caba2c6
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 11 00:09:18 2013 +0900
+
+    press back key twice when finishing app - hyewon.eum
+
+commit f8369716442b0c810da455440f6fdfef9acc9a87
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Mon Jun 10 23:57:13 2013 +0900
+
+    add alarm editor in plan
+
+commit ff05360570dd30e8af211b7e19e1bfae65e77b96
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Mon Jun 10 23:44:39 2013 +0900
+
+    implement AlarmService interface - hyewon.eum
+
+commit 65df30f0b28a0379d784effdc31c3416a399fa8e
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Mon Jun 10 23:14:10 2013 +0900
+
+    implementing alarm service - hyewon.eum
+
+commit 7aed70a77685bc2d571a02c8cf812dd74f562a7a
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Mon Jun 10 22:39:18 2013 +0900
+
+    fix msg body for userId - hyewon.eum
+
+commit 6e640de59d02b88b173a39f712b5571eab35d2b9
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Mon Jun 10 18:16:23 2013 +0900
+
+    implement file emulator for plan - hyewon.eum
+
+commit aee588f919c6ec4cae77e4ac5d913ad32fb4225e
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Mon Jun 10 17:24:21 2013 +0900
+
+    implement file emulator for some functions - hyewon.eum
+
+commit 9662bef3d2d066684f21651f257df4cbc494b6c1
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Sun Jun 9 23:23:05 2013 +0900
+
+    add face image for facedector - hyewon.eum
+
+commit 478f5edfa6297dc6986d68e6fe4516c29b8b68fa
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Sun Jun 9 23:16:24 2013 +0900
+
+    add face image for facedector - hyewon.eum
+
+commit 167c9eee8c69f6fb41d9e10e48f95b3e8d834788
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Sun Jun 9 22:22:13 2013 +0900
+
+    change the shape of face image - hyewon.eum
+
+commit 40c6f71b5aeb503912f2c478d4f1ea21cc4fb761
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sun Jun 9 20:56:06 2013 +0900
+
+    final
+
+commit 22cf12b014970438e8f2322dec11f0379448967b
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Sun Jun 9 17:00:32 2013 +0900
+
+    edit enter and regiter view - hyewon.eum
+
+commit 8a18f689070e3a4ea650c076fa2be2df2ec4ab7f
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Sun Jun 9 15:11:43 2013 +0900
+
+    fix boundary error of facedector - hyewon.eum
+
+commit 69b433b2bbfbfe876ba4312220b4c4664c13b307
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Sun Jun 9 13:15:50 2013 +0900
+
+    implement facedector as AsyncTask - hyewon.eum
+
+commit 3c48c69f35956e573f139db45fcc32191584d71a
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sat Jun 8 23:15:03 2013 +0900
+
+    real final
+
+commit 6d93252b904257294dc20cab182cbe838862224b
+Merge: 97a71a0 91f4438
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sat Jun 8 22:28:10 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 97a71a043bd6ca063d8136504bb975399e634233
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sat Jun 8 22:27:53 2013 +0900
+
+    final
+
+commit 91f44386348fea616a6f5e068e9a16558ee8435b
+Merge: a3a9faa e287ede
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Sat Jun 8 22:20:52 2013 +0900
+
+    fix conflict files - hyewon.eum
+
+commit a3a9faae8f6b39341f23ab7dd30daddf37e97b22
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Sat Jun 8 22:18:46 2013 +0900
+
+    implement face dectector - hyewon.eum
+
+commit e287ede8239108c0e5ea82be44bcf4be257479a3
+Author: HeeSeo <heeseo@dogok-73-251.kaist.ac.kr>
+Date:   Sat Jun 8 22:04:13 2013 +0900
+
+    Server:Add the feature to use database and exchange data between server and client
+
+commit 1d2b3d70e9f27d32465800dacd4bf3958c982d4b
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sat Jun 8 20:28:33 2013 +0900
+
+    sync live wallpaper
+
+commit b9a97cd7f77a13bb8503696eef142aa7a7b65ef5
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sat Jun 8 19:04:25 2013 +0900
+
+    setting
+
+commit d73f4385ee1a8c6b31cbe2116819fb2b049aabd8
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sat Jun 8 18:38:01 2013 +0900
+
+    update
+
+commit 4f4947d664bcb6b963f416ef22f35e06662962c5
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sat Jun 8 18:24:19 2013 +0900
+
+    bug fix
+
+commit 17fa02e6ffbba55f4c6fa39eb78f3615bbba739f
+Merge: e112a01 634a090
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sat Jun 8 18:19:28 2013 +0900
+
+    resolve conflict
+
+commit e112a01e75f3b63e31274f58b33d30e396c51c41
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sat Jun 8 18:17:06 2013 +0900
+
+    setting widget
+
+commit 634a090dffa04cab846d7a83a97f6301d6e1dfec
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Sat Jun 8 18:01:08 2013 +0900
+
+    implement help activity - hyewon.eum
+
+commit f39d9103dc70db1e1a55ed01cfd378f9bd2ea83c
+Merge: d0a1e5b d18b460
+Author: HeeSeo <heeseo@dogok-73-251.kaist.ac.kr>
+Date:   Sat Jun 8 18:00:06 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit d0a1e5bc25e1e25f79622f72644a1b322c77938b
+Author: HeeSeo <heeseo@dogok-73-251.kaist.ac.kr>
+Date:   Sat Jun 8 17:59:37 2013 +0900
+
+    Add the code to send and receive data between Server and Client
+
+commit d18b4602039e9af41e6f14bb42ba6434dfe06e1e
+Merge: 685a820 7e7f44c
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Sat Jun 8 15:26:11 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 685a820962057073addf85d08b5020f8a8729793
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Sat Jun 8 15:25:36 2013 +0900
+
+    implement changing password and helps - hyewon.eum
+
+commit 7e7f44cc30235c0db827c3fc06fb6a1d0801bae2
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sat Jun 8 12:15:41 2013 +0900
+
+    communication between app and wallpaper
+
+commit 5a80167e4a34416cdfbcaa06950670fc9a0ba431
+Merge: ca8c2e4 1341661
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri Jun 7 21:06:35 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit ca8c2e4fc6195583c2171aa3f427b9a9399eeec3
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri Jun 7 21:06:09 2013 +0900
+
+    background
+
+commit 1341661ecf9a49b525db0f23cadd241c8294a0d0
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Fri Jun 7 20:45:50 2013 +0900
+
+    fix essence chart -hyewon.eum
+
+commit a08e220b98b3e46f88e38ee96195557860af0cf7
+Merge: aeb9c4d 7e29458
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Fri Jun 7 20:30:07 2013 +0900
+
+    fix conflict error -hyewon.eum
+
+commit aeb9c4d00bd9b8e48ef077656b7627174de7cfb6
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Fri Jun 7 20:27:40 2013 +0900
+
+    add essence chart -hyewon.eum
+
+commit 7e294580ca04235743ed67cc4a2c9e6666c93183
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri Jun 7 20:27:20 2013 +0900
+
+    avata
+
+commit 1301744e6579394bc0ac83f5d63d2af99a30dbea
+Merge: a153ec1 bd4a0b0
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri Jun 7 20:16:13 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit a153ec15b8fc3169ecbc3211bec3e7ddf95150fe
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri Jun 7 20:15:40 2013 +0900
+
+    plan2
+
+commit bd4a0b0c7e312842f1a756f5ddb8998ae71edd21
+Merge: 3782777 880ab0b
+Author: HeeSeo <heeseo@dogok-73-251.kaist.ac.kr>
+Date:   Fri Jun 7 19:48:51 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 378277761c7699d6fb5d3756a560fb855c6e2fb3
+Author: HeeSeo <heeseo@dogok-73-251.kaist.ac.kr>
+Date:   Fri Jun 7 19:47:35 2013 +0900
+
+    Because of construct's handler, new implementation of server is done
+
+commit 880ab0b0d4c607ec1d21c2af3a0029eacc5c4b4e
+Merge: 532d9ad 7b278f3
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri Jun 7 18:03:33 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 532d9ad958413de519478a7da3b38b718c3a9d78
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri Jun 7 18:03:16 2013 +0900
+
+    plan
+
+commit 7b278f32b057d94e5ce85ac797d3d4193f5e59e5
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Fri Jun 7 17:25:08 2013 +0900
+
+    edit default userId - hyewon.eum
+
+commit 562e63a2fce222a28dfe152695659196ddca2e7c
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Fri Jun 7 17:17:44 2013 +0900
+
+    edit scrollview - hyewon.eum
+
+commit 79e3b9580048d0eef035e8f3b924b05d7c722788
+Merge: f3ed6ef a1fa4b5
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri Jun 7 17:16:28 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit f3ed6ef1cbd970b2dc3872574abe8e18e85a7811
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri Jun 7 17:16:10 2013 +0900
+
+    plan list
+
+commit a1fa4b5abbb3ee00be1068b2b55df2c7f1a3e2fc
+Author: HeeSeo <heeseo@dogok-73-251.kaist.ac.kr>
+Date:   Fri Jun 7 16:59:31 2013 +0900
+
+    Server: Add function table and handler function base on MsgID
+
+commit 313cae90e3661c896768125ddd5b279a6bc7c0ae
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri Jun 7 15:31:24 2013 +0900
+
+    wallpaper
+
+commit 81ba5b1f97f36d67fdfe5b89e0b00289d7d289e8
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri Jun 7 12:21:42 2013 +0900
+
+    wallpaper
+
+commit 856cf6f482106aa260bd17955359b7193890ed7d
+Merge: 7dd6143 2105fd9
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 6 23:42:02 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 7dd6143065a98a6002ed8b58085b1decfe250adb
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu Jun 6 23:41:47 2013 +0900
+
+    live wallpaper'
+
+commit 2105fd9aea42e0fd372274d99488f636e69e6794
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu Jun 6 20:44:23 2013 +0900
+
+    implement test graph - hyewon.eum
+
+commit 85512611b89d3109ef98c391c3f207a1c8391338
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu Jun 6 18:13:52 2013 +0900
+
+    implement all plan funciton - hyewon.eum
+
+commit 88ffbe704b68ea169d7c9e89579599504b8a86a4
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu Jun 6 16:38:09 2013 +0900
+
+    implement all function related to friend - hyewon.eum
+
+commit 993dd8b968eacc659b8669fa26036be5b7f835af
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu Jun 6 15:26:52 2013 +0900
+
+    implement addNewFreind onemore - hyewon.eum
+
+commit 481f18881386b19074d04dc897348259ccf49c1b
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu Jun 6 15:19:38 2013 +0900
+
+    implement addNewFreind - hyewon.eum
+
+commit c986c474b881c8eb91bbeda58f27cd553b8eb231
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu Jun 6 12:53:55 2013 +0900
+
+    make friend emulator - hyewon.eum
+
+commit f3c390c6421e9339c391561efcacb4f15f691bf7
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 5 14:44:14 2013 +0900
+
+    implements some api for network - hyewon.eum
+
+commit d573426efdbc0feaeec467651954739de2a2d7e1
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 5 13:11:18 2013 +0900
+
+    add read socket code - hyewon.eum
+
+commit 7af8cb51b3d00d785ad15960264ffafe70ced676
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 5 12:59:57 2013 +0900
+
+    add socket code - hyewon.eum
+
+commit c0933f0b968eef695093f350dbdccd4d9bababde
+Merge: 1dabcaf ed701b1
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 5 12:02:41 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 1dabcaf0c0893a4fad7e8fe6b65531b71bc15472
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 5 12:02:12 2013 +0900
+
+    implement candidateactivity - hyewon.eum
+
+commit ed701b15421bcf0c9b9daf78606de827994e2936
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed Jun 5 11:20:04 2013 +0900
+
+    draw simple wallpaer icon
+
+commit 93ccc03e6b1c7b7f5098de1018b58f353e65db8a
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 5 00:53:03 2013 +0900
+
+    fix ComManager - hyewon.eum
+
+commit 4c2c9ca27713a602456ab1ae5546f7c3fb2a8a5d
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Wed Jun 5 00:48:10 2013 +0900
+
+    implement CommunicationInterface - hyewon.eum
+
+commit 7f839ec52854acc098e210221a57ba1f3abccfe2
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 4 21:49:29 2013 +0900
+
+    add plan register - hyewon.eum
+
+commit 6c42f5d1a959e1293e0acbb06c92a4e6618870fa
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 4 21:35:05 2013 +0900
+
+    init wallpaper2
+
+commit c2e0f919b91620b3329760a9ea704e60c444cfcb
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 4 21:14:40 2013 +0900
+
+    dummuy
+
+commit ccc3bbaebf7a8da5a633b3ad26788d6564f6912c
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 4 21:13:07 2013 +0900
+
+    init for live wallpaper
+
+commit c71ed732304dafafb7eba3a051206390cea328b3
+Merge: 37deaf6 e4a147b
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 4 21:09:17 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 37deaf615b7f3cf30f1eb19494849c73ecf4787f
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 4 21:08:54 2013 +0900
+
+    add method to get my ID3
+
+commit e4a147bc63377ba481ba871976ee75c47dd2b294
+Merge: 80c863a 18e3ad7
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 4 21:02:43 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit 18e3ad7f38bc72efc73516fa9d08f5cb32e358ce
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 4 21:02:17 2013 +0900
+
+    add method to get my ID2
+
+commit 80c863a28c048fda40ccc1ef51704431da4a0de0
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 4 21:02:07 2013 +0900
+
+    add register new plan - hyewon.eum
+
+commit 170e057affdc8dd294ca9e11369bddd01c0a3de5
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 4 20:57:59 2013 +0900
+
+    add method to get my ID
+
+commit 8d7ec68497195dfac4be5bbc3920d80a9aac6558
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 4 20:48:39 2013 +0900
+
+    fixed
+
+commit d3bcfbb7fa569391d7fe796cf0e1e48d9ef04b71
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 4 20:47:34 2013 +0900
+
+    update new plan
+
+commit 4fb14acc4b5717419e6af0e26f8d85b954752a30
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 4 19:03:09 2013 +0900
+
+    fixed jsnobject member error - hyewon.eum
+
+commit 3665a9ff72f03fa464b061db08c2a0bcfbd52447
+Merge: a318bdc 5a3b705
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 4 18:03:37 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit a318bdcfdbe9295a3aa70ea23dd6661bca489a73
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 4 18:03:08 2013 +0900
+
+    upload unloaded filed -hyewon.eum
+
+commit 5a3b705d0e5842a67672e78b0c49b3c6fb62f6b6
+Merge: bc5b56a ceff1fc
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 4 18:00:34 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit bc5b56aadd1b358888f4cef3da7d7e6ac06e48df
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue Jun 4 17:59:54 2013 +0900
+
+    update plan list
+
+commit ceff1fc950eeb9eb351df97c65b0ff471299cd27
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Tue Jun 4 17:59:04 2013 +0900
+
+    change msg format - hyewon.eum
+
+commit cb6258615d593b084f803314a49698d12a209d57
+Author: HeeSeo <heeseo@HeeSeoui-MacBook-Pro.local>
+Date:   Tue Jun 4 17:04:05 2013 +0900
+
+    The source code is used for server program as a python module
+
+commit ae24318392150d587dbaf1517ab7d8e4a18116f4
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Mon Jun 3 23:48:23 2013 +0900
+
+    add settings activity, change icon, change title,......
+
+commit 616c8dfefda6ec30ebb74393639394e89aa2b4f7
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sun Jun 2 23:37:49 2013 +0900
+
+    modify register and login UI seq.
+
+commit fc008cb95d3fd150bb61c1f3eee747d3d3414910
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sun Jun 2 23:05:01 2013 +0900
+
+    add date picker
+
+commit 32fb40dd371e6fd1d886932ba42cc865826927c6
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Sat Jun 1 22:28:04 2013 +0900
+
+    test done about login and register - hyewon.eum
+
+commit 0991938ddf80585e7af7fc7fdbff10c5ffdd93f0
+Merge: 54c0c37 15756f6
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Sat Jun 1 21:23:31 2013 +0900
+
+    fix conflict file -hyewon.eum
+
+commit 54c0c37a13e23ab41db709212d16548716dfc08b
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Sat Jun 1 21:19:30 2013 +0900
+
+    implemtn login and register using file - hyewon.eum
+
+commit 15756f62fc214a23a82d3a47ba5bed4e8aafcc76
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sat Jun 1 01:34:05 2013 +0900
+
+    sorting
+
+commit d271226d6c24fa054d94d87369c7b79c097a30c0
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Sat Jun 1 01:17:38 2013 +0900
+
+    list
+
+commit 9bb53175c9bf351205cf9ad61f7a45997f29894c
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri May 31 17:42:33 2013 +0900
+
+    button
+
+commit dafb47e42bf41aea488d3dfb75206f4356020015
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri May 31 16:02:51 2013 +0900
+
+    Add Plan list activity and Plan Editor
+
+commit fc358171e037da2662abfd47009ef96bde184825
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri May 31 16:02:36 2013 +0900
+
+    Add Plan list activity and Plan Editor
+
+commit 0e55399dfda963274471cda887e4b34bb8260d89
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri May 31 13:12:14 2013 +0900
+
+    3
+
+commit 4c99fbe73bb8f92341b64ed05386bad9aa519ea3
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri May 31 13:11:38 2013 +0900
+
+    2
+
+commit 21de178870913da3f981bb0a7fef88c6d01c24d4
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri May 31 13:10:45 2013 +0900
+
+    1
+
+commit 31676bf0c2bb0d36c6a3e7f68b642cd233629ee6
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Fri May 31 12:59:12 2013 +0900
+
+    implement JSONObject - hyewon.eum
+
+commit 862339fcef2a85c931d6c4d0d77424e073dac1d9
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri May 31 12:34:31 2013 +0900
+
+    fixed
+
+commit c9466875ddaea1ba23618bdb88bccdf6c46d4c19
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri May 31 12:11:47 2013 +0900
+
+    refacting the folder
+
+commit 4c35e12cd09b58cd1e845a11f636d0fd5ebbca07
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri May 31 12:05:03 2013 +0900
+
+    thx
+
+commit eacc9584c23de11c9b03c31f827fb07114f093c1
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Fri May 31 01:02:58 2013 +0900
+
+    change back ground image
+
+commit e6a83d290c2dcb054ec5f92142ce608b0282f5c7
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu May 30 17:09:43 2013 +0900
+
+    add background image by custom theme
+
+commit cd6d949a1942180b91b8e82d11e2d5c254ae3f20
+Merge: e123f47 c7df11f
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu May 30 13:47:18 2013 +0900
+
+    Merge branch 'master' of https://github.com/criseyes/crescendo
+
+commit e123f478c2f12de5d6018555e5d32bd661530da5
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Thu May 30 13:46:22 2013 +0900
+
+    change backgroud
+
+commit c7df11f30e3d286ef5e997d58faee33546a36e96
+Author: ehyewony <ehyewony@gmail.com>
+Date:   Thu May 30 13:46:08 2013 +0900
+
+    update updatemanager - hyewon.eum
+
+commit 9b8785e3d53d3e6702e7650ef07fdce50bb1c6d8
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed May 29 12:04:13 2013 +0900
+
+    good
+
+commit 0ab5585f4b4903f562256d42e9637ec1b8fad061
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed May 29 11:50:49 2013 +0900
+
+    change theme
+
+commit 7e9f08ac18ed2f7dac9e023426672ca9f021294c
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed May 29 00:41:31 2013 +0900
+
+    0528 final
+
+commit efbdd03bf7a63a5df5dbc17c5b267c8cd77409f3
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue May 28 21:58:10 2013 +0900
+
+    bug fixed
+
+commit cd412de5090121ca2d253f42810007c46a7872c6
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue May 28 21:54:42 2013 +0900
+
+    add activity seq2
+
+commit 743a02864b43f73fcb78d9a8bf70cec93f45e6c3
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue May 28 21:30:31 2013 +0900
+
+    add activity seq
+
+commit 0f2dd7eda07ade9d4266d956c44702c1f73c1696
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue May 28 17:58:54 2013 +0900
+
+    add intro animation, but it's not pretty good.
+
+commit 0ab0a004512d0cf418fca920bc8b6ebd8bd43e4b
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue May 28 17:06:44 2013 +0900
+
+    0528
+
+commit d3fe8b3da9223b5a7a7cbbb120c82b75dd2a7fa4
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue May 28 15:49:41 2013 +0900
+
+    update 0527
+
+commit 283e4b166a15f672ffa2fcac970512c388635e74
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Wed May 15 15:26:25 2013 +0900
+
+    add layout
+
+commit 49cbf74a292e1eef773769cf033b40705f3de14c
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue May 14 16:54:46 2013 +0900
+
+    add layout for main activity
+
+commit b9d14ef03de8b5ecc8259e521a133f26a38619eb
+Author: hyewon.eum <ehyewony@gmail.com>
+Date:   Tue May 14 14:09:08 2013 +0900
+
+    change git ignore file
+
+commit be83006e15e28d56f8efde7679c84b3571f048ac
+Author: LEE DONGJU <criseyes@gmail.com>
+Date:   Tue May 14 13:29:21 2013 +0900
+
+    initial commits
+
+commit 506d677d252b20095ce1163ebbd37cde3a84351a
+Author: criseyes <criseyes@gmail.com>
+Date:   Mon May 13 20:01:12 2013 -0700
+
+    Initial commit

@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="right"
-            android:hint="input plan name" >
+            android:hint="목표명을 입력하세요." >
 
             <requestFocus />
         </EditText>

@@ -31,11 +31,11 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="38dp"
 		     android:layout_weight="5"
+		     android:textIsSelectable="false"
 		    android:clickable="false"
 		    android:focusable="false"
 		    android:gravity="left|center_vertical"
 		    android:singleLine="true"
-		    android:text="title"
 		    android:textSize="8pt"
 		     />
 
@@ -44,11 +44,12 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="26dp"
 		    android:layout_weight="3"
+		     android:textIsSelectable="false"
 		    android:clickable="false"
 		    android:focusable="false"
 		    android:gravity="left|center_vertical"
 		    android:singleLine="true"
-		    android:text="time" />
+		     />
 
 	</LinearLayout>
 
