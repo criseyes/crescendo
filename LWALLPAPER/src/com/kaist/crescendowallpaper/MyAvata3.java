@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
-import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
@@ -355,6 +354,7 @@ public class MyAvata3 {
 
             // canvas.drawRoundRect(rect, 1, 1, paint);
             paint.setColor(Color.YELLOW);
+            paint.setStyle(Style.FILL);
             canvas.drawRect(rect, paint);
 
             // canvas.drawPaint(paint);
