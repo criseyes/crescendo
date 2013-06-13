@@ -228,7 +228,7 @@ public class MainActivity extends UpdateActivity {
 	           			planUid = prefs.getInt(MyPref.MY_AVATA_UID, 0);
 	           			if(planUid == 0)
 	           			{
-	           				Toast.makeText(getApplicationContext(), "Set default plan first", Toast.LENGTH_LONG).show();
+	           				Toast.makeText(getApplicationContext(), R.string.str_err_setdefaultplan, Toast.LENGTH_LONG).show();
 	           				return;
 	           			}
 	           			intent.setClass(getApplicationContext(), AvataEditorActivity.class);
@@ -238,7 +238,7 @@ public class MainActivity extends UpdateActivity {
 	           			planUid = prefs.getInt(MyPref.MY_AVATA_UID, 0);
 	           			if(planUid == 0)
 	           			{
-	           				Toast.makeText(getApplicationContext(), "Set default plan first", Toast.LENGTH_LONG).show();
+	           				Toast.makeText(getApplicationContext(), R.string.str_err_setdefaultplan, Toast.LENGTH_LONG).show();
 	           				return;
 	           			}
 	           			intent.setClass(getApplicationContext(), StatusActivity.class);
