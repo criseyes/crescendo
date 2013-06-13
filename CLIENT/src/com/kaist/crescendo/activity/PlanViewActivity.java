@@ -55,7 +55,10 @@ public class PlanViewActivity extends UpdateActivity {
 		{
 			PlanListAdapter adapter = PlanListActivity.getAdapterInstance();
 			index = getIntent().getExtras().getInt(MyStaticValue.NUMBER);
-			plan = (PlanData) adapter.getItem(index);
+			if(index < adapter.getCount())
+			    plan = (PlanData) adapter.getItem(index);
+			else
+			    finish();
 		}
 		else if(mode == MyStaticValue.MODE_FRIEND_VIEW)
 		{
