@@ -9,5 +9,5 @@
     <item android:drawable="@drawable/clogo011" android:duration="220"/>
     <item android:drawable="@drawable/clogo013" android:duration="220"/>
     <item android:drawable="@drawable/clogo015" android:duration="220"/>
-    <item android:drawable="@drawable/clogo017" android:duration="900"/>
+    <item android:drawable="@drawable/clogo017" android:duration="1500"/>
 </animation-list>

@@ -13,9 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.data.PlanData;
@@ -145,17 +145,17 @@ public class PlanListActivity extends UpdateActivity {
 			editor.putString(MyPref.MY_AVATA_TITLE, plan.title);
 		editor.commit();
 		
-		if(plan == null)
-			editor.putInt(MyPref.MY_AVATA_PROGRESS, 0);
+		int progress;
+		if(plan == null) {
+		    progress = 0;
+		}
 		else {
-			int progress;
-			
 			if(plan.hItem == null || plan.hItem.size() == 0)
 				progress = 0;
 			else
-				progress = (int) (100*(plan.targetValue - plan.hItem.get(plan.hItem.size()-1).value) / (plan.targetValue - plan.initValue));
-			editor.putInt(MyPref.MY_AVATA_PROGRESS, progress );
+				progress = (int) (100*Math.abs(plan.initValue - plan.hItem.get(plan.hItem.size()-1).value) / Math.abs(plan.targetValue - plan.initValue));
 		}
+		editor.putInt(MyPref.MY_AVATA_PROGRESS, progress );
 		editor.commit();
 		
 		
@@ -295,8 +295,7 @@ public class PlanListActivity extends UpdateActivity {
 						
 							adapter.notifyDataSetChanged();
 							PlanData defaultP =  adapter.getDefaultPlan();
-							if(defaultP != null)
-								updateDefaultPlan(defaultP);
+							updateDefaultPlan(defaultP);
 						}
 					}
 				}
