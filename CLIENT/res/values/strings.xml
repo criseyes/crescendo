@@ -66,6 +66,7 @@
     <string name="str_password_lenght">7자리 이상 입력해주세요.</string>
     <string name="str_finish_app">뒤로 버튼을 한번 더 누르시면 종료됩니다.</string>
     <string name="str_current_val">현재 측정값</string>
+    <string name="str_manage_friend">친구 관리</string>
     
     <string name="str_success">정상적으로 처리되었습니다.</string>
     <string name="str_duplicated_user">이미 등록된 아이디 입니다. 다른 아이디로 등록하세요</string>
@@ -77,6 +78,7 @@
     <string name="str_avattype">아바타 타입</string>
     <string name="str_avatimage">아바타 이미지</string>
     <string name="str_setAvata">바탕화면에 표시될 아바타를 지정합니다.</string>
+    <string name="str_setmyAvata">아바타로 지정</string>
     
     <string name="str_plantype_diet">다이어트</string>
     <string name="str_plantype_reading">독서</string>

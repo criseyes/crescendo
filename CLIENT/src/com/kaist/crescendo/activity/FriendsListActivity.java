@@ -3,6 +3,7 @@ package com.kaist.crescendo.activity;
 import java.util.ArrayList;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -17,6 +18,7 @@ import com.kaist.crescendo.R;
 import com.kaist.crescendo.data.FriendData;
 import com.kaist.crescendo.data.FriendListAdapter;
 import com.kaist.crescendo.data.PlanData;
+import com.kaist.crescendo.utils.MyPref;
 import com.kaist.crescendo.utils.MyStaticValue;
 
 public class FriendsListActivity extends UpdateActivity {
@@ -27,6 +29,7 @@ public class FriendsListActivity extends UpdateActivity {
 	
 	private final int MENU_ID_DELETE = Menu.FIRST;
 	private final int MENU_ID_CANCEL = Menu.FIRST + 1;
+	private final int MENU_ID_AVATA = Menu.FIRST + 2;
 	
 	public static PlanData getFriendsPlan(int friendIndex)
 	{
@@ -87,9 +90,10 @@ public class FriendsListActivity extends UpdateActivity {
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		
-		menu.setHeaderTitle(R.string.str_delete_friend);
+		menu.setHeaderTitle(R.string.str_manage_friend);
 		menu.add(0, MENU_ID_DELETE, Menu.NONE, R.string.str_delete);
 		menu.add(0, MENU_ID_CANCEL, Menu.NONE, R.string.str_cancel);
+		menu.add(0, MENU_ID_AVATA, Menu.NONE, R.string.str_setmyAvata);
 	}
 	
 	@Override
@@ -117,10 +121,76 @@ public class FriendsListActivity extends UpdateActivity {
 			}
 			
 			break;
+		case MENU_ID_AVATA:
+			menuInfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+			FriendData friend1 = (FriendData) adapter.getItem(menuInfo.position);
+			String ret1 = setAvata(friend1.id, friend1.plan.uId);
+			
+			if(ret1 == "good") {
+				ret = getFriendList(friendArrayList);
+				
+				if(ret.equals("good")) {
+					adapter.clearAllItems();
+					for(int i = 0; i < friendArrayList.size(); i++) {
+						adapter.addItem(friendArrayList.get(i));
+					}
+					adapter.notifyDataSetChanged();
+					updateAvataFriend(adapter.getAvataFriend());
+					
+				}
+			}
+			break;
 		case MENU_ID_CANCEL:
 			break;
 		}
 		return true;
+	}
+	
+	private void updateAvataFriend(FriendData friend)
+	{
+		/* save info. to preference */
+		
+		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
+		SharedPreferences.Editor editor = prefs.edit();
+		
+		if(friend == null)
+			editor.putInt(MyPref.FRIEND_AVATA_UID, 0);
+		else
+			editor.putInt(MyPref.FRIEND_AVATA_UID, friend.plan.uId); /* none */
+		editor.commit();
+		
+		if(friend == null)
+			editor.putInt(MyPref.FRIEND_AVATA_TYPE, 0);
+		else
+			editor.putInt(MyPref.FRIEND_AVATA_TYPE, friend.plan.type);
+		editor.commit();
+		
+		if(friend == null)
+			editor.putString(MyPref.FRIEND_AVATA_NAME, "");
+		else
+			editor.putString(MyPref.FRIEND_AVATA_NAME, friend.plan.title);
+		editor.commit();
+		
+		if(friend == null)
+			editor.putInt(MyPref.MY_AVATA_PROGRESS, 0);
+		else {
+			int progress = 0;
+			
+
+			editor.putInt(MyPref.MY_AVATA_PROGRESS, progress );
+		}
+		editor.commit();
+		
+		
+		sendBroadCasetIntent();
+		adapter.notifyDataSetChanged();
+	}
+	
+	private void sendBroadCasetIntent()
+	{
+		Intent intent = new Intent(MyStaticValue.ACTION_UPDATEWALLPAPER);
+
+		sendBroadcast(intent);
 	}
 	
 	OnItemClickListener mListClickListener = new OnItemClickListener() {

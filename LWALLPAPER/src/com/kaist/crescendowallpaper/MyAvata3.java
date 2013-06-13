@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
+import android.app.Activity;
 import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
@@ -267,7 +268,7 @@ public class MyAvata3 {
 		{
 			if(isStickyMode == true || waitToStickyMode > 0) {
 				isStickyMode = true;
-				setPosition((int) event.getX()-80, (int) event.getY()-90);
+				setPosition((int) event.getX()-80, (int) event.getY()-120);
 				return true;
 			}
 			else 
@@ -316,14 +317,17 @@ public class MyAvata3 {
 		return false;
 	}
 	
-	private void wowDoubleTap()
+	private void wowDoubleTap() 
 	{
-		Intent intent = new Intent();
-		intent.setAction("android.intent.action.callcrescendo");
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+//		Intent intent = new Intent();
+//		intent.setAction("android.intent.action.callcrescendo");
+//		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+//		
+//		mContext.startActivity(intent );
 		
+		Intent intent = mContext.getPackageManager().getLaunchIntentForPackage("com.kaist.crescendo");
+		intent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		mContext.startActivity(intent );
-		
 	}
 
 	/* to get the user's double tap event */

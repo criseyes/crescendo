@@ -48,7 +48,7 @@ public class StarWallpaper extends WallpaperService {
           super.onCreate();
           /* just for debugging wait to sync*/
           /* TODO should remove before commercial release */
-          //android.os.Debug.waitForDebugger();
+          android.os.Debug.waitForDebugger();
           
           try {
 			mCrescendo = createPackageContext("com.kaist.crescendo", Context.MODE_PRIVATE);
@@ -290,12 +290,12 @@ public MyThread(SurfaceHolder holder, Context context, Context appContext) {
        
        //imgBack = Bitmap.createScaledBitmap(imgBack, (int) (Height * 1.2), (int) (Height * 1.2), true);
        
-       if(myAvataType == PLANTYPE_DIET || /* test */ myAvataType == 0)
+       if(myAvataType == PLANTYPE_DIET)
     	   imgBack = BitmapFactory.decodeResource(context.getResources(), R.drawable.diet_col);
        else if(myAvataType == PLANTYPE_READING_BOOK)
     	   imgBack = BitmapFactory.decodeResource(context.getResources(), R.drawable.reading_col);
        else
-    	   imgBack = ((BitmapDrawable) getWallpaper()).getBitmap();
+    	   imgBack = BitmapFactory.decodeResource(context.getResources(), R.drawable.diet_col);
        imgBack = Bitmap.createScaledBitmap(imgBack, (int) Width, (int) Height, true);
       
        //bx = by = (int) (Height * 0.6);      // 이미지 중심
@@ -303,14 +303,13 @@ public MyThread(SurfaceHolder holder, Context context, Context appContext) {
        
 //       for (int i = 1; i <= 50; i++)  //최초의 별의 갯수
 //            stars.add(new Star());
-       
-       
-       if(isFriendEnabled == true)
+        
+       if(isFriendEnabled == true && myAvataType != 0 )
        {
     	   avatas.add(new MyAvata3(mContext, appContext, friendAvataType, friendAvataName, false, myAvataProgress ));
        }
        
-       if(isAvataEnabled == true)
+       if(isAvataEnabled == true && friendAvataType != 0)
        {
     	   avatas.add(new MyAvata3(mContext, appContext, myAvataType, myAvataName, true, myAvataProgress));
        }

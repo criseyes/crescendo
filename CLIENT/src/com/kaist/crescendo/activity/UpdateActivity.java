@@ -194,6 +194,20 @@ public class UpdateActivity extends Activity {
 		}
 		return result;
 	}
+	
+	protected String setAvata(String friendId, int planUId) {
+		String result = new String();
+		int ret = -1;
+		
+		/* 
+		 *  TODO 
+		 */
+				
+		if(ret == 0) {
+			result = "good";
+		}
+		return result;
+	}
 
 	protected boolean changePassword(String curPassword, String newPassword) {
 		boolean result = false;
