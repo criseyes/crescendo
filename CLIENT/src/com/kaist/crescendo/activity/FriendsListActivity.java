@@ -124,7 +124,7 @@ public class FriendsListActivity extends UpdateActivity {
 		case MENU_ID_AVATA:
 			menuInfo = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
 			FriendData friend1 = (FriendData) adapter.getItem(menuInfo.position);
-			String ret1 = setAvata(friend1.id, friend1.plan.uId);
+			String ret1 = setAvata(friend1.id);
 			
 			if(ret1 == "good") {
 				ret = getFriendList(friendArrayList);

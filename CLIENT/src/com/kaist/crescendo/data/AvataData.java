@@ -17,5 +17,5 @@ public class AvataData {
 		this.planUId = planUId;
 		this.img = img;
 		this.isEnabled = isEnabled;
-	}
+	}	
 }

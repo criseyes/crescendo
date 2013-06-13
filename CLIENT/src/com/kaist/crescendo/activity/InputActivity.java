@@ -56,7 +56,7 @@ public class InputActivity extends UpdateActivity {
 				Date date = calendar.getTime();
 				SimpleDateFormat Formatter = new SimpleDateFormat("yyyy-MM-dd");
 				EditText value = (EditText) findViewById(R.id.enterVal);
-				boolean ret = setHisData(Formatter.format(date), Integer.parseInt(value.getText().toString()));
+				boolean ret = setHisData(planId, Formatter.format(date), Integer.parseInt(value.getText().toString()));
 				if(ret) {
 					finish();
 				}

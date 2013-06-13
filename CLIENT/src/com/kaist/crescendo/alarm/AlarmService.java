@@ -2,12 +2,10 @@ package com.kaist.crescendo.alarm;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import com.kaist.crescendo.activity.InputActivity;
 
-import android.R.integer;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -125,6 +123,8 @@ public class AlarmService extends Service {
 		}
 		
 		c.close();
+		
+		Log.v(TAG, "planId: " + planId + "is alarm valid ?" + (isOK?"yes":"no"));
 		
 		return result;
 	}

@@ -185,30 +185,24 @@ public class UpdateActivity extends Activity {
 		String result = new String();
 		int ret = -1;
 		
-		/* 
-		 *  TODO 
-		 */
-				
 		if(ret == 0) {
 			result = "good";
 		}
 		return result;
 	}
 	
-	protected String setAvata(String friendId, int planUId) {
+	protected String setAvata(String userId) {
 		String result = new String();
 		int ret = -1;
 		
-		/* 
-		 *  TODO 
-		 */
-				
+		ret = mManager.setAvataFriend(mContext, userId);
+		
 		if(ret == 0) {
 			result = "good";
 		}
 		return result;
-	}
-
+	}	
+	
 	protected boolean changePassword(String curPassword, String newPassword) {
 		boolean result = false;
 		int ret = -1;
@@ -222,11 +216,11 @@ public class UpdateActivity extends Activity {
 		return result;
 	}
 	
-	protected boolean setHisData(String date, int value) {
+	protected boolean setHisData(int planId, String date, int value) {
 		boolean result = false;
 		int ret = -1;
 		
-		ret = mManager.setHisData(mContext, date, value);
+		ret = mManager.setHisData(mContext, planId, date, value);
 		
 		if(ret == 0) {
 			result = true;

@@ -265,7 +265,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		}
 	}
 	
-	private void makeMsgBody(JSONObject msg, String date, int value) {
+	private void makeMsgBody(JSONObject msg, int planId, String date, int value) {
 		int msgId = 0;
 		
 		JSONObject temp_body = new JSONObject();
@@ -284,7 +284,8 @@ public class UpdateManager implements UpdateManagerInterface {
 		}
 		
 		if(msgId == MsgInfo.SET_HISDATA) {
-			try {				
+			try {
+				temp_body.put(MsgInfo.PLAN_UID_LABEL, planId);
 				temp_body.put(MsgInfo.PLAN_HISDATE_LABEL, date);
 				temp_body.put(MsgInfo.PLAN_HISVAL_LABEL, value);				
 				msg.put(MsgInfo.MSGBODY_LABEL, temp_body);
@@ -908,7 +909,7 @@ public class UpdateManager implements UpdateManagerInterface {
 	}
 	
 	@Override
-	public int setHisData(Context context, String date, int value) {
+	public int setHisData(Context context, int planId, String date, int value) {
 		int result = MsgInfo.STATUS_OK;
 		
 		JSONObject msg = new JSONObject();
@@ -918,7 +919,7 @@ public class UpdateManager implements UpdateManagerInterface {
 		
 		makeMsgHeader(msg, MsgInfo.SET_HISDATA);
 		
-		makeMsgBody(msg, date, value);
+		makeMsgBody(msg, planId, date, value);
 		
 		new SendAsyncTask().execute(msg);
 		

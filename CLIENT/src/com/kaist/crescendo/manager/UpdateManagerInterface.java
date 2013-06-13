@@ -33,5 +33,5 @@ public interface UpdateManagerInterface {
 	
 	public int changePassword(Context context, String curPassword, String newPassword);
 	
-	public int setHisData(Context context, String date, int value);
+	public int setHisData(Context context, int planId, String date, int value);
 }
