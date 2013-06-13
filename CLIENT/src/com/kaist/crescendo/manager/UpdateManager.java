@@ -38,6 +38,9 @@ public class UpdateManager implements UpdateManagerInterface {
 		case MsgInfo.STATUS_UNREGISTERED_USERID:
 			Toast.makeText(mContext, mContext.getString(R.string.str_unresigered_user), Toast.LENGTH_LONG).show();
 			break;
+		case MsgInfo.STATUS_NETWORK_ERROR:
+			Toast.makeText(mContext, mContext.getString(R.string.str_network_error), Toast.LENGTH_LONG).show();
+			break;
 		default:
 				break;
 		}

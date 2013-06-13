@@ -15,8 +15,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />    
- 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -82,7 +82,7 @@
             android:name="com.kaist.crescendo.alarm.AlarmService"
             android:enabled="true"
             android:process=":remote"
-            android:exported="false"
+            android:exported="true"
             android:label="AlarmService" >
             <intent-filter>
                 <action android:name="android.intent.action.com.kaist.crescendo.START_SERVICE" />
@@ -95,17 +95,7 @@
             <intent-filter >
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver>
-        <receiver android:name="com.kaist.crescendo.alarm.PackageReceiver" 
-            android:label="PackageReceiver" >
-            <intent-filter >
-                <action android:name="android.intent.action.PACKAGE_INSTALL" />
-                <action android:name="android.intent.action.PACKAGE_ADDED" />
-                <action android:name="android.intent.action.PACKAGE_REPLACED" />
-                <action android:name="android.intent.action.PACKAGE_REMOVED" />
-                <data android:scheme="package"/>
-            </intent-filter>
-        </receiver>
+        </receiver>      
         <activity
             android:name="com.kaist.crescendo.activity.IntroActivity"
             android:label="@string/str_app_name" >

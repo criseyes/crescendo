@@ -70,6 +70,7 @@
     <string name="str_duplicated_user">이미 등록된 아이디 입니다. 다른 아이디로 등록하세요</string>
     <string name="str_invalid_password">비밀번호가 틀립니다. 다시 입력해주세요.</string>
     <string name="str_unresigered_user">등록되지 않은 아이디 입니다. 먼저 등록해주세요.</string>
+    <string name="str_network_error">서버와 통신이 어렵습니다. 잠시 후 다시 시도해 주세요.</string>
     
     <string name="str_avataname">아바타 이름</string>
     <string name="str_avattype">아바타 타입</string>
