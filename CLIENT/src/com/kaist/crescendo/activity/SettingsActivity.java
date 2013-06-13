@@ -108,6 +108,19 @@ public class SettingsActivity extends UpdateActivity {
 			public void onClick(DialogInterface dialog, int which) {
 				// 'YES'
 				saveSessionStatus(false);
+				
+				SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
+				SharedPreferences.Editor editor = prefs.edit();
+				
+       			editor.putBoolean(MyPref.ALARM_NOTI, false);
+       			editor.commit();
+       			editor.putBoolean(MyPref.AVATA_ENABLED, false);
+       			editor.commit();
+       			editor.putBoolean(MyPref.FRIEND_ENABLED, false);
+				editor.commit();
+
+				sendBroadCasetIntent();
+				
 				//moveTaskToBack(true);
 				Intent intent = new Intent();
 				/*
