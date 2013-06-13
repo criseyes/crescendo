@@ -145,6 +145,20 @@ public class PlanListActivity extends UpdateActivity {
 			editor.putString(MyPref.MY_AVATA_TITLE, plan.title);
 		editor.commit();
 		
+		if(plan == null)
+			editor.putInt(MyPref.MY_AVATA_PROGRESS, 0);
+		else {
+			int progress;
+			
+			if(plan.hItem == null || plan.hItem.size() == 0)
+				progress = 0;
+			else
+				progress = (int) (100*(plan.targetValue - plan.hItem.get(plan.hItem.size()-1).value) / (plan.targetValue - plan.initValue));
+			editor.putInt(MyPref.MY_AVATA_PROGRESS, progress );
+		}
+		editor.commit();
+		
+		
 		sendBroadCasetIntent();
 		adapter.notifyDataSetChanged();
 	}
