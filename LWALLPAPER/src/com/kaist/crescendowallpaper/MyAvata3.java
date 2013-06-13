@@ -15,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 
 public class MyAvata3 {
@@ -61,6 +62,9 @@ public class MyAvata3 {
 	private int lineHeight;
 	private int movingMode = MODE_WALK;
 	private Rect rect = new Rect();
+	private long fpsStartTime;
+	private int frameCnt;
+	private float timeElapsed;
 	
 	
 	public static final String AVATA_FILNENAME = "myAvata.png";
@@ -121,6 +125,8 @@ public class MyAvata3 {
          * TODO remove this code.
          */
         setText(name);
+        
+        fpsStartTime = System.currentTimeMillis();
    }
 	
 	public void moveBySelf() {
@@ -230,6 +236,24 @@ public class MyAvata3 {
 		
 		canvas.drawBitmap(getBodyBitmap(), startX, startY + HEAD_SY , null);
 		
+		long fpsEndTime = System.currentTimeMillis(); 
+		float timeDelta = (fpsEndTime - fpsStartTime) * 0.001f;
+		
+		// Frame 증가 셋팅 
+		frameCnt++;
+		timeElapsed += timeDelta;
+		
+		// FPS를 구해서 로그로 표시
+		if(timeElapsed >= 1.0f){
+		  	 float fps = (float)(frameCnt/timeElapsed);
+		      	 Log.d("fps","fps : "+fps);
+		       	 
+		       	 frameCnt = 0;
+		       	 timeElapsed = 0.0f;
+		}
+		
+		// Frame 시작 시간 다시 셋팅 
+		fpsStartTime = System.currentTimeMillis();
 		
 		if(isShowBalloon)
 		{
