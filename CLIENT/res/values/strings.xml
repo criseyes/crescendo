@@ -51,6 +51,7 @@
     <string name="str_settings_alarm">알림 효과</string>
     <string name="str_settings_change_pw">비밀번호 변경</string>
     <string name="str_settings_help">도움말</string>
+    <string name="str_settings_logout">로그아웃</string>
     <string name="str_settings_title">환경을 설정합니다.</string>
     <string name="str_plan_context_menu">목표 관리</string>
     <string name="str_delete_plan">삭제</string>

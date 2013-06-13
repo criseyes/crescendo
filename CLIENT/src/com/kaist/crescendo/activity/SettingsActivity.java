@@ -1,5 +1,7 @@
 package com.kaist.crescendo.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,8 +30,9 @@ public class SettingsActivity extends UpdateActivity {
 		setContentView(R.layout.activity_settings);
 		setTitle(R.string.str_settings_title);
 		
-		findViewById(R.id.setttings_changepw).setOnClickListener(mClickListener);
+		findViewById(R.id.settings_changepw).setOnClickListener(mClickListener);
 		findViewById(R.id.settings_help).setOnClickListener(mClickListener);
+		findViewById(R.id.settings_logout).setOnClickListener(mClickListener);
 		
 		((Switch) findViewById(R.id.settings_setalarm)).setOnCheckedChangeListener(mSwitchListener);
 		((Switch) findViewById(R.id.settings_setfriendwidget)).setOnCheckedChangeListener(mSwitchListener);
@@ -90,6 +93,36 @@ public class SettingsActivity extends UpdateActivity {
 		sendBroadcast(intent);
 	}
 	
+	private void saveSessionStatus(boolean status) {
+		SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putBoolean(MyPref.KEY_SESSION, status);
+		editor.commit();
+	}
+	
+	private void showAlertDialog() {
+		AlertDialog.Builder alert_confirm = new AlertDialog.Builder(this); 
+		alert_confirm.setMessage("로그아웃 하시겠습니까? 프로그램도 종료됩니다.").setCancelable(false).setPositiveButton("확인", 
+				new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// 'YES'
+				saveSessionStatus(false);
+				moveTaskToBack(true);
+			    finish();
+			    android.os.Process.killProcess(android.os.Process.myPid());		
+				} }).setNegativeButton("취소",
+						new DialogInterface.OnClickListener() 
+				{     
+					@Override    
+					public void onClick(DialogInterface dialog, int which) {
+						// 'No'     
+						return;     
+						} 
+					}); 
+		AlertDialog alert = alert_confirm.create(); alert.show(); 
+	}
+	
 	/* handling buttons */
 	Button.OnClickListener mClickListener = new View.OnClickListener()
 	{
@@ -98,12 +131,15 @@ public class SettingsActivity extends UpdateActivity {
 	    	  Intent intent = new Intent();
 	           switch (v.getId())
 	           {
-	           		case R.id.setttings_changepw:
+	           		case R.id.settings_changepw:
 	           			intent.setClass(getApplicationContext(), PasswordActivity.class);
 	           			break;
 	           		case R.id.settings_help:
 	           			intent.setClass(getApplicationContext(), HelpsActivity.class);	           			
-	           			break;
+	           			break;	           		
+	           		case R.id.settings_logout:
+	           			showAlertDialog();
+	           			return;
 	           }
 	           startActivity(intent);
 	      }

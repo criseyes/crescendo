@@ -265,11 +265,15 @@ public class AvataEditorActivity extends UpdateActivity {
 	    		int eye_distance = (int) detectedFace[0].eyesDistance();
 	    		detectedFace[0].getMidPoint(point);
 	    		int x = (int) (point.x - eye_distance);
-	    		int y = (int) (point.y - (float)eye_distance * 2.0f);
-	    		int width = (int)((float)eye_distance * 2.3f);
-	    		int height = eye_distance * 4;
+	    		int y = (int) (point.y - (float)eye_distance * 2.0f);	    		
+	    		int yOffset = 0;
 	    		if(x < 0) x = 0;
-	    		if(y < 0) y = 0;
+	    		if(y < 0) {
+	    			yOffset = y;
+	    			y = 0;
+	    		}
+	    		int width = (int)((float)eye_distance * 2.2f);
+	    		int height = (int)(((float)eye_distance*2.0f - (float)yOffset) * 2.0f);
 	    		if((x + width) >= RESIZE_WIDTH) width = RESIZE_WIDTH - x;
 	    		if((y + height) >= RESIZE_HEIGHT) height = RESIZE_HEIGHT - y;
 	    		Bitmap cropImg = Bitmap.createBitmap(oriImg, x, y, width, height);
@@ -290,7 +294,7 @@ public class AvataEditorActivity extends UpdateActivity {
 	    		canvas.drawBitmap(cropImg, rect, rect, paint);
 	    		*/
 	    		
-	    		BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.face5);
+	    		BitmapDrawable drawable = (BitmapDrawable) getResources().getDrawable(R.drawable.face);
 	    		Bitmap faceImg = drawable.getBitmap();
 	    		Bitmap output = Bitmap.createScaledBitmap(faceImg, cropImg.getWidth(), cropImg.getHeight(), true);
 	    		Canvas canvas = new Canvas(output);
@@ -307,11 +311,11 @@ public class AvataEditorActivity extends UpdateActivity {
 	    		canvas.drawBitmap(cropImg, rect, rect, paint);
 	    		
 	    		//add hair image
-	    		BitmapDrawable drawable2 = (BitmapDrawable) getResources().getDrawable(R.drawable.hair2);
+	    		BitmapDrawable drawable2 = (BitmapDrawable) getResources().getDrawable(R.drawable.hair);
 	    		Bitmap hairImg = drawable2.getBitmap();
 	    		Bitmap hairImg2 = Bitmap.createScaledBitmap(hairImg, cropImg.getWidth(), cropImg.getHeight(), true);
 	    		Canvas canvas2 = new Canvas(output);
-	    		paint.setXfermode(new PorterDuffXfermode(Mode.SCREEN));
+	    		paint.setXfermode(new PorterDuffXfermode(Mode.DARKEN));
 	    		canvas2.drawBitmap(hairImg2, rect, rect, paint);
 	    		
 	    		img = Bitmap.createScaledBitmap(output, MyStaticValue.AVATA_WIDTH, MyStaticValue.AVATA_HIGHT, true);
