@@ -84,6 +84,8 @@ public class StarWallpaper extends WallpaperService {
 
     private int myAvataProgress;
 
+    private int friendAvataProgress;
+
     private void loadSettings() {
 
         SharedPreferences prefs = mCrescendo
@@ -95,6 +97,7 @@ public class StarWallpaper extends WallpaperService {
         friendAvataType = prefs.getInt(MyPref.FRIEND_AVATA_TYPE, 0);
 
         myAvataProgress = prefs.getInt(MyPref.MY_AVATA_PROGRESS, 0);
+        friendAvataProgress = prefs.getInt(MyPref.FRIEND_AVATA_PROGRESS, 0);
 
         myAvataName = prefs.getString(MyPref.MY_AVATA_NAME, "");
         friendAvataName = prefs.getString(MyPref.FRIEND_AVATA_NAME, "");
@@ -316,7 +319,7 @@ public class StarWallpaper extends WallpaperService {
 
             if (isFriendEnabled == true && friendAvataType != 0) {
                 avatas.add(new MyAvata3(mContext, appContext, friendAvataType, friendAvataName,
-                        false, myAvataProgress));
+                        false, friendAvataProgress));
             }
 
             if (isAvataEnabled == true && myAvataType != 0) {

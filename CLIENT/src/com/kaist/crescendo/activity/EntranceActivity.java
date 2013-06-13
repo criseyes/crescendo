@@ -87,6 +87,9 @@ public class EntranceActivity extends UpdateActivity {
 				editor.putString(MyPref.KEY_MYID, id.getText().toString());
 				editor.commit();
 				
+				editor.putBoolean(MyPref.ALARM_NOTI, true);
+				editor.commit();
+				
 				Intent intent = new Intent();
 				intent.putExtra("login", true);
 				

@@ -6,6 +6,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,6 +16,8 @@ import android.widget.TextView;
 
 import com.kaist.crescendo.R;
 import com.kaist.crescendo.data.PlanData;
+import com.kaist.crescendo.utils.MyPref;
+import com.kaist.crescendo.utils.MyStaticValue;
 
 
 @SuppressLint("SimpleDateFormat")
@@ -58,9 +62,40 @@ public class InputActivity extends UpdateActivity {
 				EditText value = (EditText) findViewById(R.id.enterVal);
 				boolean ret = setHisData(planId, Formatter.format(date), Integer.parseInt(value.getText().toString()));
 				if(ret) {
+				    updatePlan(planId, Integer.parseInt(value.getText().toString()));
 					finish();
 				}
 			}
+
+            private void updatePlan(int planId, int value) {
+                for(int i = 0; i < planArrayList.size() ; i++) {
+                    if(planArrayList.get(i).uId == planId) {
+                        if(planArrayList.get(i).isSelected == true)
+                        {
+                            PlanData plan = planArrayList.get(i);
+                            int progress;
+                            if(plan.hItem == null || plan.hItem.size() == 0 || plan.initValue <value)
+                                progress = 0;
+                            else
+                                progress = (int) (100*Math.abs(plan.initValue - value) / Math.abs(plan.targetValue - plan.initValue));
+                            
+                            if(plan.targetValue > value)
+                                progress = 100;
+                            SharedPreferences prefs = getSharedPreferences(MyPref.myPref, MODE_MULTI_PROCESS);
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putInt(MyPref.MY_AVATA_PROGRESS, progress );
+                            editor.commit();
+                            
+                            
+                            Intent intent = new Intent(MyStaticValue.ACTION_UPDATEWALLPAPER);
+
+                            sendBroadcast(intent);
+                        }
+                        break;
+                    }
+                }   
+                
+            }
 		});
 	}
 }

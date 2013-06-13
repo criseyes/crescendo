@@ -150,10 +150,14 @@ public class PlanListActivity extends UpdateActivity {
 		    progress = 0;
 		}
 		else {
-			if(plan.hItem == null || plan.hItem.size() == 0)
+			if(plan.hItem == null || plan.hItem.size() == 0 || plan.initValue < plan.hItem.get(plan.hItem.size()-1).value)
 				progress = 0;
-			else
+			else {
 				progress = (int) (100*Math.abs(plan.initValue - plan.hItem.get(plan.hItem.size()-1).value) / Math.abs(plan.targetValue - plan.initValue));
+			
+				if(plan.targetValue > plan.hItem.get(plan.hItem.size()-1).value)
+                progress = 100;
+			}
 		}
 		editor.putInt(MyPref.MY_AVATA_PROGRESS, progress );
 		editor.commit();
