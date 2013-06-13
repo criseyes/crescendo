@@ -67,7 +67,7 @@ public class PlanListActivity extends UpdateActivity {
 			
 			
 			
-			if(adapter.getCount() < 2 && plan.isSelected == true)
+			if(adapter.getCount() > 1 && plan.isSelected == true)
 			{
 				Toast.makeText(this, R.string.str_err_defaultplan, Toast.LENGTH_LONG).show();
 				return true;
@@ -297,7 +297,7 @@ public class PlanListActivity extends UpdateActivity {
 						{
 							int index = data.getExtras().getInt(MyStaticValue.NUMBER);
 							
-							if(adapter.getCount() < 2 && ((PlanData) adapter.getItem(index)).isSelected == true)
+							if(adapter.getCount() > 1 && ((PlanData) adapter.getItem(index)).isSelected == true)
 							{
 								Toast.makeText(this, R.string.str_err_defaultplan, Toast.LENGTH_LONG).show();
 								return;

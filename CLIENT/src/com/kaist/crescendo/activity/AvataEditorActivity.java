@@ -325,10 +325,12 @@ public class AvataEditorActivity extends UpdateActivity {
 
 		private ProgressDialog dialog;
 		
+
+		
 		@Override
 		protected void onPreExecute() {
 			//asyncTaskState = -1;
-			dialog = new ProgressDialog(mContext);
+			dialog = new ProgressDialog(mContext, android.R.style.Widget_DeviceDefault);
 			dialog.setTitle("처리중");
 			dialog.setMessage("잠시만 기다려주세요.");
 			dialog.setIndeterminate(true);
