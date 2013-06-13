@@ -78,6 +78,7 @@ public class StarWallpaper extends WallpaperService {
 		}
     	 
      };
+	private int myAvataProgress;
      
    
  	private void loadSettings()
@@ -90,10 +91,12 @@ public class StarWallpaper extends WallpaperService {
  		myAvataType = prefs.getInt(MyPref.MY_AVATA_TYPE, 0);
  		friendAvataType = prefs.getInt(MyPref.FRIEND_AVATA_TYPE, 0);
  		
+ 		myAvataProgress = prefs.getInt(MyPref.MY_AVATA_PROGRESS, 0);
+ 		
  		myAvataName = prefs.getString(MyPref.MY_AVATA_NAME, "");
  		friendAvataName = prefs.getString(MyPref.FRIEND_AVATA_NAME, "");
  		
- 		Log.d("loadSettings", friendAvataName + myAvataName + myAvataType + friendAvataType + isFriendEnabled +  isAvataEnabled);
+ 		Log.d("loadSettings", friendAvataName + myAvataName + myAvataType + friendAvataType + isFriendEnabled +  isAvataEnabled + "progress" + myAvataProgress);
  	
  	}
  	
@@ -247,7 +250,7 @@ public class StarWallpaper extends WallpaperService {
   public int bx, by;
   //private ArrayList<Star> stars = new ArrayList<Star>();
   //private ArrayList<MyAvataView> avatas = new ArrayList<MyAvataView>();
-  private ArrayList<MyAvata2> avatas = new ArrayList<MyAvata2>();
+  private ArrayList<MyAvata3> avatas = new ArrayList<MyAvata3>();
   
   private Bitmap imgBack;
   
@@ -255,7 +258,7 @@ public class StarWallpaper extends WallpaperService {
   
   public boolean onCommand(String action, int x, int y, int z, Bundle extras, boolean resultRequested)
   {
-	  for (MyAvata2 avata : avatas) {
+	  for (MyAvata3 avata : avatas) {
      	   if(avata.onCommand(action, x, y, z, System.currentTimeMillis()))
      		   return true;
 	  }
@@ -300,14 +303,16 @@ public MyThread(SurfaceHolder holder, Context context, Context appContext) {
        
 //       for (int i = 1; i <= 50; i++)  //최초의 별의 갯수
 //            stars.add(new Star());
-       if(isAvataEnabled == true)
-       {
-    	   avatas.add(new MyAvata2(mContext, appContext, myAvataType, myAvataName, true));
-       }
+       
        
        if(isFriendEnabled == true)
        {
-    	   avatas.add(new MyAvata2(mContext, appContext, friendAvataType, friendAvataName, false ));
+    	   avatas.add(new MyAvata3(mContext, appContext, friendAvataType, friendAvataName, false, myAvataProgress ));
+       }
+       
+       if(isAvataEnabled == true)
+       {
+    	   avatas.add(new MyAvata3(mContext, appContext, myAvataType, myAvataName, true, myAvataProgress));
        }
    
   }
@@ -358,7 +363,7 @@ public MyThread(SurfaceHolder holder, Context context, Context appContext) {
    public void doTouchEvent(MotionEvent event) {
          wait = false;
          synchronized (this) {
-             for (MyAvata2 avata : avatas) {
+             for (MyAvata3 avata : avatas) {
           	   if(avata.onTouch(event))
           		   break;
              }
@@ -399,7 +404,7 @@ public MyThread(SurfaceHolder holder, Context context, Context appContext) {
         } // run
   //
   private void Draw(Canvas canvas) {
-	   for (MyAvata2 avata : avatas) {
+	   for (MyAvata3 avata : avatas) {
 		   avata.moveBySelf();
 		   avata.draw(canvas);
 	   }  

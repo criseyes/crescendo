@@ -83,8 +83,10 @@ public class AvataEditorActivity extends UpdateActivity {
 		/* avata image */
 			
 		File file = getApplicationContext().getFileStreamPath(MyStaticValue.AVATA_FILNENAME);
-		if(file.exists() == false)
-			((ImageView) findViewById(R.id.avataImage)).setImageResource(R.drawable.man_shop);
+		if(file.exists() == false) {
+			img = BitmapFactory.decodeResource(getResources(), R.drawable.man_shop);
+			((ImageView) findViewById(R.id.avataImage)).setImageBitmap(img);
+		}
 		else {
 			String x = file.getPath().toString();
 			Log.d("me", x + file.canRead() + file.canWrite() + file.length() + " " + file.isFile());
