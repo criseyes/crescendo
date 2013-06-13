@@ -154,7 +154,7 @@ public class PlanListActivity extends UpdateActivity {
 				progress = 0;
 			else
 				progress = (int) (100*(plan.targetValue - plan.hItem.get(plan.hItem.size()-1).value) / (plan.targetValue - plan.initValue));
-			editor.putInt(MyPref.MY_AVATA_TITLE, progress );
+			editor.putInt(MyPref.MY_AVATA_PROGRESS, progress );
 		}
 		editor.commit();
 		
