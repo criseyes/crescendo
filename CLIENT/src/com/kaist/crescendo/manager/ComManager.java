@@ -34,7 +34,10 @@ public class ComManager {
 			}
 		}
 		
-		return jsonString;
+		if(jsonString == null)
+			return "";
+		else
+			return jsonString;
 	}
 
 }
