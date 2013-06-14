@@ -161,7 +161,7 @@ public class MyAvata3 {
                                 true));
                 stayBodyImgs
                         .add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
-                                context.getResources(), R.drawable.stay_thin1), BODY_SX, BODY_SY,
+                                context.getResources(), R.drawable.stay_thin2), BODY_SX, BODY_SY,
                                 true));
                 walkBodyImgs
                         .add(Bitmap.createScaledBitmap(BitmapFactory.decodeResource(
